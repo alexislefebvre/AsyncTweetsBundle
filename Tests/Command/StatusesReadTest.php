@@ -1,11 +1,11 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\Command\Tests;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Command\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-use AsyncTweets\AsyncTweetsBundle\Command\StatusesReadCommand;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Command\StatusesReadCommand;
 
 class StatusesReadTest extends StatusesBase
 {

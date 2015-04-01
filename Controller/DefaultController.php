@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\Controller;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

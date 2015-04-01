@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\Tests\Controller;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 

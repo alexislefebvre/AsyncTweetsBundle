@@ -1,20 +1,20 @@
 # Default
 asynctweets_homepage:
     pattern:  /
-    defaults: { _controller: AsyncTweetsWebsiteBundle:Default:index }
+    defaults: { _controller: AsyncTweetsBundle:Default:index }
 
 asynctweets_tweets_sinceTweetId:
     pattern:  /sinceId/{lastTweetId}
-    defaults: { _controller: AsyncTweetsWebsiteBundle:Default:index }
+    defaults: { _controller: AsyncTweetsBundle:Default:index }
     requirements:
         lastTweetId: \d+
 
 asynctweets_tweets_orderByUser_sinceTweetId:
     pattern:  /users/sinceId/{lastTweetId}
-    defaults: { _controller: AsyncTweetsWebsiteBundle:Default:index, orderByUser: true }
+    defaults: { _controller: AsyncTweetsBundle:Default:index, orderByUser: true }
     requirements:
         lastTweetId: \d+
 
 asynctweets_tweets_reset_cookie:
     pattern:  /resetCookie
-    defaults: { _controller: AsyncTweetsWebsiteBundle:Default:resetCookie }
+    defaults: { _controller: AsyncTweetsBundle:Default:resetCookie }

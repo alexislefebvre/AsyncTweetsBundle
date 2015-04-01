@@ -3,7 +3,7 @@
 #  --entity=AsyncTweetsBundle:User \
 #  --fields="name:string(255) screen_name:string(255)" \
 #  --with-repository --no-interaction --format=yml
-AsyncTweets\AsyncTweetsBundle\User:
+AlexisLefebvre\Bundle\AsyncTweetsBundle\User:
     type: entity
     table: 'asynctweets_user'
     id:

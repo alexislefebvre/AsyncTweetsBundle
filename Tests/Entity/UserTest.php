@@ -1,8 +1,8 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\Tests\Entity;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Entity;
 
-use AsyncTweets\AsyncTweetsBundle\Entity\User;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 
 class UsertTest extends \PHPUnit_Framework_TestCase
 {

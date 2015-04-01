@@ -1,10 +1,10 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\Tests\Entity;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Entity;
 
-use AsyncTweets\AsyncTweetsBundle\Entity\Media;
-use AsyncTweets\AsyncTweetsBundle\Entity\Tweet;
-use AsyncTweets\AsyncTweetsBundle\Entity\User;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 
 class TweetTest extends \PHPUnit_Framework_TestCase
 {

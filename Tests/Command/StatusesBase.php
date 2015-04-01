@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\Tests\Command;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Command;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;

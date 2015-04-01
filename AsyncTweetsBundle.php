@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

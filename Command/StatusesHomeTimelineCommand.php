@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\Command;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -10,9 +10,9 @@ use Symfony\Component\Console\Helper\ProgressBar;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
-use AsyncTweets\AsyncTweetsBundle\Entity\User;
-use AsyncTweets\AsyncTweetsBundle\Entity\Tweet;
-use AsyncTweets\AsyncTweetsBundle\Entity\Media;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 
 class StatusesHomeTimelineCommand extends BaseCommand
 {

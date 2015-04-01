@@ -1,12 +1,12 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\DataFixtures\ORM;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use AsyncTweets\AsyncTweetsBundle\Entity\Tweet;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 
 /**
  * @codeCoverageIgnore

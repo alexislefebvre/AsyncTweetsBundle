@@ -1,8 +1,8 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\Tests\Entity;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Entity;
 
-use AsyncTweets\AsyncTweetsBundle\Entity\Media;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 
 class MediaTest extends \PHPUnit_Framework_TestCase
 {

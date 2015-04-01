@@ -4,7 +4,7 @@
 #  --fields="created_at:datetime text:string(255) retweet_count:integer \
 #  favorite_count:integer" --format=yml
 
-AsyncTweets\AsyncTweetsBundle\Entity\Media:
+AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media:
     type: entity
     table: 'asynctweets_media'
     id:

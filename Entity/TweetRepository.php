@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncTweets\AsyncTweetsBundle\Entity;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
