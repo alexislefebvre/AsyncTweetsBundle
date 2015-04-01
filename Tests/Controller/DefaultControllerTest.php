@@ -37,9 +37,9 @@ class DefaultControllerTest extends WebTestCase
     public function testTweets($path = null)
     {
         $this->loadFixtures(array(
-            'AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
-            'AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
-            'AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
         if (is_null($path))
@@ -114,9 +114,9 @@ class DefaultControllerTest extends WebTestCase
     public function testResetCookie()
     {
         $this->loadFixtures(array(
-            'AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
-            'AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
-            'AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
         $path = $this->router->generate('asynctweets_tweets_reset_cookie');

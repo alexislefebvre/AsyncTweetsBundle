@@ -33,9 +33,9 @@ class StatusesReadTest extends StatusesBase
     public function testStatusesReadWithTweets()
     {
         $this->loadFixtures(array(
-            'AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
-            'AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
-            'AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
         $this->commandTester->execute(array());

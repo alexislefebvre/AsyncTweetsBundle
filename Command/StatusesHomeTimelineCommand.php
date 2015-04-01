@@ -87,7 +87,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         if ($input->getOption('test'))
         {
             $content = json_decode(file_get_contents(
-                dirname(__FILE__).'/../Tests/data/tweets.json'));
+                dirname(__FILE__).'/../Tests/Command/data/tweets.json'));
         }
         else if ($input->getOption('notarray'))
         {

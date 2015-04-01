@@ -4,7 +4,7 @@
 #  --fields="media_url:string(255) url:string(255) \
 #  display_url:string(255) expanded_url:string(255)" \
 #  --format=yml
-AlexisLefebvre\Bundle\AsyncTweetsBundle\Tweet:
+AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet:
     type: entity
     table: 'asynctweets_tweet'
     repositoryClass: AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\TweetRepository

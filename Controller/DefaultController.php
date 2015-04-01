@@ -81,7 +81,7 @@ class DefaultController extends Controller
         }
         
         $response = $this->render(
-            'AsyncTweetsWebsiteBundle:Default:index.html.twig',
+            'AsyncTweetsBundle:Default:index.html.twig',
             array(
                 'route' => $route,
                 'activeTab' => $activeTab,
