@@ -2,7 +2,7 @@
     "name" : "alexislefebvre/async-tweets-bundle",
     "type" : "symfony-bundle",
     "description" : "PHP Twitter reader for asynchronous reading",
-    "keywords" : ["twitter", "reader", "bundle"],
+    "keywords" : ["symfony2", "twitter", "reader", "bundle"],
     "homepage": "http://asynctweets.alexislefebvre.com/",
     "license" : "MIT",
     "authors" : [{
