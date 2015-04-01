@@ -7,7 +7,7 @@
 AlexisLefebvre\Bundle\AsyncTweetsBundle\Tweet:
     type: entity
     table: 'asynctweets_tweet'
-    repositoryClass: AsyncTweets\AsyncTweetsBundle\Entity\TweetRepository
+    repositoryClass: AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\TweetRepository
     id:
         id:
             type: bigint

@@ -14,7 +14,7 @@
 >
 
     <php>
-        <server name="KERNEL_DIR" value="../" />
+        <server name="KERNEL_DIR" value="Tests/App" />
     </php>
 
     <testsuites>
@@ -32,8 +32,8 @@
         </whitelist>
     </filter>
     
-    <logging>
+<!--    <logging>
         <log type="coverage-html" target="../cov" lowUpperBound="35"
              highLowerBound="70"/>
-    </logging>
+    </logging>-->
 </phpunit>
