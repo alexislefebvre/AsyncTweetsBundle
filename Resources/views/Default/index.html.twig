@@ -1,0 +1,69 @@
+{% extends 'AsyncTweetsBundle::layout.html.twig' %}
+
+{% block title %}Home timeline - {% if (lastTweetId is not null)
+    %}since {{ lastTweetId }}{%
+endif%}{% endblock %}
+
+{% block content %}
+    {# display navigation #}
+    <div class="navigation row">
+        {% set pagination %}
+        <div class="col-sm-5 col-xs-12">
+            <ul class="pagination">
+                <li class="disabled">
+                    <span>«&nbsp;Previous</span>
+                </li>
+                
+                {% if (nextLastTweetId is not null) %}
+                    <li>
+                        <a href="{{ path(route, {
+                            'lastTweetId': nextLastTweetId
+                        }) }}">Next&nbsp;»</a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span>Next&nbsp;»</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endset %}
+        
+        {{ pagination }}
+        
+        <div class="col-sm-7 col-xs-12 count alert alert-info">
+            {% if (lastTweetId is not null) %}
+                <p>
+                    Last tweet id:
+                    <a href="{{ path(route, {
+                            'lastTweetId': lastTweetIdCookie
+                        }) }}">{{ lastTweetIdCookie }}</a>
+                    <a href="{{ path('asynctweets_tweets_reset_cookie') }}">
+                        <button type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                            Reset
+                        </button>
+                    </a>
+                </p>
+            {% endif %}
+            
+            <p>{{ numberOfTweets }} pending tweets</p>
+        </div>
+    </div>
+    
+    <div class="tweets">
+        {% for tweet in tweets %}
+            {% include 'AsyncTweetsBundle:Default:tweet_inc.html.twig' %}
+        {% else %}
+            <p>No tweet to display.</p>
+        {% endfor %}
+    </div>
+    
+    {# display navigation #}
+    <div class="navigation row">
+        {{ pagination }}
+        <div class="col-sm-7 col-xs-12 alert alert-info" role="alert">
+            Press <kbd>←</kbd> and <kbd>→</kbd> to go to previous or next page.
+        </div>
+    </div>
+{% endblock %}

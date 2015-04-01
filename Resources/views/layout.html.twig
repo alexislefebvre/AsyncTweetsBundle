@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>{% block title %}Base{% endblock %} - AsyncTweets</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.3.2/cerulean/bootstrap.min.css" />
+        <style>
+            main.container > div.tweets > div.media:not(:first-child) {
+                border-top: thin solid Grey;
+                padding-top: 0.5em;
+            }
+            div.navbar-inverse {
+                margin-bottom: 0px;
+            }
+            .pagination {margin:10px 0px;}
+        </style>
+    </head>
+    
+    <body{% block body_attrs %}{% endblock %}>
+        {% block body %}
+            <!-- Header -->
+            <div class="navbar navbar-default" role="navigation">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a href="{{ path('asynctweets_homepage') }}"
+                      class="navbar-brand">
+                        AsyncTweets
+                  </a>
+                </div>
+                
+                <nav class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                    <li{{ ((activeTab == 'tweets') ? ' class="active"') }}>
+                        <a href="{{ path('asynctweets_tweets_sinceTweetId', {
+                            'lastTweetId': lastTweetId
+                        }) }}">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                            Tweets
+                        </a>
+                    </li>
+                    
+                    <li{{ ((activeTab == 'tweets_orderByUser') ? ' class="active"') }}>
+                        <a href="{{ path('asynctweets_tweets_orderByUser_sinceTweetId', {
+                            'lastTweetId': lastTweetId
+                        }) }}">
+                            <span class="glyphicon glyphicon-user"></span>
+                            Tweets by Users
+                        </a>
+                    </li>
+                  </ul>
+                  
+                  <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://github.com/alexislefebvre/AsyncTweets">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                            About
+                        </a>
+                    </li>
+                  </ul>
+                </nav><!--/.nav-collapse -->
+              </div>
+            </div>
+            
+            <main class="container">
+                {% block content_title %}{% endblock %}
+                
+                {% for flashMessage in app.session.flashbag.get('message') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage|raw }}
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    </div>
+                {% endfor %}
+                
+                {% for flashMessage in app.session.flashbag.get('error') %}
+                    <div class="alert alert-danger">
+                        {{ flashMessage|raw }}
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    </div>
+                {% endfor %}
+                
+                {% block content %}Empty block.{% endblock %}
+            </main>
+            
+            <!-- Footer -->
+            <div class="navbar navbar-inverse" role="navigation">
+              <div class="container">
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                  </div>
+                  <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                      <li>
+                          <a href="http://validator.w3.org/check?uri=referer" title="Valid HTML5">
+                                <img width="32" height="32" alt="Valid HTML5"
+                                    src="http://alexislefebvre.com/images/HTML5_Badge_32.png">
+                            </a>
+                      </li>
+                      <li>
+                        <a href="http://bootswatch.com/cerulean/">Cerulean theme</a>
+                      </li>
+                      <li>
+                        <a href="http://getbootstrap.com/">Bootstrap</a>
+                      </li>
+                      <li>
+                        <a href="http://alexislefebvre.com/">AlexisLefebvre.com</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+        {% endblock %}
+        
+        <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script>window.jQuery && document.write('<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"><\/script>')</script>
+        <script>
+            var glyphicon_link = '<span class="glyphicon glyphicon-new-window"></span>';
+            
+            /* Add glyphicon to external links */
+            function externalLinks(parent) {
+                /* http://trevordavis.net/blog/use-jquery-to-open-all-external-links-in-a-new-window/#comment-406848859 */
+                $(parent + " a[href^='http']:not([href*='" + window.location.host + "'])")
+                    .attr('target','_blank')
+                    .append('&nbsp;', glyphicon_link)
+                ;
+            }
+            
+            $(document).ready(function() {
+                /* keys */
+                $(document).bind('keyup', function(event) {
+                    /* 37 = left, 39 = right */
+                    if ([37,39].indexOf(event.which) !== -1) {
+                        var text = ((event.which == 37) ? 'Previous' : 'Next');
+                        
+                        var el = $('div.navigation:first > div > ul.pagination > li > a:contains("' + text + '")');
+                        
+                        if (el.length != 0) {
+                            // http://www.w3schools.com/jsref/met_html_click.asp
+                            el.get(0).click();
+                        }
+                        
+                        $('html, body').animate({
+                            scrollTop: $('main.container > div.tweets')
+                                .last().offset().top
+                        }, 500);
+                        
+                        return false;
+                    }
+                });
+                
+                externalLinks('body');
+                
+                /* http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements/1207393#1207393 */
+                $('main.container').on(
+                    'click',
+                    'div.navigation > div > ul.pagination > li > a',
+                    function(event) {
+                        $.ajax({
+                            url: $(this).attr('href'),
+                            success: function( data ) {
+                                var $data = $("<div>").html(data);
+                                
+                                $('main.container').html(
+                                    $data
+                                        .find('main.container')
+                                        .html()
+                                );
+                                
+                                externalLinks('main.container div.tweets');
+                                
+                                /* http://stackoverflow.com/questions/3338642/updating-address-bar-with-new-url-without-hash-or-reloading-the-page/3340186#3340186 */
+                                window.history.pushState(
+                                    data,
+                                    $data.find('title').text(),
+                                    this.url
+                                );
+                                
+                                /* update the <title> */
+                                $('title').text($data.find('title').text());
+                            }
+                        });
+                        
+                        event.preventDefault();
+                        
+                        return false;
+                    }
+                );
+            });
+        </script>
+    </body>
+</html>

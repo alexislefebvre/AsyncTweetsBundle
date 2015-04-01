@@ -1,0 +1,37 @@
+{
+    "name" : "alexislefebvre/async-tweets-bundle",
+    "type" : "symfony-bundle",
+    "description" : "PHP Twitter reader for asynchronous reading",
+    "keywords" : ["twitter", "reader", "bundle"],
+    "homepage": "http://asynctweets.alexislefebvre.com/",
+    "license" : "MIT",
+    "authors" : [{
+        "name" : "Alexis Lefebvre",
+        "email" : "alexislefebvre@gmail.com",
+        "homepage": "http://alexislefebvre.com/",
+        "role": "Developer"
+    }],
+    "require" : {
+        "symfony/symfony": "2.6.*",
+        "abraham/twitteroauth": "0.5.0"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "~2.3",
+        "doctrine/doctrine-fixtures-bundle": "~2.2",
+        "liip/functional-test-bundle": "~1.0"
+    },
+    "autoload" : {
+        "psr-0" : {
+            "AlexisLefebvre\\AsyncTweetsBundle" : ""
+        }
+    },
+    "target-dir" : "alexislefebvre/async-tweets-bundle",
+    "repositories" : [{
+    }],
+    "extra" : {
+    "branch-alias" : {
+            "dev-master" : "master"
+        }
+    }
+}
+
