@@ -40,3 +40,10 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true            
+
+parameters:
+    twitter_consumer_key: null
+    twitter_consumer_secret: null
+    twitter_token: null
+    twitter_token_secret: null
+    
