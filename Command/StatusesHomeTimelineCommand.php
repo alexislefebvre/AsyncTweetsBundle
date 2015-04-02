@@ -19,6 +19,12 @@ class StatusesHomeTimelineCommand extends BaseCommand
     private $displayTable;
     private $table;
     
+    /** @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline */
+    private $parameters = array(
+        'count' => 200,
+        'exclude_replies' => true
+    );
+    
     protected function configure()
     {
         parent::configure();
@@ -36,24 +42,6 @@ class StatusesHomeTimelineCommand extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // @codeCoverageIgnoreStart
-        if (! $input->getOption('test'))
-        {
-            $connection = new TwitterOAuth(
-                $this->container->getParameter('twitter_consumer_key'),
-                $this->container->getParameter('twitter_consumer_secret'),
-                $this->container->getParameter('twitter_token'),
-                $this->container->getParameter('twitter_token_secret')
-            );
-        }
-        // @codeCoverageIgnoreEnd
-        
-        /** @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline */
-        $parameters = array(
-            'count' => 200,
-            'exclude_replies' => true
-        );
-        
         # Get the last tweet
         $lastTweet = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
@@ -73,7 +61,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         # And use it in the request if it exists
         if ($lastTweet)
         {
-            $parameters['since_id'] = $lastTweet->getId();
+            $this->parameters['since_id'] = $lastTweet->getId();
             
             $comment = 'since_id parameter = '.$parameters['since_id'];
         }
@@ -84,25 +72,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         $output->writeln('<comment>'.$comment.'</comment>');
         
-        if ($input->getOption('test'))
-        {
-            $content = json_decode(file_get_contents(
-                dirname(__FILE__).'/../Tests/Command/data/tweets.json'));
-        }
-        else if ($input->getOption('notarray'))
-        {
-            $content = null;
-        }
-        else if ($input->getOption('emptyarray'))
-        {
-            $content = array();
-        }
-        else
-        {
-            // @codeCoverageIgnoreStart
-            $content = $connection->get('statuses/home_timeline', $parameters);
-            // @codeCoverageIgnoreEnd
-        }
+        $content = $this->getContent($input, $output);
         
         if (! is_array($content))
         {
@@ -113,6 +83,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
             $output->writeln($formattedBlock);
             $output->writeln(print_r($content, true));
             return 1;
+            die;
         }
         
         $numberOfTweets = count($content);
@@ -159,6 +130,43 @@ class StatusesHomeTimelineCommand extends BaseCommand
         {
             $this->table->render($output);
         }
+    }
+    
+    protected function getContent($input)
+    {
+        
+        if ($input->getOption('test'))
+        {
+            $content = json_decode(file_get_contents(
+                dirname(__FILE__).'/../Tests/Command/data/tweets.json'));
+        }
+        else if ($input->getOption('notarray'))
+        {
+            $content = null;
+        }
+        else if ($input->getOption('emptyarray'))
+        {
+            $content = array();
+        }
+        else
+        {
+            if (! $input->getOption('test'))
+            {
+                $connection = new TwitterOAuth(
+                    $this->container->getParameter('twitter_consumer_key'),
+                    $this->container->getParameter('twitter_consumer_secret'),
+                    $this->container->getParameter('twitter_token'),
+                    $this->container->getParameter('twitter_token_secret')
+                );
+            }
+            
+            $content = $connection->get(
+                'statuses/home_timeline',
+                $this->parameters
+            );
+        }
+        
+        return($content);
     }
     
     protected function persistTweet($tweetTmp)
@@ -211,19 +219,15 @@ class StatusesHomeTimelineCommand extends BaseCommand
             if (
                 (isset($tweetTmp->entities))
                 &&
-                // @codeCoverageIgnoreStart
                 (isset($tweetTmp->entities->media))
-                // @codeCoverageIgnoreEnd
             )
             {
                 foreach ($tweetTmp->entities->media as $mediaTmp)
                 {
-                    // @codeCoverageIgnoreStart
                     if ($mediaTmp->type !== 'photo')
                     {
                         continue;
                     }
-                    // @codeCoverageIgnoreEnd
                     
                     # Media
                     $media = $this->em
