@@ -63,7 +63,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         {
             $this->parameters['since_id'] = $lastTweet->getId();
             
-            $comment = 'since_id parameter = '.$parameters['since_id'];
+            $comment = 'since_id parameter = '.$this->parameters['since_id'];
         }
         else
         {
@@ -72,7 +72,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         $output->writeln('<comment>'.$comment.'</comment>');
         
-        $content = $this->getContent($input, $output);
+        $content = $this->getContent($input);
         
         if (! is_array($content))
         {
@@ -83,7 +83,6 @@ class StatusesHomeTimelineCommand extends BaseCommand
             $output->writeln($formattedBlock);
             $output->writeln(print_r($content, true));
             return 1;
-            die;
         }
         
         $numberOfTweets = count($content);
