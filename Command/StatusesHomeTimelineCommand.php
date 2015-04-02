@@ -157,6 +157,34 @@ class StatusesHomeTimelineCommand extends BaseCommand
         return($content);
     }
     
+    protected function persistMedia($tweet, $mediaTmp)
+    {
+        # Media
+        $media = $this->em
+            ->getRepository('AsyncTweetsBundle:Media')
+            ->findOneById($mediaTmp->id)
+        ;
+        
+        if (! $media)
+        {
+            $media = new Media();
+            $media
+                ->setId($mediaTmp->id)
+            ;
+        }
+        
+        $media
+            ->setMediaUrlHttps($mediaTmp->media_url)
+            ->setUrl($mediaTmp->url)
+            ->setDisplayUrl($mediaTmp->display_url)
+            ->setExpandedUrl($mediaTmp->expanded_url)
+        ;
+        
+        $tweet->addMedia($media);
+        
+        $this->em->persist($media);
+    }
+    
     protected function persistTweet($tweetTmp)
     {
         $userTmp = $tweetTmp->user;
@@ -212,35 +240,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
             {
                 foreach ($tweetTmp->entities->media as $mediaTmp)
                 {
-                    if ($mediaTmp->type !== 'photo')
+                    if ($mediaTmp->type == 'photo')
                     {
-                        continue;
+                        $this->persistMedia($tweet, $mediaTmp);
                     }
-                    
-                    # Media
-                    $media = $this->em
-                        ->getRepository('AsyncTweetsBundle:Media')
-                        ->findOneById($mediaTmp->id)
-                    ;
-                    
-                    if (! $media)
-                    {
-                        $media = new Media();
-                        $media
-                            ->setId($mediaTmp->id)
-                        ;
-                    }
-                    
-                    $media
-                        ->setMediaUrlHttps($mediaTmp->media_url)
-                        ->setUrl($mediaTmp->url)
-                        ->setDisplayUrl($mediaTmp->display_url)
-                        ->setExpandedUrl($mediaTmp->expanded_url)
-                    ;
-                    
-                    $tweet->addMedia($media);
-                    
-                    $this->em->persist($media);
                 }
             }
         }
