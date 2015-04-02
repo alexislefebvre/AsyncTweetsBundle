@@ -88,4 +88,17 @@ class TweetRepository extends EntityRepository
         # return result of "COUNT()" query
         return $qb->getQuery()->getSingleScalarResult();
     }
+    
+    public function getLastTweet()
+    {
+        $qb = $this->createQueryBuilder('t');
+        
+        $qb = $qb
+            ->addOrderBy('t.id', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+        ;
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

@@ -45,18 +45,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         # Get the last tweet
         $lastTweet = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            /** @see http://doctrine-orm.readthedocs.org/en/latest/reference/working-with-objects.html#by-simple-conditions */
-            ->findOneBy(
-                # Conditions
-                array(),
-                # Orderings
-                array('id' => 'DESC'),
-                # Limit
-                1,
-                # Offset
-                0
-            )
-        ;
+            ->getLastTweet();
         
         # And use it in the request if it exists
         if ($lastTweet)
