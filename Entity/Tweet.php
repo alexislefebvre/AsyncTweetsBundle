@@ -35,7 +35,7 @@ class Tweet
     private $favorite_count;
         
     /**
-     * @var integer
+     * @var User
      */
     private $user;
     
