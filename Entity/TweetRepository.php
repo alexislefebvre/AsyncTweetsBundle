@@ -85,7 +85,7 @@ class TweetRepository extends EntityRepository
             ;
         }
         
-        # return COUNT() result
+        # return result of "COUNT()" query
         return $qb->getQuery()->getSingleScalarResult();
     }
 }

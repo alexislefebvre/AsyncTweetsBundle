@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Tweet
 {
     /**
-     * @var integer
+     * @var bigint
      */
     private $id;
     

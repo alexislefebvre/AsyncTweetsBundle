@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Media
 {
     /**
-     * @var integer
+     * @var bigint
      */
     private $id;
     
