@@ -5,11 +5,8 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-
 use Symfony\Component\Console\Helper\ProgressBar;
-
 use Abraham\TwitterOAuth\TwitterOAuth;
-
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
@@ -120,6 +117,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
         }
     }
     
+    /**
+     * @param InputInterface $input
+     */
     protected function getContent($input)
     {
         
@@ -138,15 +138,12 @@ class StatusesHomeTimelineCommand extends BaseCommand
         }
         else
         {
-            if (! $input->getOption('test'))
-            {
-                $connection = new TwitterOAuth(
-                    $this->container->getParameter('twitter_consumer_key'),
-                    $this->container->getParameter('twitter_consumer_secret'),
-                    $this->container->getParameter('twitter_token'),
-                    $this->container->getParameter('twitter_token_secret')
-                );
-            }
+            $connection = new TwitterOAuth(
+                $this->container->getParameter('twitter_consumer_key'),
+                $this->container->getParameter('twitter_consumer_secret'),
+                $this->container->getParameter('twitter_token'),
+                $this->container->getParameter('twitter_token_secret')
+            );
             
             $content = $connection->get(
                 'statuses/home_timeline',
@@ -157,6 +154,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
         return($content);
     }
     
+    /**
+     * @param Tweet $tweet
+     */
     protected function persistMedia($tweet, $mediaTmp)
     {
         # Media

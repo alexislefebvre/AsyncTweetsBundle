@@ -16,7 +16,6 @@ class DefaultController extends Controller
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->getWithUsersAndMedias($lastTweetId, $orderByUser);
         
-        $lastTweetId = null;
         $nextLastTweetId = null;
         
         if (count($tweets) > 0)
@@ -75,7 +74,8 @@ class DefaultController extends Controller
             $nextYear->add(new \DateInterval('P1Y'));
             
             # Set last Tweet Id
-            $cookie = new Cookie('lastTweetId', $lastTweetId, $nextYear);
+            $cookie = new Cookie('lastTweetId', $lastTweetId,
+                $nextYear->format('U'));
             
             $lastTweetIdCookie = $lastTweetId;
         }
