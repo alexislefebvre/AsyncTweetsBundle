@@ -47,16 +47,16 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
         twitter_token: null
         twitter_token_secret: null
    
- 5. Create the database and create the tables: `php app/console doctrine:schema:update --force`
- 6. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table`, with the ` --table` option the imported tweets will be shown
+ 5. Create the database and create the tables: `php app/console doctrine:schema:update --force --env=prod`
+ 6. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table --env=prod`, with the ` --table` option the imported tweets will be shown
  7. Import the routes in your <kbd>app/config/routing.yml</kbd>:
  
         asynctweets_website:
             resource: "@AsyncTweetsBundle/Resources/config/routing.yml"
             prefix:   /asynctweets
 
- 8. Open the page with your browser `.../AsyncTweets/web/asynctweets/` or use the following command `php app/console statuses:read` to see tweets
- 9. Add `php app/console statuses:hometimeline` in your crontab (e.g. every hour) to retrieve tweets automatically
+ 8. Open the page with your browser `.../AsyncTweets/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
+ 9. Add `php app/console statuses:hometimeline  --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ### Tests:
 
