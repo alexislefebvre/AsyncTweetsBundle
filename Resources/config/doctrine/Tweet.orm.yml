@@ -33,5 +33,7 @@ AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet:
         medias:
             targetEntity: Media
             inversedBy: tweets
+            joinTable:
+                name: asynctweets_tweet_media
             cascade: ["all"]
     lifecycleCallbacks: {  }
