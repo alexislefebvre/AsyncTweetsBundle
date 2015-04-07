@@ -21,6 +21,16 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->commandTester = new CommandTester($command);
     }
     
+    public function testStatusesHomeTimeline()
+    {
+        $this->loadFixtures(array());
+        
+        $this->commandTester->execute(array());
+        
+        $this->assertRegExp('/\[code\] => 215/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\[message\] => Bad Authentication data./', $this->commandTester->getDisplay());
+    }
+    
     public function testStatusesHomeTimelineEmpty()
     {
         $this->loadFixtures(array());
