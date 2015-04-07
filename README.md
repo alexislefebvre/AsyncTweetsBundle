@@ -35,24 +35,28 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
 ### Steps:
  
  1. Install [Symfony 2.6][Symfony2 GitHub]
- 2. Install this bundle with Composer: `composer require alexislefebvre/async-tweets-bundle --prefer-dist --no-dev -vvv --profile`
- 3. Enter your Twitter keys at the end of the <kbd>app/config/parameters.yml</kbd> file:
+ 2. Install this bundle with Composer: `composer require alexislefebvre/async-tweets-bundle dev-master --prefer-dist -vvv --profile`
+ 3. Add the bundle in <kbd>app/AppKernel.php</kbd>:
+ 
+        new AlexisLefebvre\Bundle\AsyncTweetsBundle\AsyncTweetsBundle(),
+
+ 4. Enter your Twitter keys at the end of the <kbd>app/config/parameters.yml</kbd> file:
 
         twitter_consumer_key: null
         twitter_consumer_secret: null
         twitter_token: null
         twitter_token_secret: null
    
- 4. Create the database and create the tables: `php app/console doctrine:schema:update --force`
- 5. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table`, with the ` --table` option the imported tweets will be shown
- 6. Import the routes in your <kbd>app/config/routing.yml</kbd>:
+ 5. Create the database and create the tables: `php app/console doctrine:schema:update --force`
+ 6. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table`, with the ` --table` option the imported tweets will be shown
+ 7. Import the routes in your <kbd>app/config/routing.yml</kbd>:
  
         asynctweets_website:
             resource: "@AsyncTweetsBundle/Resources/config/routing.yml"
             prefix:   /asynctweets
 
- 7. Open the page with your browser `.../AsyncTweets/web/asynctweets/` or use the following command `php app/console statuses:read` to see tweets
- 8. Add `php app/console statuses:hometimeline` in your crontab (e.g. every hour) to retrieve tweets automatically
+ 8. Open the page with your browser `.../AsyncTweets/web/asynctweets/` or use the following command `php app/console statuses:read` to see tweets
+ 9. Add `php app/console statuses:hometimeline` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ### Tests:
 
