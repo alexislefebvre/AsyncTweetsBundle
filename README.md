@@ -1,6 +1,8 @@
-# AsyncTweetsBundle [![Build status][Travis Master image]][Travis Master] [![Scrutinizer Code Quality][Scrutinizer image]][Scrutinizer] [![Dependency Status][Dependency Status Image]][Dependency Status] [![Coverage Status][Coverage Status Image]][Coverage Status] [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
+# AsyncTweetsBundle
 
-Symfony2 bundle providing a Twitter reader for asynchronous reading
+A Symfony2 bundle providing a Twitter reader for asynchronous reading
+
+[![Build status][Travis Master image]][Travis Master] [![Scrutinizer Code Quality][Scrutinizer image]][Scrutinizer] [![Dependency Status][Dependency Status Image]][Dependency Status] [![Coverage Status][Coverage Status Image]][Coverage Status] [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
 
 [Packagist][Packagist]
 
