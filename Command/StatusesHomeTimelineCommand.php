@@ -159,7 +159,6 @@ class StatusesHomeTimelineCommand extends BaseCommand
      */
     protected function persistMedia($tweet, $mediaTmp)
     {
-        # Media
         $media = $this->em
             ->getRepository('AsyncTweetsBundle:Media')
             ->findOneById($mediaTmp->id)

@@ -35,5 +35,13 @@ AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet:
             inversedBy: tweets
             joinTable:
                 name: asynctweets_tweet_media
+                joinColumns:
+                    joinColumn:
+                        name: tweet_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    joinColumn:
+                        name: media_id
+                        referencedColumnName: id
             cascade: ["all"]
     lifecycleCallbacks: {  }
