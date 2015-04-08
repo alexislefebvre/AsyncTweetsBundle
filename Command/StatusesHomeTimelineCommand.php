@@ -39,6 +39,36 @@ class StatusesHomeTimelineCommand extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->setAndDisplayLastTweet($output);
+        
+        $content = $this->getContent($input);
+        
+        if (! is_array($content))
+        {
+            $this->displayContentNotArrayError($output, $content);
+            return 1;
+        }
+        
+        $numberOfTweets = count($content);
+        
+        $output->writeln('<comment>Number of tweets: '.$numberOfTweets.'</comment>');
+        
+        if ($numberOfTweets == 0)
+        {
+            $output->writeln('<comment>No new tweet.</comment>');
+            return 0;
+        }
+        
+        # Iterate through $content in order to add the oldest tweet first, 
+        #  if there is an error the oldest tweet will still be saved
+        #  and newer tweets can be saved next time the command is launched
+        $tweets = array_reverse($content);
+        
+        $this->iterateTweets($input, $output, $tweets);
+    }
+    
+    protected function setAndDisplayLastTweet($output)
+    {
         # Get the last tweet
         $lastTweet = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
@@ -57,64 +87,6 @@ class StatusesHomeTimelineCommand extends BaseCommand
         }
         
         $output->writeln('<comment>'.$comment.'</comment>');
-        
-        $content = $this->getContent($input);
-        
-        if (! is_array($content))
-        {
-            $formatter = $this->getHelper('formatter');
-            
-            $errorMessages = array('Error!', 'Something went wrong, $content is not an array.');
-            $formattedBlock = $formatter->formatBlock($errorMessages, 'error');
-            $output->writeln($formattedBlock);
-            $output->writeln(print_r($content, true));
-            return 1;
-        }
-        
-        $numberOfTweets = count($content);
-        
-        $output->writeln('<comment>Number of tweets: '.$numberOfTweets.'</comment>');
-        
-        if ($numberOfTweets == 0)
-        {
-            $output->writeln('<comment>No new tweet.</comment>');
-            return 0;
-        }
-        
-        $this->displayTable = $input->getOption('table');
-        
-        # Display
-        if ($this->displayTable)
-        {
-            $this->table = $this->getHelper('table');
-            $this->table
-                ->setHeaders(array('Datetime', 'Text excerpt', 'Name'))
-            ;
-        }
-        
-        # Iterate through $content in order to add the oldest tweet first, 
-        #  if there is an error the oldest tweet will still be saved
-        #  and newer tweets can be saved next time
-        $content = array_reverse($content);
-        
-        $progress = new ProgressBar($output, $numberOfTweets);
-        $progress->setBarCharacter('<comment>=</comment>');
-        $progress->start();
-        
-        foreach ($content as $tweetTmp)
-        {
-            $this->persistTweet($tweetTmp);
-            
-            $progress->advance();
-        }
-        
-        $progress->finish();
-        $output->writeln('');
-        
-        if ($this->displayTable)
-        {
-            $this->table->render($output);
-        }
     }
     
     /**
@@ -122,7 +94,6 @@ class StatusesHomeTimelineCommand extends BaseCommand
      */
     protected function getContent($input)
     {
-        
         if ($input->getOption('test'))
         {
             $content = json_decode(file_get_contents(
@@ -154,41 +125,51 @@ class StatusesHomeTimelineCommand extends BaseCommand
         return($content);
     }
     
-    /**
-     * @param Tweet $tweet
-     */
-    protected function persistMedia($tweet, $mediaTmp)
+    protected function displayContentNotArrayError($output, $content)
     {
-        $media = $this->em
-            ->getRepository('AsyncTweetsBundle:Media')
-            ->findOneById($mediaTmp->id)
-        ;
+        $formatter = $this->getHelper('formatter');
         
-        if (! $media)
+        $errorMessages = array('Error!', 'Something went wrong, $content is not an array.');
+        $formattedBlock = $formatter->formatBlock($errorMessages, 'error');
+        $output->writeln($formattedBlock);
+        $output->writeln(print_r($content, true));
+    }
+    
+    protected function iterateTweets($input, $output, $tweets)
+    {
+        $this->displayTable = $input->getOption('table');
+        
+        # Display
+        if ($this->displayTable)
         {
-            $media = new Media();
-            $media
-                ->setId($mediaTmp->id)
+            $this->table = $this->getHelper('table');
+            $this->table
+                ->setHeaders(array('Datetime', 'Text excerpt', 'Name'))
             ;
         }
         
-        $media
-            ->setMediaUrlHttps($mediaTmp->media_url)
-            ->setUrl($mediaTmp->url)
-            ->setDisplayUrl($mediaTmp->display_url)
-            ->setExpandedUrl($mediaTmp->expanded_url)
-        ;
+        $progress = new ProgressBar($output, count($tweets));
+        $progress->setBarCharacter('<comment>=</comment>');
+        $progress->start();
         
-        $tweet->addMedia($media);
+        foreach ($tweets as $tweetTmp)
+        {
+            $this->addTweet($tweetTmp);
+            
+            $progress->advance();
+        }
         
-        $this->em->persist($media);
+        $progress->finish();
+        $output->writeln('');
+        
+        if ($this->displayTable)
+        {
+            $this->table->render($output);
+        }
     }
     
-    protected function persistTweet($tweetTmp)
+    protected function persistUser($userTmp)
     {
-        $userTmp = $tweetTmp->user;
-        
-        # User
         $user = $this->em
             ->getRepository('AsyncTweetsBundle:User')
             ->findOneById($userTmp->id)
@@ -213,7 +194,15 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         $this->em->persist($user);
         
-        # Tweet
+        return $user;
+    }
+    
+    /**
+     * @param stdClass Object $tweetTmp
+     * @param User $user
+     */
+    protected function persistTweet($tweetTmp, $user)
+    {
         $tweet = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findOneById($tweetTmp->id)
@@ -250,12 +239,55 @@ class StatusesHomeTimelineCommand extends BaseCommand
         $this->em->persist($tweet);
         $this->em->flush();
         
+        return $tweet;
+    }
+    
+    /**
+     * @param Tweet $tweet
+     * @param stdClass Object $mediaTmp
+     */
+    protected function persistMedia($tweet, $mediaTmp)
+    {
+        $media = $this->em
+            ->getRepository('AsyncTweetsBundle:Media')
+            ->findOneById($mediaTmp->id)
+        ;
+        
+        if (! $media)
+        {
+            $media = new Media();
+            $media
+                ->setId($mediaTmp->id)
+            ;
+        }
+        
+        $media
+            ->setMediaUrlHttps($mediaTmp->media_url)
+            ->setUrl($mediaTmp->url)
+            ->setDisplayUrl($mediaTmp->display_url)
+            ->setExpandedUrl($mediaTmp->expanded_url)
+        ;
+        
+        $tweet->addMedia($media);
+        
+        $this->em->persist($media);
+    }
+    
+    /**
+     * @param stdClass Object $tweetTmp
+     */
+    protected function addTweet($tweetTmp)
+    {
+        $user = $this->persistUser($tweetTmp->user);
+        
+        $tweet = $this->persistTweet($tweetTmp, $user);
+        
         if ($this->displayTable)
         {
             $this->table->addRow(array(
-                $tweetTmp->created_at,
-                mb_substr($tweetTmp->text, 0, 20),
-                $userTmp->name
+                $tweet->getCreatedAt()->format('Y-m-d H:i:s'),
+                mb_substr($tweet->getText(), 0, 40),
+                $user->getName()
             ));
         }
     }

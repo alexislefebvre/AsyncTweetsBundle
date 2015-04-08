@@ -27,7 +27,7 @@ class StatusesReadTest extends StatusesBase
         
         $this->commandTester->execute(array());
 
-        $this->assertRegExp('/Current page: 1/', $this->commandTester->getDisplay());
+        $this->assertContains('Current page: 1', $this->commandTester->getDisplay());
     }
     
     public function testStatusesReadWithTweets()
@@ -42,13 +42,13 @@ class StatusesReadTest extends StatusesBase
         
         $display = $this->commandTester->getDisplay();
         
-        $this->assertRegExp('/Current page: 1/', $display);
+        $this->assertContains('Current page: 1', $display);
         
         # Test the first line of the table
-        $this->assertRegExp(
-            '/| Asynchronous  | '.
+        $this->assertContains(
+            '| Asynchronous  | '.
                 'Hello Twitter! #myfirstTweet             | '.
-                '2015-02-10 21:19 |/',
+                '2015-02-10 21:19 |',
             $display
         );
     }

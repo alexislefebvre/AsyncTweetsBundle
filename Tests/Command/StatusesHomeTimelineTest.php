@@ -29,8 +29,8 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $display = $this->commandTester->getDisplay();
         
-        $this->assertRegExp('/\[code\] => 215/', $display);
-        $this->assertRegExp('/\[message\] => Bad Authentication data./', $display);
+        $this->assertContains('[code] => 215', $display);
+        $this->assertContains('[message] => Bad Authentication data.', $display);
     }
     
     public function testStatusesHomeTimelineEmpty()
@@ -41,7 +41,7 @@ class StatusesHomeTimelineTest extends StatusesBase
             '--test' => true
         ));
         
-        $this->assertRegExp('/Number of tweets: 3/', $this->commandTester->getDisplay());
+        $this->assertContains('Number of tweets: 3', $this->commandTester->getDisplay());
     }
     
     public function testStatusesHomeTimelineNotArray()
@@ -52,7 +52,7 @@ class StatusesHomeTimelineTest extends StatusesBase
             '--notarray' => true
         ));
         
-        $this->assertRegExp('/Something went wrong, \$content is not an array./', $this->commandTester->getDisplay());
+        $this->assertContains('Something went wrong, $content is not an array.', $this->commandTester->getDisplay());
     }
     
     public function testStatusesHomeTimelineEmptyArray()
@@ -65,8 +65,8 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $display = $this->commandTester->getDisplay();
         
-        $this->assertRegExp('/Number of tweets: 0/', $display);
-        $this->assertRegExp('/No new tweet./', $display);
+        $this->assertContains('Number of tweets: 0', $display);
+        $this->assertContains('No new tweet.', $display);
     }
     
     public function testStatusesHomeTimelineWithTweets()
@@ -84,15 +84,34 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $display = $this->commandTester->getDisplay();
         
-        $this->assertRegExp('/Number of tweets: 3/', $display);
+        $this->assertContains('Number of tweets: 3', $display);
         
-        # Test the first line of the table
-        $this->assertRegExp(
-            '/| Wed Feb 18 00:01:14 +0000 2015 | '.
-                '#image #test http:\/\/ | '.
-                'Asynchronous tweets |/',
+        # Test the headers of the table
+        $this->assertContains(
+            '| Datetime            | '.
+                'Text excerpt                        | '.
+                'Name                |',
             $display
         );
-        $this->assertRegExp('/(.*)Wed Feb 18 00:01:14 \+0000 2015(.*)/', $display);
+        
+        # Test the lines of the table
+        $this->assertContains(
+            '| 2015-02-10 21:18:00 | '.
+                'Bonjour Twitter ! #monpremierTweet  | '.
+                'Asynchronous tweets |',
+            $display
+        );
+        $this->assertContains(
+            '| 2015-02-10 21:19:20 | '.
+                'Hello Twitter! #myfirstTweet        | '.
+                'Asynchronous tweets |',
+            $display
+        );
+        $this->assertContains(
+            '| 2015-02-18 00:01:14 | '.
+                '#image #test http://t.co/rX1oieH1ug | '.
+                'Asynchronous tweets |',
+            $display
+        );
     }
 }

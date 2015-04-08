@@ -17,6 +17,7 @@ class TweetRepository extends EntityRepository
     public function getWithUsers($page = 1)
     {
         $firstResult = (($page - 1) * $this->nbTweets);
+        
         $qb = $this->createQueryBuilder('t')
                 
             ->addSelect('user')
