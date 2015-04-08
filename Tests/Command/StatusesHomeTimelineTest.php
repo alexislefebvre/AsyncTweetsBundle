@@ -27,8 +27,10 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $this->commandTester->execute(array());
         
-        $this->assertRegExp('/\[code\] => 215/', $this->commandTester->getDisplay());
-        $this->assertRegExp('/\[message\] => Bad Authentication data./', $this->commandTester->getDisplay());
+        $display = $this->commandTester->getDisplay();
+        
+        $this->assertRegExp('/\[code\] => 215/', $display);
+        $this->assertRegExp('/\[message\] => Bad Authentication data./', $display);
     }
     
     public function testStatusesHomeTimelineEmpty()
