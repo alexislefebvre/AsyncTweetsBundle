@@ -38,12 +38,11 @@ endif%}{% endblock %}
                     <a href="{{ path(route, {
                             'lastTweetId': lastTweetIdCookie
                         }) }}">{{ lastTweetIdCookie }}</a>
-                    <button type="button" class="btn btn-default btn-xs">
-                        <a href="{{ path('asynctweets_tweets_reset_cookie') }}">
-                            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                            Reset
-                        </a>
-                    </button>
+                    <a href="{{ path('asynctweets_tweets_reset_cookie') }}"
+                        class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                        Reset
+                    </a>
                 </p>
             {% endif %}
             
