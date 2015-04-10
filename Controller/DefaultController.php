@@ -16,6 +16,9 @@ class DefaultController extends Controller
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->getWithUsersAndMedias($lastTweetId, $orderByUser);
         
+        # No cookie by default
+        $cookie = null;
+        
         $nextLastTweetId = null;
         
         if (count($tweets) > 0)
@@ -28,12 +31,26 @@ class DefaultController extends Controller
             /** @see http://stackoverflow.com/questions/2353473/can-php-tell-if-the-server-os-it-64-bit/6304354#6304354 */
             if (PHP_INT_SIZE === 8)
             {
-                $nextLastTweetId = ($tweets[count($tweets) - 1]->getId() + 1);
+                $nextLastTweetId++;
             }
             
             $numberOfTweets = $this->getDoctrine()
                 ->getRepository('AsyncTweetsBundle:Tweet')
                 ->countPendingTweets($lastTweetId);
+            
+            # Only update the cookie if the last Tweet Id is bigger than
+            #  the one in the cookie    
+            if ($lastTweetId > $request->cookies->get('lastTweetId'))
+            {
+                $nextYear = new \Datetime('now');
+                $nextYear->add(new \DateInterval('P1Y'));
+                
+                # Set last Tweet Id
+                $cookie = new Cookie('lastTweetId', $lastTweetId,
+                    $nextYear->format('U'));
+                
+                $lastTweetIdCookie = $lastTweetId;
+            }    
         }
         else
         {
@@ -51,40 +68,16 @@ class DefaultController extends Controller
         if ($orderByUser)
         {
             $route = 'asynctweets_tweets_orderByUser_sinceTweetId';
-            $activeTab = 'tweets_orderByUser';
         }
         else
         {
             $route = 'asynctweets_tweets_sinceTweetId';
-            $activeTab = 'tweets';
-        }
-        
-        # No cookie by default
-        $cookie = null;
-        
-        if (
-            (! is_null($lastTweetId))
-            &&
-            # Only update the cookie if the last Tweet Id is bigger than
-            #  the one in the cookie
-            ($lastTweetId > $request->cookies->get('lastTweetId'))
-        )
-        {
-            $nextYear = new \Datetime('now');
-            $nextYear->add(new \DateInterval('P1Y'));
-            
-            # Set last Tweet Id
-            $cookie = new Cookie('lastTweetId', $lastTweetId,
-                $nextYear->format('U'));
-            
-            $lastTweetIdCookie = $lastTweetId;
         }
         
         $response = $this->render(
             'AsyncTweetsBundle:Default:index.html.twig',
             array(
                 'route' => $route,
-                'activeTab' => $activeTab,
                 'tweets' => $tweets,
                 'lastTweet' => array(
                     'id' => $lastTweetId,

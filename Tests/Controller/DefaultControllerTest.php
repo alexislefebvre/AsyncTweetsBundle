@@ -111,6 +111,27 @@ class DefaultControllerTest extends WebTestCase
         );        
     }
     
+    public function testCookie()
+    {
+        $this->loadFixtures(array(
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
+        ));
+        
+        $path = $this->router->generate('asynctweets_homepage');
+        
+        $this->client->request('GET', $path);
+        
+        $cookieJar = $this->client->getCookieJar();
+        
+        # Test the cookie
+        $this->assertEquals(
+            '565258739000049664',
+            $cookieJar->get('lastTweetId')->getValue()
+        );
+    }
+    
     public function testResetCookie()
     {
         $this->loadFixtures(array(
@@ -129,7 +150,7 @@ class DefaultControllerTest extends WebTestCase
         
         # Test the cookie
         $this->assertEquals(
-            565258739000049664,
+            '',
             $cookieJar->get('lastTweetId')->getValue()
         );
         

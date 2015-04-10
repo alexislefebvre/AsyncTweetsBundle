@@ -41,7 +41,8 @@
                 
                 <nav class="collapse navbar-collapse">
                   <ul class="nav navbar-nav">
-                    <li{{ ((activeTab == 'tweets') ? ' class="active"') }}>
+                    <li{{ ((route == 'asynctweets_tweets_sinceTweetId')
+                            ? ' class="active"') }}>
                         <a href="{{ path('asynctweets_tweets_sinceTweetId', {
                             'lastTweetId': lastTweet.id
                         }) }}">
@@ -50,7 +51,7 @@
                         </a>
                     </li>
                     
-                    <li{{ ((activeTab == 'tweets_orderByUser') ? ' class="active"') }}>
+                    <li{{ ((route == 'asynctweets_tweets_orderByUser_sinceTweetId') ? ' class="active"') }}>
                         <a href="{{ path('asynctweets_tweets_orderByUser_sinceTweetId', {
                             'lastTweetId': lastTweet.id
                         }) }}">
