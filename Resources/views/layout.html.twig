@@ -43,7 +43,7 @@
                   <ul class="nav navbar-nav">
                     <li{{ ((activeTab == 'tweets') ? ' class="active"') }}>
                         <a href="{{ path('asynctweets_tweets_sinceTweetId', {
-                            'lastTweetId': lastTweetId
+                            'lastTweetId': lastTweet.id
                         }) }}">
                             <span class="glyphicon glyphicon-th-list"></span>
                             Tweets
@@ -52,7 +52,7 @@
                     
                     <li{{ ((activeTab == 'tweets_orderByUser') ? ' class="active"') }}>
                         <a href="{{ path('asynctweets_tweets_orderByUser_sinceTweetId', {
-                            'lastTweetId': lastTweetId
+                            'lastTweetId': lastTweet.id
                         }) }}">
                             <span class="glyphicon glyphicon-user"></span>
                             Tweets by Users

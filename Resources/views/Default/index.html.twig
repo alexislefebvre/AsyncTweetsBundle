@@ -1,7 +1,7 @@
 {% extends 'AsyncTweetsBundle::layout.html.twig' %}
 
-{% block title %}Home timeline - {% if (lastTweetId is not null)
-    %}since {{ lastTweetId }}{%
+{% block title %}Home timeline - {% if (lastTweet.id is not null)
+    %}since {{ lastTweet.id }}{%
 endif%}{% endblock %}
 
 {% block content %}
@@ -14,10 +14,10 @@ endif%}{% endblock %}
                     <span>«&nbsp;Previous</span>
                 </li>
                 
-                {% if (nextLastTweetId is not null) %}
+                {% if (lastTweet.nextId is not null) %}
                     <li>
                         <a href="{{ path(route, {
-                            'lastTweetId': nextLastTweetId
+                            'lastTweetId': lastTweet.nextId
                         }) }}">Next&nbsp;»</a>
                     </li>
                 {% else %}
@@ -32,12 +32,12 @@ endif%}{% endblock %}
         {{ pagination }}
         
         <div class="col-sm-7 col-xs-12 count alert alert-info">
-            {% if (lastTweetId is not null) %}
+            {% if (lastTweet.id is not null) %}
                 <p>
                     Last tweet id:
                     <a href="{{ path(route, {
-                            'lastTweetId': lastTweetIdCookie
-                        }) }}">{{ lastTweetIdCookie }}</a>
+                            'lastTweetId': lastTweet.cookie
+                        }) }}">{{ lastTweet.cookie }}</a>
                     <a href="{{ path('asynctweets_tweets_reset_cookie') }}"
                         class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>

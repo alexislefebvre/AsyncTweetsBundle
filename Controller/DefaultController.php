@@ -86,9 +86,11 @@ class DefaultController extends Controller
                 'route' => $route,
                 'activeTab' => $activeTab,
                 'tweets' => $tweets,
-                'lastTweetId' => $lastTweetId,
-                'lastTweetIdCookie' => $lastTweetIdCookie,
-                'nextLastTweetId' => $nextLastTweetId,
+                'lastTweet' => array(
+                    'id' => $lastTweetId,
+                    'cookie' => $lastTweetIdCookie,
+                    'nextId' => $nextLastTweetId,
+                ),
                 'numberOfTweets' => $numberOfTweets,
             )
         );
