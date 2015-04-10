@@ -60,15 +60,22 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
  8. Open the page with your browser `.../AsyncTweets/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
  9. Add `php app/console statuses:hometimeline  --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
-### Tests:
-
-`phpunit` or `phpunit -c app/phpunit.xml.dist`
-
 ## Dependencies
-
  - [symfony/symfony][Symfony2 GitHub] (2.6)
  - [abraham/twitteroauth][twitteroauth] (0.5.3)
- 
+ - [twitter/bootstrap][Twitter Bootstrap] (use [Bootswatch 3.3.2][Bootstrap CDN])
+
+
+### Tests:
+
+If `phpunit` is installed:
+
+    phpunit
+
+Install `phpunit`:
+
+    php composer.phar require phpunit/phpunit "4.6.*" ; php vendor/bin/phpunit
+
 ### Development environment
 
  - [doctrine/doctrine-fixtures-bundle][doctrine-fixtures-bundle] (~2.2)
@@ -92,5 +99,7 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
 [SensioLabsInsight Image]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d/mini.png
 [SensioLabsInsight]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d
 [twitteroauth]: https://github.com/abraham/twitteroauth
+[Twitter Bootstrap]: https://github.com/twbs/bootstrap
+[Bootstrap CDN]: http://www.bootstrapcdn.com/#bootswatch_tab
 [doctrine-fixtures-bundle]: https://github.com/doctrine/DoctrineFixturesBundle
 [functional-test-bundle]: https://github.com/liip/LiipFunctionalTestBundle
