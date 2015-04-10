@@ -44,8 +44,10 @@ class Tweet
      */
     private $medias;
     
-    public function __construct()
+    public function __construct($id = null)
     {
+        $this->setId($id);
+        
         $this->medias = new ArrayCollection();
     }
     

@@ -39,8 +39,10 @@ class Media
      */
     private $tweets;
     
-    public function __construct()
+    public function __construct($id = null)
     {
+        $this->setId($id);
+        
         $this->tweets = new ArrayCollection();
     }
     
