@@ -101,16 +101,6 @@ class DefaultControllerTest extends WebTestCase
         );   
     }
     
-    public function testOrderByUserSinceTweetId()
-    {
-        $this->testTweets(
-            $this->router->generate(
-                'asynctweets_tweets_orderByUser_sinceTweetId',
-                array('lastTweetId' => 565258739000049664)
-            )
-        );        
-    }
-    
     public function testCookie()
     {
         $this->loadFixtures(array(

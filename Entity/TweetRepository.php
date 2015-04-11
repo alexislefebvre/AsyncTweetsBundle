@@ -32,8 +32,7 @@ class TweetRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    public function getWithUsersAndMedias($lastTweetId = null,
-        $orderByUser = false)
+    public function getWithUsersAndMedias($lastTweetId = null)
     {
         $qb = $this->createQueryBuilder('t')
                 
@@ -43,13 +42,6 @@ class TweetRepository extends EntityRepository
             ->addSelect('medias')
             ->leftJoin('t.medias', 'medias')
         ;
-        
-        if ($orderByUser)
-        {
-            $qb = $qb
-                ->addOrderBy('user.id', 'ASC')
-            ;
-        }
         
         $qb = $qb    
             ->addOrderBy('t.id', 'ASC')

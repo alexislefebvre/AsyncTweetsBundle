@@ -9,12 +9,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
 {
-    public function indexAction(Request $request, $lastTweetId = null,
-        $orderByUser = false)
+    public function indexAction(Request $request, $lastTweetId = null)
     {
         $tweets = $this->getDoctrine()
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->getWithUsersAndMedias($lastTweetId, $orderByUser);
+            ->getWithUsersAndMedias($lastTweetId);
         
         # No cookie by default
         $cookie = null;
@@ -65,19 +64,9 @@ class DefaultController extends Controller
             $lastTweetIdCookie = $request->cookies->get('lastTweetId');
         }
         
-        if ($orderByUser)
-        {
-            $route = 'asynctweets_tweets_orderByUser_sinceTweetId';
-        }
-        else
-        {
-            $route = 'asynctweets_tweets_sinceTweetId';
-        }
-        
         $response = $this->render(
             'AsyncTweetsBundle:Default:index.html.twig',
             array(
-                'route' => $route,
                 'tweets' => $tweets,
                 'lastTweet' => array(
                     'id' => $lastTweetId,

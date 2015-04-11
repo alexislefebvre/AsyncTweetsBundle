@@ -16,7 +16,7 @@ endif%}{% endblock %}
                 
                 {% if (lastTweet.nextId is not null) %}
                     <li>
-                        <a href="{{ path(route, {
+                        <a href="{{ path('asynctweets_tweets_sinceTweetId', {
                             'lastTweetId': lastTweet.nextId
                         }) }}">Next&nbsp;»</a>
                     </li>
@@ -35,7 +35,7 @@ endif%}{% endblock %}
             {% if (lastTweet.id is not null) %}
                 <p>
                     Last tweet id:
-                    <a href="{{ path(route, {
+                    <a href="{{ path('asynctweets_tweets_sinceTweetId', {
                             'lastTweetId': lastTweet.cookie
                         }) }}">{{ lastTweet.cookie }}</a>
                     <a href="{{ path('asynctweets_tweets_reset_cookie') }}"

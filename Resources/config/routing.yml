@@ -9,12 +9,6 @@ asynctweets_tweets_sinceTweetId:
     requirements:
         lastTweetId: \d+
 
-asynctweets_tweets_orderByUser_sinceTweetId:
-    pattern:  /users/sinceId/{lastTweetId}
-    defaults: { _controller: AsyncTweetsBundle:Default:index, orderByUser: true }
-    requirements:
-        lastTweetId: \d+
-
 asynctweets_tweets_reset_cookie:
     pattern:  /resetCookie
     defaults: { _controller: AsyncTweetsBundle:Default:resetCookie }
