@@ -36,7 +36,7 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
 
 ### Steps:
  
- 1. Install [Symfony 2.6][Symfony2 GitHub] with [Composer][Composer]: `php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.6.*" -vvv`
+ 1. Install [Symfony 2][Symfony2 GitHub] (2.3 or higher) with [Composer][Composer]: `php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.6.*" -vvv`
  2. Install this bundle with Composer: `cd YOUR_DIRECTORY ; php composer.phar require alexislefebvre/async-tweets-bundle dev-master --prefer-dist -vvv`
  3. Add the bundle in <kbd>app/AppKernel.php</kbd>:
  
@@ -57,11 +57,11 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
             resource: "@AsyncTweetsBundle/Resources/config/routing.yml"
             prefix:   /asynctweets # Use only "/" if you want AsyncTweets at the root of the website
 
- 8. Open the page with your browser `.../AsyncTweets/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
- 9. Add `php app/console statuses:hometimeline  --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
+ 8. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
+ 9. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ## Dependencies
- - [symfony/symfony][Symfony2 GitHub] (2.6)
+ - [symfony/symfony][Symfony2 GitHub] (2.3+)
  - [abraham/twitteroauth][twitteroauth] (0.5.3)
  - [twitter/bootstrap][Twitter Bootstrap] (use [Bootswatch 3.3.2][Bootstrap CDN])
 
@@ -72,7 +72,7 @@ If `phpunit` is installed:
 
     phpunit
 
-Install `phpunit`:
+Or by installing `phpunit` with Composer:
 
     php composer.phar require phpunit/phpunit "4.6.*" ; php vendor/bin/phpunit
 

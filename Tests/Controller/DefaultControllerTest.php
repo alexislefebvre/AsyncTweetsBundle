@@ -31,7 +31,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(0,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
-            )->count());        
+            )->count());
     }
     
     public function testTweets($path = null)
@@ -98,7 +98,7 @@ class DefaultControllerTest extends WebTestCase
                 'asynctweets_tweets_sinceTweetId',
                 array('lastTweetId' => 565258739000049664)
             )
-        );   
+        );
     }
     
     public function testCookie()

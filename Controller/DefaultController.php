@@ -90,7 +90,7 @@ class DefaultController extends Controller
         /** @see http://www.craftitonline.com/2011/07/symfony2-how-to-set-a-cookie/ */
         $response = new RedirectResponse(
             $this->generateUrl('asynctweets_homepage')
-        );    
+        );
         
         # Reset last Tweet Id
         $cookie = new Cookie('lastTweetId', null);
