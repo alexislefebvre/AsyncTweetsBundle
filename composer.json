@@ -13,14 +13,13 @@
     }],
     "require" : {
         "php": ">=5.4",
-        "symfony/symfony": "2.6.*",
+        "symfony/symfony": "~2.3",
         "abraham/twitteroauth": "0.5.3"
     },
     "require-dev": {
         "doctrine/orm": "~2.2,>=2.2.3",
         "symfony/assetic-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
-        "sensio/generator-bundle": "~2.3",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "liip/functional-test-bundle": "~1.0"
     },
