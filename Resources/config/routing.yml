@@ -4,10 +4,10 @@ asynctweets_homepage:
     defaults: { _controller: AsyncTweetsBundle:Default:index }
 
 asynctweets_tweets_sinceTweetId:
-    pattern:  /sinceId/{lastTweetId}
+    pattern:  /sinceId/{firstTweetId}
     defaults: { _controller: AsyncTweetsBundle:Default:index }
     requirements:
-        lastTweetId: \d+
+        firstTweetId: \d+
 
 asynctweets_tweets_reset_cookie:
     pattern:  /resetCookie

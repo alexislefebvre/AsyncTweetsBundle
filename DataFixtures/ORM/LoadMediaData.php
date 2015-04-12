@@ -8,9 +8,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 
-/**
- * @codeCoverageIgnore
- */
 class LoadMediaData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**

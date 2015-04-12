@@ -32,7 +32,7 @@ class TweetRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    public function getWithUsersAndMedias($lastTweetId = null)
+    public function getWithUsersAndMedias($firstTweetId = null)
     {
         $qb = $this->createQueryBuilder('t')
                 
@@ -49,16 +49,66 @@ class TweetRepository extends EntityRepository
             ->setMaxResults($this->nbTweets)
         ;
         
-        if (! is_null($lastTweetId))
+        if (! is_null($firstTweetId))
         {
             $qb = $qb
                 ->where(
-                    $qb->expr()->gte('t.id', $lastTweetId)
+                    $qb->expr()->gte('t.id', $firstTweetId)
                 )
             ;
         }
         
         return $qb->getQuery()->getResult();
+    }
+    
+    public function getPreviousTweetId($tweetId)
+    {
+        $qb = $this
+            ->createQueryBuilder('t')
+            ->select('t.id')
+            
+            ->where('t.id < :tweetId')
+            ->setParameter(':tweetId', $tweetId)
+                
+            ->orderBy('t.id', 'DESC')
+            
+            ->setFirstResult($this->nbTweets - 1)
+            ->setMaxResults(1)
+        ;
+        
+        $result = $qb->getQuery()->getOneOrNullResult();
+        
+        if (is_null($result))
+        {
+            return(null);
+        }
+        
+        return($result['id']);
+    }
+    
+    public function getNextTweetId($tweetId)
+    {
+        $qb = $this
+            ->createQueryBuilder('t')
+            ->select('t.id')
+            
+            ->where('t.id > :tweetId')
+            ->setParameter(':tweetId', $tweetId)
+                
+            ->orderBy('t.id', 'ASC')
+            
+            ->setFirstResult($this->nbTweets - 1)
+            ->setMaxResults(1)
+        ;
+        
+        $result = $qb->getQuery()->getOneOrNullResult();
+        
+        if (is_null($result))
+        {
+            return(null);
+        }
+        
+        return($result['id']);
     }
     
     public function countPendingTweets($lastTweetId = null)

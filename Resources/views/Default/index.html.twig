@@ -1,7 +1,7 @@
 {% extends 'AsyncTweetsBundle::layout.html.twig' %}
 
-{% block title %}Home timeline - {% if (lastTweet.id is not null)
-    %}since {{ lastTweet.id }}{%
+{% block title %}Home timeline - {% if (firstTweetId is not null)
+    %}since {{ firstTweetId }}{%
 endif%}{% endblock %}
 
 {% block content %}
@@ -10,14 +10,22 @@ endif%}{% endblock %}
         {% set pagination %}
         <div class="col-sm-5 col-xs-12">
             <ul class="pagination">
-                <li class="disabled">
-                    <span>«&nbsp;Previous</span>
-                </li>
-                
-                {% if (lastTweet.nextId is not null) %}
+                {% if (previousTweetId is not null) %}
                     <li>
                         <a href="{{ path('asynctweets_tweets_sinceTweetId', {
-                            'lastTweetId': lastTweet.nextId
+                            'firstTweetId': previousTweetId
+                        }) }}">«&nbsp;Previous</a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span>«&nbsp;Previous</span>
+                    </li>
+                {% endif %}
+                
+                {% if (nextTweetId is not null) %}
+                    <li>
+                        <a href="{{ path('asynctweets_tweets_sinceTweetId', {
+                            'firstTweetId': nextTweetId
                         }) }}">Next&nbsp;»</a>
                     </li>
                 {% else %}
@@ -32,12 +40,12 @@ endif%}{% endblock %}
         {{ pagination }}
         
         <div class="col-sm-7 col-xs-12 count alert alert-info">
-            {% if (lastTweet.id is not null) %}
+            {% if (cookieTweetId is not null) %}
                 <p>
                     Last tweet id:
                     <a href="{{ path('asynctweets_tweets_sinceTweetId', {
-                            'lastTweetId': lastTweet.cookie
-                        }) }}">{{ lastTweet.cookie }}</a>
+                            'firstTweetId': cookieTweetId
+                        }) }}">{{ cookieTweetId }}</a>
                     <a href="{{ path('asynctweets_tweets_reset_cookie') }}"
                         class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>

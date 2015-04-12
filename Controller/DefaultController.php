@@ -9,70 +9,66 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
 {
-    public function indexAction(Request $request, $lastTweetId = null)
+    public function indexAction(Request $request, $firstTweetId = null)
     {
-        $tweets = $this->getDoctrine()
-            ->getRepository('AsyncTweetsBundle:Tweet')
-            ->getWithUsersAndMedias($lastTweetId);
+        $previousTweetId = null;
+        $nextTweetId = null;
+        
+        $cookieTweetId = null;
+        
+        $tweetRepository = $this->getDoctrine()
+            ->getRepository('AsyncTweetsBundle:Tweet');
+        
+        $tweets = $tweetRepository
+            ->getWithUsersAndMedias($firstTweetId);
         
         # No cookie by default
         $cookie = null;
         
-        $nextLastTweetId = null;
-        
         if (count($tweets) > 0)
         {
-            $lastTweetId = $tweets[0]->getId();
+            $firstTweetId = $tweets[0]->getId();
             
-            $nextLastTweetId = $tweets[count($tweets) - 1]->getId();
+            $previousTweetId = $tweetRepository
+                ->getPreviousTweetId($firstTweetId);
+            $nextTweetId = $tweetRepository
+                ->getNextTweetId($firstTweetId);  
             
-            # Only perform addition on a 64-bits system
-            /** @see http://stackoverflow.com/questions/2353473/can-php-tell-if-the-server-os-it-64-bit/6304354#6304354 */
-            if (PHP_INT_SIZE === 8)
+            if ($request->cookies->has('lastTweetId'))
             {
-                $nextLastTweetId++;
+                $cookieTweetId = $request->cookies->get('lastTweetId');
             }
             
-            $numberOfTweets = $this->getDoctrine()
-                ->getRepository('AsyncTweetsBundle:Tweet')
-                ->countPendingTweets($lastTweetId);
-            
             # Only update the cookie if the last Tweet Id is bigger than
-            #  the one in the cookie    
-            if ($lastTweetId > $request->cookies->get('lastTweetId'))
+            #  the one in the cookie
+            if ($firstTweetId > $cookieTweetId)
             {
                 $nextYear = new \Datetime('now');
                 $nextYear->add(new \DateInterval('P1Y'));
                 
                 # Set last Tweet Id
-                $cookie = new Cookie('lastTweetId', $lastTweetId,
+                $cookie = new Cookie('lastTweetId', $firstTweetId,
                     $nextYear->format('U'));
                 
-                $lastTweetIdCookie = $lastTweetId;
-            }    
+                $cookieTweetId = $firstTweetId;
+            }
         }
         else
         {
-            $lastTweetId = $request->cookies->get('lastTweetId');
             $numberOfTweets = 0;
         }
         
-        $lastTweetIdCookie = $lastTweetId;
-        
-        if ($request->cookies->has('lastTweetId'))
-        {
-            $lastTweetIdCookie = $request->cookies->get('lastTweetId');
-        }
+        $numberOfTweets = $tweetRepository
+            ->countPendingTweets($cookieTweetId);
         
         $response = $this->render(
             'AsyncTweetsBundle:Default:index.html.twig',
             array(
                 'tweets' => $tweets,
-                'lastTweet' => array(
-                    'id' => $lastTweetId,
-                    'cookie' => $lastTweetIdCookie,
-                    'nextId' => $nextLastTweetId,
-                ),
+                'previousTweetId' => $previousTweetId,
+                'nextTweetId' => $nextTweetId,
+                'firstTweetId' => $firstTweetId,
+                'cookieTweetId' => $cookieTweetId,
                 'numberOfTweets' => $numberOfTweets,
             )
         );

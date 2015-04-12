@@ -4,7 +4,7 @@
             class="media-object" alt="{{ tweet.user.name }}" />
     </div>
     <blockquote class="media-body">
-        <p>{{ tweet.textLinkified|raw|nl2br }}</p>
+        <p>{{ tweet.textLinkified|raw }}</p>
         {% for media in tweet.medias %}
             {% if loop.first %}
                 <p>

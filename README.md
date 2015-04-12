@@ -10,9 +10,6 @@ A Symfony2 bundle providing a Twitter reader for asynchronous reading
 
 Demo: http://asynctweets.alexislefebvre.com/demo/
 
-Note: on the demo, the last tweet of a page will be shown on the "*Next »*" page because of a 32-bit PHP version.
-The last tweet of a page won't be shown on the "*Next »*" page on a 64-bit PHP version.
-
 Code coverage: http://asynctweets.alexislefebvre.com/codecoverage/
 
 ## Goal
