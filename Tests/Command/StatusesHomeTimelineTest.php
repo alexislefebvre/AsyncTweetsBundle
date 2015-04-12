@@ -70,11 +70,7 @@ class StatusesHomeTimelineTest extends StatusesBase
     
     public function testStatusesHomeTimelineWithTweets()
     {
-        $this->loadFixtures(array(
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
-        ));
+        $this->loadFixtures(array());
         
         $this->commandTester->execute(array(
             '--table' => true,

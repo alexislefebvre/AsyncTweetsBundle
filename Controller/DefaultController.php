@@ -58,7 +58,7 @@ class DefaultController extends Controller
         return $response;
     }
     
-    public function getCookie(Request $request, $firstTweetId)
+    private function getCookie(Request $request, $firstTweetId)
     {
         $cookie = $cookieTweetId = null;
         

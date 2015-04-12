@@ -231,7 +231,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         if (! $user)
         {
-            # Only set the id when adding the user
+            # Only set the id when adding the User
             $user = new User($userTmp->id);
         }
         
@@ -277,18 +277,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
      */
     protected function persistTweet(\stdClass $tweetTmp, User $user)
     {
-        $tweet = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
-            ->findOneById($tweetTmp->id)
-        ;
-        
-        if (! $tweet)
-        {
-            $tweet = new Tweet($tweetTmp->id);
-            $tweet->setValues($tweetTmp);
-            $tweet->setUser($user);
-            $this->addMedias($tweetTmp, $tweet);
-        }
+        $tweet = new Tweet($tweetTmp->id);
+        $tweet->setValues($tweetTmp);
+        $tweet->setUser($user);
+        $this->addMedias($tweetTmp, $tweet);
         
         $this->em->persist($tweet);
         $this->em->flush();
@@ -300,7 +292,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
      * @param Tweet $tweet
      * @param \stdClass $mediaTmp
      */
-    protected function persistMedia($tweet, \stdClass $mediaTmp)
+    protected function persistMedia(Tweet $tweet, \stdClass $mediaTmp)
     {
         $media = $this->em
             ->getRepository('AsyncTweetsBundle:Media')
@@ -309,13 +301,13 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         if (! $media)
         {
+            # Only set the id and values when adding the Media
             $media = new Media($mediaTmp->id);
+            $media->setValues($mediaTmp);
+            $this->em->persist($media);
         }
         
-        $media->setValues($mediaTmp);
         $tweet->addMedia($media);
-        
-        $this->em->persist($media);
     }
     
     /**
