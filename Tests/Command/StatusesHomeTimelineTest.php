@@ -109,4 +109,24 @@ class StatusesHomeTimelineTest extends StatusesBase
             $display
         );
     }
+    
+    public function testStatusesHomeTimelineWithSinceIdParameter()
+    {
+        $this->loadFixtures(array(
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
+        ));
+        
+        $this->commandTester->execute(array(
+            '--emptyarray' => true
+        ));
+        
+        $display = $this->commandTester->getDisplay();
+        
+        $this->assertContains(
+            'since_id parameter = 567836201210900500',
+            $display
+        );
+    }
 }
