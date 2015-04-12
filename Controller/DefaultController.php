@@ -14,6 +14,9 @@ class DefaultController extends Controller
         $previousTweetId = null;
         $nextTweetId = null;
         
+        # No cookie by default
+        $cookie = null;
+        
         $cookieTweetId = null;
         
         $tweetRepository = $this->getDoctrine()
@@ -21,9 +24,6 @@ class DefaultController extends Controller
         
         $tweets = $tweetRepository
             ->getWithUsersAndMedias($firstTweetId);
-        
-        # No cookie by default
-        $cookie = null;
         
         if (count($tweets) > 0)
         {
@@ -52,14 +52,10 @@ class DefaultController extends Controller
                 
                 $cookieTweetId = $firstTweetId;
             }
+            
+            $numberOfTweets = $tweetRepository
+                ->countPendingTweets($cookieTweetId);
         }
-        else
-        {
-            $numberOfTweets = 0;
-        }
-        
-        $numberOfTweets = $tweetRepository
-            ->countPendingTweets($cookieTweetId);
         
         $response = $this->render(
             'AsyncTweetsBundle:Default:index.html.twig',

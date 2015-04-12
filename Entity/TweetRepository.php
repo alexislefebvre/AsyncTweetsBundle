@@ -61,16 +61,19 @@ class TweetRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    public function getPreviousTweetId($tweetId)
+    public function getTweetId($tweetId, $previous = true)
     {
+        $where = (($previous) ? '<' : '>');
+        $order = (($previous) ? 'DESC' : 'ASC');
+        
         $qb = $this
             ->createQueryBuilder('t')
             ->select('t.id')
             
-            ->where('t.id < :tweetId')
+            ->where('t.id '.$where.' :tweetId')
             ->setParameter(':tweetId', $tweetId)
                 
-            ->orderBy('t.id', 'DESC')
+            ->orderBy('t.id', $order)
             
             ->setFirstResult($this->nbTweets - 1)
             ->setMaxResults(1)
@@ -86,29 +89,14 @@ class TweetRepository extends EntityRepository
         return($result['id']);
     }
     
+    public function getPreviousTweetId($tweetId)
+    {
+        return($this->getTweetId($tweetId, true));
+    }
+    
     public function getNextTweetId($tweetId)
     {
-        $qb = $this
-            ->createQueryBuilder('t')
-            ->select('t.id')
-            
-            ->where('t.id > :tweetId')
-            ->setParameter(':tweetId', $tweetId)
-                
-            ->orderBy('t.id', 'ASC')
-            
-            ->setFirstResult($this->nbTweets - 1)
-            ->setMaxResults(1)
-        ;
-        
-        $result = $qb->getQuery()->getOneOrNullResult();
-        
-        if (is_null($result))
-        {
-            return(null);
-        }
-        
-        return($result['id']);
+        return($this->getTweetId($tweetId, false));
     }
     
     public function countPendingTweets($lastTweetId = null)
