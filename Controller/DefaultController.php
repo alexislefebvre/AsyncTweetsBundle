@@ -28,29 +28,11 @@ class DefaultController extends Controller
         {
             $firstTweetId = $tweets[0]->getId();
             
-            $previousTweetId = $tweetRepository
-                ->getPreviousTweetId($firstTweetId);
-            $nextTweetId = $tweetRepository
-                ->getNextTweetId($firstTweetId);
+            list($previousTweetId, $nextTweetId) = $tweetRepository
+                ->getPreviousAndNextTweetId($firstTweetId);
             
-            if ($request->cookies->has('lastTweetId'))
-            {
-                $cookieTweetId = $request->cookies->get('lastTweetId');
-            }
-            
-            # Only update the cookie if the last Tweet Id is bigger than
-            #  the one in the cookie
-            if ($firstTweetId > $cookieTweetId)
-            {
-                $nextYear = new \Datetime('now');
-                $nextYear->add(new \DateInterval('P1Y'));
-                
-                # Set last Tweet Id
-                $cookie = new Cookie('lastTweetId', $firstTweetId,
-                    $nextYear->format('U'));
-                
-                $cookieTweetId = $firstTweetId;
-            }
+            list($cookie, $cookieTweetId) = $this->getCookie($request,
+                $firstTweetId);
             
             $numberOfTweets = $tweetRepository
                 ->countPendingTweets($cookieTweetId);
@@ -74,6 +56,32 @@ class DefaultController extends Controller
         }
         
         return $response;
+    }
+    
+    public function getCookie(Request $request, $firstTweetId)
+    {
+        $cookie = $cookieTweetId = null;
+        
+        if ($request->cookies->has('lastTweetId'))
+        {
+            $cookieTweetId = $request->cookies->get('lastTweetId');
+        }
+        
+        # Only update the cookie if the last Tweet Id is bigger than
+        #  the one in the cookie
+        if ($firstTweetId > $cookieTweetId)
+        {
+            $nextYear = new \Datetime('now');
+            $nextYear->add(new \DateInterval('P1Y'));
+            
+            # Set last Tweet Id
+            $cookie = new Cookie('lastTweetId', $firstTweetId,
+                $nextYear->format('U'));
+            
+            $cookieTweetId = $firstTweetId;
+        }
+        
+        return array($cookie, $cookieTweetId);
     }
     
     public function resetCookieAction()

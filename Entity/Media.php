@@ -176,9 +176,9 @@ class Media
     /**
      * Call setter functions
      * 
-     * @param stdClass Object $mediaTmp
+     * @param \stdClass $mediaTmp
      */
-    public function setValues($mediaTmp)
+    public function setValues(\stdClass $mediaTmp)
     {
         $this
             ->setMediaUrlHttps($mediaTmp->media_url)

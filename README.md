@@ -8,9 +8,9 @@ A Symfony2 bundle providing a Twitter reader for asynchronous reading
 
 ## Links
 
-Demo: http://asynctweets.alexislefebvre.com/demo/
-
-Code coverage: http://asynctweets.alexislefebvre.com/codecoverage/
+ - Demo: http://asynctweets.alexislefebvre.com/demo/
+ - Code coverage: http://asynctweets.alexislefebvre.com/codecoverage/
+ - Doxygen: http://asynctweets.alexislefebvre.com/doxygen/
 
 ## Goal
 

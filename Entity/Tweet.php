@@ -226,9 +226,9 @@ class Tweet
     /**
      * Call setter functions
      * 
-     * @param stdClass Object $tweetTmp
+     * @param \stdClass $tweetTmp
      */
-    public function setValues($tweetTmp)
+    public function setValues(\stdClass $tweetTmp)
     {
         $this
             ->setCreatedAt(new \Datetime($tweetTmp->created_at))

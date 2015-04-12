@@ -52,8 +52,6 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         $numberOfTweets = count($content);
         
-        $output->writeln('<comment>Number of tweets: '.$numberOfTweets.'</comment>');
-        
         if ($numberOfTweets == 0)
         {
             $output->writeln('<comment>No new tweet.</comment>');
@@ -148,6 +146,8 @@ class StatusesHomeTimelineCommand extends BaseCommand
     protected function addAndDisplayTweets(InputInterface $input,
         OutputInterface $output, $content, $numberOfTweets)
     {
+        $output->writeln('<comment>Number of tweets: '.$numberOfTweets.'</comment>');
+        
         # Iterate through $content in order to add the oldest tweet first, 
         #  if there is an error the oldest tweet will still be saved
         #  and newer tweets can be saved next time the command is launched
@@ -220,9 +220,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
     
     /**
-     * @param stdClass Object $userTmp
+     * @param \stdClass $userTmp
      */
-    protected function persistUser($userTmp)
+    protected function persistUser(\stdClass $userTmp)
     {
         $user = $this->em
             ->getRepository('AsyncTweetsBundle:User')
@@ -247,7 +247,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
      * @param array $medias
      * @param Tweet $tweet
      */
-    public function iterateMedias($medias, $tweet)
+    public function iterateMedias($medias, Tweet $tweet)
     {
         foreach ($medias as $mediaTmp)
         {
@@ -259,10 +259,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
     
     /**
-     * @param stdClass Object $tweetTmp
+     * @param \stdClass $tweetTmp
      * @param Tweet $tweet
      */
-    protected function addMedias($tweetTmp, $tweet)
+    protected function addMedias(\stdClass $tweetTmp, Tweet $tweet)
     {
         if ((isset($tweetTmp->entities))
             && (isset($tweetTmp->entities->media)))
@@ -272,10 +272,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
     
     /**
-     * @param stdClass Object $tweetTmp
+     * @param \stdClass $tweetTmp
      * @param User $user
      */
-    protected function persistTweet($tweetTmp, $user)
+    protected function persistTweet(\stdClass $tweetTmp, User $user)
     {
         $tweet = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
@@ -298,9 +298,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
     
     /**
      * @param Tweet $tweet
-     * @param stdClass Object $mediaTmp
+     * @param \stdClass $mediaTmp
      */
-    protected function persistMedia($tweet, $mediaTmp)
+    protected function persistMedia($tweet, \stdClass $mediaTmp)
     {
         $media = $this->em
             ->getRepository('AsyncTweetsBundle:Media')
@@ -319,9 +319,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
     
     /**
-     * @param stdClass Object $tweetTmp
+     * @param \stdClass $tweetTmp
      */
-    protected function addTweet($tweetTmp)
+    protected function addTweet(\stdClass $tweetTmp)
     {
         $user = $this->persistUser($tweetTmp->user);
         

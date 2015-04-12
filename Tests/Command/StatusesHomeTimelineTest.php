@@ -65,7 +65,6 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $display = $this->commandTester->getDisplay();
         
-        $this->assertContains('Number of tweets: 0', $display);
         $this->assertContains('No new tweet.', $display);
     }
     

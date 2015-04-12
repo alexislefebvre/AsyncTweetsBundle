@@ -158,9 +158,9 @@ class User
     /**
      * Call setter functions
      * 
-     * @param stdClass Object $userTmp
+     * @param \stdClass $userTmp
      */
-    public function setValues($userTmp)
+    public function setValues(\stdClass $userTmp)
     {
         $this
             ->setName($userTmp->name)

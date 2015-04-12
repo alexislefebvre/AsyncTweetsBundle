@@ -73,22 +73,15 @@ class TweetRepository extends EntityRepository
         
         $result = $qb->getQuery()->getOneOrNullResult();
         
-        if (is_null($result))
-        {
-            return(null);
-        }
-        
-        return($result['id']);
+        return(is_array($result) ? $result['id'] : null);
     }
     
-    public function getPreviousTweetId($tweetId)
+    public function getPreviousAndNextTweetId($tweetId)
     {
-        return($this->getTweetId($tweetId, true));
-    }
-    
-    public function getNextTweetId($tweetId)
-    {
-        return($this->getTweetId($tweetId, false));
+        return(array(
+            $this->getTweetId($tweetId, true),
+            $this->getTweetId($tweetId, false)
+        ));
     }
     
     public function countPendingTweets($lastTweetId = null)

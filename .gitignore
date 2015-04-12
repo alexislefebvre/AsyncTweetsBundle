@@ -12,3 +12,6 @@
 /Tests/App/cache/
 /Tests/App/logs/
 /cov/
+
+# Ignore Doxygen directory
+/doxygen/
