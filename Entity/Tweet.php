@@ -223,6 +223,11 @@ class Tweet
         return $this;
     }
     
+    /**
+     * Call setter functions
+     * 
+     * @param stdClass Object $tweetTmp
+     */
     public function setValues($tweetTmp)
     {
         $this

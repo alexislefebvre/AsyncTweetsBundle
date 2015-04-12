@@ -155,6 +155,11 @@ class User
         return $this;
     }
     
+    /**
+     * Call setter functions
+     * 
+     * @param stdClass Object $userTmp
+     */
     public function setValues($userTmp)
     {
         $this

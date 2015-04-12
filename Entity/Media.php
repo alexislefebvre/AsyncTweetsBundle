@@ -173,6 +173,11 @@ class Media
         return $this;
     }
     
+    /**
+     * Call setter functions
+     * 
+     * @param stdClass Object $mediaTmp
+     */
     public function setValues($mediaTmp)
     {
         $this

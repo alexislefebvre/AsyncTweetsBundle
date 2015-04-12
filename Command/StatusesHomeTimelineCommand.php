@@ -15,6 +15,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
 {
     private $displayTable;
     private $table;
+    private $progress;
     
     /** @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline */
     private $parameters = array(
@@ -59,15 +60,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
             return 0;
         }
         
-        # Iterate through $content in order to add the oldest tweet first, 
-        #  if there is an error the oldest tweet will still be saved
-        #  and newer tweets can be saved next time the command is launched
-        $tweets = array_reverse($content);
-        
-        $this->iterateTweets($input, $output, $tweets);
+        $this->addAndDisplayTweets($input, $output, $content, $numberOfTweets);
     }
     
-    protected function setAndDisplayLastTweet($output)
+    protected function setAndDisplayLastTweet(OutputInterface $output)
     {
         # Get the last tweet
         $lastTweet = $this->em
@@ -92,40 +88,48 @@ class StatusesHomeTimelineCommand extends BaseCommand
     /**
      * @param InputInterface $input
      */
-    protected function getContent($input)
+    protected function getContent(InputInterface $input)
     {
         if ($input->getOption('test'))
         {
-            $content = json_decode(file_get_contents(
-                dirname(__FILE__).'/../Tests/Command/data/tweets.json'));
+            return(json_decode(file_get_contents(
+                dirname(__FILE__).'/../Tests/Command/data/tweets.json')));
         }
         else if ($input->getOption('notarray'))
         {
-            $content = null;
+            return(null);
         }
         else if ($input->getOption('emptyarray'))
         {
-            $content = array();
+            return(array());
         }
         else
         {
-            $connection = new TwitterOAuth(
-                $this->container->getParameter('twitter_consumer_key'),
-                $this->container->getParameter('twitter_consumer_secret'),
-                $this->container->getParameter('twitter_token'),
-                $this->container->getParameter('twitter_token_secret')
-            );
-            
-            $content = $connection->get(
-                'statuses/home_timeline',
-                $this->parameters
-            );
+            return($this->getConnection());
         }
-        
-        return($content);
     }
     
-    protected function displayContentNotArrayError($output, $content)
+    protected function getConnection()
+    {
+        $connection = new TwitterOAuth(
+            $this->container->getParameter('twitter_consumer_key'),
+            $this->container->getParameter('twitter_consumer_secret'),
+            $this->container->getParameter('twitter_token'),
+            $this->container->getParameter('twitter_token_secret')
+        );
+        
+        return($connection->get(
+            'statuses/home_timeline',
+            $this->parameters
+        ));
+    }
+    
+    /**
+     * @param OutputInterface $output
+     * @param array $content
+     */
+    protected function displayContentNotArrayError(OutputInterface $output,
+        $content)
     {
         $formatter = $this->getHelper('formatter');
         
@@ -135,7 +139,43 @@ class StatusesHomeTimelineCommand extends BaseCommand
         $output->writeln(print_r($content, true));
     }
     
-    protected function iterateTweets($input, $output, $tweets)
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @param array $content
+     * @param integer $numberOfTweets
+     */
+    protected function addAndDisplayTweets(InputInterface $input,
+        OutputInterface $output, $content, $numberOfTweets)
+    {
+        # Iterate through $content in order to add the oldest tweet first, 
+        #  if there is an error the oldest tweet will still be saved
+        #  and newer tweets can be saved next time the command is launched
+        $tweets = array_reverse($content);
+        
+        $this->setProgressBar($output, $numberOfTweets);
+        $this->setTable($input);
+        $this->iterateTweets($tweets);
+        $this->endProgressBar($output);
+        $this->displayTable($output);
+    }
+    
+    /**
+     * @param OutputInterface $output
+     * @param integer $numberOfTweets
+     */
+    protected function setProgressBar(OutputInterface $output,
+        $numberOfTweets)
+    {
+        $this->progress = new ProgressBar($output, $numberOfTweets);
+        $this->progress->setBarCharacter('<comment>=</comment>');
+        $this->progress->start();
+    }
+    
+    /**
+     * @param InputInterface $input
+     */
+    protected function setTable(InputInterface $input)
     {
         $this->displayTable = $input->getOption('table');
         
@@ -147,27 +187,41 @@ class StatusesHomeTimelineCommand extends BaseCommand
                 ->setHeaders(array('Datetime', 'Text excerpt', 'Name'))
             ;
         }
-        
-        $progress = new ProgressBar($output, count($tweets));
-        $progress->setBarCharacter('<comment>=</comment>');
-        $progress->start();
-        
+    }
+    
+    /**
+     * @param array $tweets
+     */
+    protected function iterateTweets($tweets)
+    {
         foreach ($tweets as $tweetTmp)
         {
             $this->addTweet($tweetTmp);
             
-            $progress->advance();
+            $this->progress->advance();
         }
-        
-        $progress->finish();
+    }
+    
+    protected function endProgressBar($output)
+    {
+        $this->progress->finish();
         $output->writeln('');
-        
+    }
+    
+    /**
+     * @param OutputInterface $output
+     */
+    protected function displayTable(OutputInterface $output)
+    {
         if ($this->displayTable)
         {
             $this->table->render($output);
         }
     }
     
+    /**
+     * @param stdClass Object $userTmp
+     */
     protected function persistUser($userTmp)
     {
         $user = $this->em
@@ -189,7 +243,11 @@ class StatusesHomeTimelineCommand extends BaseCommand
         return $user;
     }
     
-    public function iterateMedias($medias, $tweet, $tweetTmp)
+    /**
+     * @param array $medias
+     * @param Tweet $tweet
+     */
+    public function iterateMedias($medias, $tweet)
     {
         foreach ($medias as $mediaTmp)
         {
@@ -209,8 +267,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         if ((isset($tweetTmp->entities))
             && (isset($tweetTmp->entities->media)))
         {
-            $this->iterateMedias($tweetTmp->entities->media, 
-                $tweet, $tweetTmp);
+            $this->iterateMedias($tweetTmp->entities->media, $tweet);
         }
     }
     

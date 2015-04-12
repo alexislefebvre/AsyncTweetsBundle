@@ -54,19 +54,18 @@ class TweetRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+    /**
+     * Return previous or next page tweet id
+     */
     public function getTweetId($tweetId, $previous = true)
     {
-        $where = (($previous) ? '<' : '>');
-        $order = (($previous) ? 'DESC' : 'ASC');
-        
-        $qb = $this
-            ->createQueryBuilder('t')
+        $qb = $this->createQueryBuilder('t')
             ->select('t.id')
             
-            ->where('t.id '.$where.' :tweetId')
+            ->where('t.id '.(($previous) ? '<' : '>').' :tweetId')
             ->setParameter(':tweetId', $tweetId)
                 
-            ->orderBy('t.id', $order)
+            ->orderBy('t.id', (($previous) ? 'DESC' : 'ASC'))
             
             ->setFirstResult($this->nbTweets - 1)
             ->setMaxResults(1)
