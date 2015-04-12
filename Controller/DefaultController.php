@@ -25,6 +25,8 @@ class DefaultController extends Controller
         $tweets = $tweetRepository
             ->getWithUsersAndMedias($firstTweetId);
         
+        $numberOfTweets = 0;
+        
         if (count($tweets) > 0)
         {
             $firstTweetId = $tweets[0]->getId();

@@ -19,8 +19,7 @@ class TweetRepository extends EntityRepository
         $firstResult = (($page - 1) * $this->nbTweets);
         
         $qb = $this->createQueryBuilder('t')
-                
-            ->addSelect('user')
+            ->select('t, user')
             ->innerJoin('t.user', 'user')
             
             ->orderBy('t.id', 'DESC')
@@ -35,15 +34,9 @@ class TweetRepository extends EntityRepository
     public function getWithUsersAndMedias($firstTweetId = null)
     {
         $qb = $this->createQueryBuilder('t')
-                
-            ->addSelect('user')
+            ->select('t, user, medias')
             ->innerJoin('t.user', 'user')
-            
-            ->addSelect('medias')
             ->leftJoin('t.medias', 'medias')
-        ;
-        
-        $qb = $qb    
             ->addOrderBy('t.id', 'ASC')
             ->setFirstResult(0)
             ->setMaxResults($this->nbTweets)
@@ -51,11 +44,9 @@ class TweetRepository extends EntityRepository
         
         if (! is_null($firstTweetId))
         {
-            $qb = $qb
-                ->where(
-                    $qb->expr()->gte('t.id', $firstTweetId)
-                )
-            ;
+            $qb = $qb->where(
+                $qb->expr()->gte('t.id', $firstTweetId)
+            );
         }
         
         return $qb->getQuery()->getResult();

@@ -199,11 +199,8 @@ class StatusesHomeTimelineCommand extends BaseCommand
      */
     protected function addMedias($tweetTmp, $tweet)
     {
-        if (
-            (! (isset($tweetTmp->entities)))
-            ||
-            (! (isset($tweetTmp->entities->media)))
-        )
+        if ((! (isset($tweetTmp->entities)))
+            || (! (isset($tweetTmp->entities->media))))
         {
             return;
         }
