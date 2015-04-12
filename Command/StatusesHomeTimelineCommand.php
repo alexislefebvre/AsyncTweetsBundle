@@ -83,6 +83,16 @@ class StatusesHomeTimelineCommand extends BaseCommand
         $output->writeln('<comment>'.$comment.'</comment>');
     }
     
+    protected function getTestContent()
+    {
+        /** @see https://insight.sensiolabs.com/what-we-analyse/symfony.dependency_injection.use_dir_file_constant */
+        return(json_decode(file_get_contents(
+            $this->container->get('kernel')->locateResource(
+                '@AsyncTweetsBundle/Tests/Command/data/tweets.json'
+            )
+        )));
+    }
+    
     /**
      * @param InputInterface $input
      */
@@ -90,8 +100,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
     {
         if ($input->getOption('test'))
         {
-            return(json_decode(file_get_contents(
-                dirname(__FILE__).'/../Tests/Command/data/tweets.json')));
+            return($this->getTestContent());
         }
         else if ($input->getOption('notarray'))
         {

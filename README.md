@@ -71,7 +71,7 @@ If `phpunit` is installed:
 
 Or by installing `phpunit` with Composer:
 
-    php composer.phar require phpunit/phpunit "4.6.*" -vvv ; php vendor/bin/phpunit
+    php composer.phar require --dev phpunit/phpunit "4.6.*" -vvv ; php vendor/bin/phpunit
 
 ### Development environment
 
