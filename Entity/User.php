@@ -154,4 +154,15 @@ class User
         
         return $this;
     }
+    
+    public function setValues($userTmp)
+    {
+        $this
+            ->setName($userTmp->name)
+            ->setScreenName($userTmp->screen_name)
+            ->setProfileImageUrl($userTmp->profile_image_url)
+        ;
+        
+        return $this;
+    }
 }

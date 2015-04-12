@@ -37,7 +37,9 @@ class TweetRepository extends EntityRepository
             ->select('t, user, medias')
             ->innerJoin('t.user', 'user')
             ->leftJoin('t.medias', 'medias')
-            ->addOrderBy('t.id', 'ASC')
+            
+            ->orderBy('t.id', 'ASC')
+            
             ->setFirstResult(0)
             ->setMaxResults($this->nbTweets)
         ;

@@ -181,16 +181,23 @@ class StatusesHomeTimelineCommand extends BaseCommand
             $user = new User($userTmp->id);
         }
         
-        # Update these fields
-        $user
-            ->setName($userTmp->name)
-            ->setScreenName($userTmp->screen_name)
-            ->setProfileImageUrl($userTmp->profile_image_url)
-        ;
+        # Update other fields
+        $user->setValues($userTmp);
         
         $this->em->persist($user);
         
         return $user;
+    }
+    
+    public function iterateMedias($medias, $tweet, $tweetTmp)
+    {
+        foreach ($medias as $mediaTmp)
+        {
+            if ($mediaTmp->type == 'photo')
+            {
+                $this->persistMedia($tweet, $mediaTmp);
+            }
+        }
     }
     
     /**
@@ -199,18 +206,11 @@ class StatusesHomeTimelineCommand extends BaseCommand
      */
     protected function addMedias($tweetTmp, $tweet)
     {
-        if ((! (isset($tweetTmp->entities)))
-            || (! (isset($tweetTmp->entities->media))))
+        if ((isset($tweetTmp->entities))
+            && (isset($tweetTmp->entities->media)))
         {
-            return;
-        }
-    
-        foreach ($tweetTmp->entities->media as $mediaTmp)
-        {
-            if ($mediaTmp->type == 'photo')
-            {
-                $this->persistMedia($tweet, $mediaTmp);
-            }
+            $this->iterateMedias($tweetTmp->entities->media, 
+                $tweet, $tweetTmp);
         }
     }
     
@@ -228,14 +228,8 @@ class StatusesHomeTimelineCommand extends BaseCommand
         if (! $tweet)
         {
             $tweet = new Tweet($tweetTmp->id);
-            $tweet
-                ->setCreatedAt(new \Datetime($tweetTmp->created_at))
-                ->setText($tweetTmp->text)
-                ->setRetweetCount($tweetTmp->retweet_count)
-                ->setFavoriteCount($tweetTmp->favorite_count)
-                ->setUser($user)
-            ;
-            
+            $tweet->setValues($tweetTmp);
+            $tweet->setUser($user);
             $this->addMedias($tweetTmp, $tweet);
         }
         
@@ -261,13 +255,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
             $media = new Media($mediaTmp->id);
         }
         
-        $media
-            ->setMediaUrlHttps($mediaTmp->media_url)
-            ->setUrl($mediaTmp->url)
-            ->setDisplayUrl($mediaTmp->display_url)
-            ->setExpandedUrl($mediaTmp->expanded_url)
-        ;
-        
+        $media->setValues($mediaTmp);
         $tweet->addMedia($media);
         
         $this->em->persist($media);

@@ -144,7 +144,7 @@ class DefaultControllerTest extends WebTestCase
         
         $nextPage = $crawler->filter('main.container > div.navigation:first-child '.
             '> div > ul > li:last-child > a')
-            ->attr('href');    
+            ->attr('href');
         
         # Previous page
         $crawler = $this->client->request('GET', $previousPage);

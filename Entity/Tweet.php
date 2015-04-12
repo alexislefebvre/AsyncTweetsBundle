@@ -222,4 +222,16 @@ class Tweet
         
         return $this;
     }
+    
+    public function setValues($tweetTmp)
+    {
+        $this
+            ->setCreatedAt(new \Datetime($tweetTmp->created_at))
+            ->setText($tweetTmp->text)
+            ->setRetweetCount($tweetTmp->retweet_count)
+            ->setFavoriteCount($tweetTmp->favorite_count)
+        ;
+        
+        return $this;
+    }
 }

@@ -172,4 +172,16 @@ class Media
         
         return $this;
     }
+    
+    public function setValues($mediaTmp)
+    {
+        $this
+            ->setMediaUrlHttps($mediaTmp->media_url)
+            ->setUrl($mediaTmp->url)
+            ->setDisplayUrl($mediaTmp->display_url)
+            ->setExpandedUrl($mediaTmp->expanded_url)
+        ;
+        
+        return $this;
+    }
 }

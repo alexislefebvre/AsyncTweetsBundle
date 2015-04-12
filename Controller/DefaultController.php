@@ -11,13 +11,10 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request, $firstTweetId = null)
     {
-        $previousTweetId = null;
-        $nextTweetId = null;
+        $previousTweetId = $nextTweetId = null;
         
         # No cookie by default
-        $cookie = null;
-        
-        $cookieTweetId = null;
+        $cookie = $cookieTweetId = null;
         
         $tweetRepository = $this->getDoctrine()
             ->getRepository('AsyncTweetsBundle:Tweet');
@@ -34,7 +31,7 @@ class DefaultController extends Controller
             $previousTweetId = $tweetRepository
                 ->getPreviousTweetId($firstTweetId);
             $nextTweetId = $tweetRepository
-                ->getNextTweetId($firstTweetId);  
+                ->getNextTweetId($firstTweetId);
             
             if ($request->cookies->has('lastTweetId'))
             {
