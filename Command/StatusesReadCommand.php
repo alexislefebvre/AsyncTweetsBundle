@@ -61,23 +61,13 @@ class StatusesReadCommand extends BaseCommand
         {
             $this->table->addRows(array(
                 array(
-                    '<info>'.
-                        # Close and reopen the tag before each new line
-                        str_replace("\n", "</info>\n<info>",
-                            wordwrap($tweet->getUser()->getName(), 13, "\n")
-                        ).
-                    '</info>',
-                    
-                    '<comment>'.
-                        # Close and reopen the tag before each new line
-                        str_replace("\n", "</comment>\n<comment>",
-                            wordwrap($tweet->getText(), 40, "\n")
-                        ).
-                    '</comment>',
-                    
+                    $this->formatCell('info',
+                        $tweet->getUser()->getName(), 13),
+                    $this->formatCell('comment',
+                        $tweet->getText(), 40),
                     $tweet->getCreatedAt()->format('Y-m-d H:i'),
                 ),
-                # empty row
+                # empty row between tweets
                 array('', '', ''))
             );
         }
@@ -97,6 +87,23 @@ class StatusesReadCommand extends BaseCommand
                 sprintf('%-16s', 'Datetime'),
             ))
         ;
+    }
+    
+    /**
+     * @param string $tag
+     * @param string $content
+     * @param integer $length
+     * 
+     * @return string
+     */
+    protected function formatCell($tag, $content, $length)
+    {
+        return('<'.$tag.'>'.
+            # Close and reopen the tag before each new line
+            str_replace("\n", "</".$tag.">\n<".$tag.">",
+                wordwrap($content, $length, "\n")
+            ).
+            '</'.$tag.'>');
     }
     
     /**

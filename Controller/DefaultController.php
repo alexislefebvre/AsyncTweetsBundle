@@ -13,7 +13,7 @@ class DefaultController extends Controller
      * @param Request $request
      * @param string|null $firstTweetId
      * 
-     * @return Response $response
+     * @return \Symfony\Component\HttpFoundation\Response $response $response
      */
     public function indexAction(Request $request, $firstTweetId = null)
     {
@@ -116,7 +116,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @return Response $response
+     * @return RedirectResponse $response
      */
     public function resetCookieAction()
     {
