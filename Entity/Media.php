@@ -174,6 +174,16 @@ class Media
     }
     
     /**
+     * Get tweets
+     *
+     * @return ArrayCollection
+     */
+    public function getTweets()
+    {
+        return $this->tweets;
+    }
+    
+    /**
      * Call setter functions
      * 
      * @param \stdClass $mediaTmp

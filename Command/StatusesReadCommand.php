@@ -8,6 +8,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class StatusesReadCommand extends BaseCommand
 {
+    private $table;
+    
     protected function configure()
     {
         parent::configure();
@@ -39,20 +41,21 @@ class StatusesReadCommand extends BaseCommand
             return 0;
         }
         
-        $table = $this->getHelper('table');
-        $table
-            ->setHeaders(array(
-                # Add spaces to use all the 80 columns,
-                #  even if name or texts are short
-                sprintf('%-13s', 'Name'),
-                sprintf('%-40s', 'Text'),
-                sprintf('%-16s', 'Datetime'),
-            ))
-        ;
+        $this->displayTweets($output, $tweets);
+    }
+    
+    /**
+     * @param OutputInterface $output
+     * @param array $tweets
+     */
+    protected function displayTweets(OutputInterface $output,
+        $tweets)
+    {
+        $this->setTable();
         
         foreach ($tweets as $tweet)
         {
-            $table->addRows(array(
+            $this->table->addRows(array(
                 array(
                     '<info>'.
                         # Close and reopen the tag before each new line
@@ -75,6 +78,28 @@ class StatusesReadCommand extends BaseCommand
             );
         }
         
-        $table->render($output);
+        $this->displayTable($output);
+    }
+    
+    protected function setTable()
+    {
+        $this->table = $this->getHelper('table');
+        $this->table
+            ->setHeaders(array(
+                # Add spaces to use all the 80 columns,
+                #  even if name or texts are short
+                sprintf('%-13s', 'Name'),
+                sprintf('%-40s', 'Text'),
+                sprintf('%-16s', 'Datetime'),
+            ))
+        ;
+    }
+    
+    /**
+     * @param OutputInterface $output
+     */
+    protected function displayTable(OutputInterface $output)
+    {
+        $this->table->render($output);
     }
 }

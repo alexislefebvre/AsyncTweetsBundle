@@ -13,9 +13,8 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         $now = new \Datetime('now');
         
         # Media
-        $media = new Media();
+        $media = new Media(567836200242003968);
         $media
-            ->setId(567836200242003968)
             ->setMediaUrlHttps('http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg')
             ->setUrl('http://t.co/rX1oieH1ug')
             ->setDisplayUrl('pic.twitter.com/rX1oieH1ug')
@@ -23,9 +22,8 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         ;
         
         # Tweet
-        $tweet = new Tweet();
+        $tweet = new Tweet(565939802152120320);
         $tweet
-            ->setId(565939802152120320)
             ->setCreatedAt($now)
             ->setText('Hello World!')
             ->setRetweetCount(1999)
@@ -58,10 +56,16 @@ class TweetTest extends \PHPUnit_Framework_TestCase
             $tweet->getFavoriteCount()
         );
         
+        # Check Tweet associated to Media
+        # Count Tweet associated to the User
+        $this->assertEquals(
+            1,
+            count($media->getTweets())
+        );
+        
         # Bind the Tweet to a User
-        $user = new User();
+        $user = new User(90556897);
         $user
-            ->setId(90556897)
             ->setName('Twitter France')
             ->setScreenName('TwitterFrance')
         ;

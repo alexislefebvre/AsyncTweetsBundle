@@ -54,23 +54,50 @@ class TweetRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    /**
-     * Return previous or next page tweet id
-     */
-    public function getTweetId($tweetId, $previous = true)
+    private function getQueryBuilder()
     {
         $qb = $this->createQueryBuilder('t')
             ->select('t.id')
-            
-            ->where('t.id '.(($previous) ? '<' : '>').' :tweetId')
-            ->setParameter(':tweetId', $tweetId)
-                
-            ->orderBy('t.id', (($previous) ? 'DESC' : 'ASC'))
             
             ->setFirstResult($this->nbTweets - 1)
             ->setMaxResults(1)
         ;
         
+        return($qb);
+    }
+    
+    /**
+     * Return previous page tweet id
+     */
+    private function getPreviousTweetId($tweetId)
+    {
+        $qb = $this->getQueryBuilder()
+            ->where('t.id < :tweetId')
+            ->setParameter(':tweetId', $tweetId)
+            
+            ->orderBy('t.id', 'DESC')
+        ;
+        
+        return($this->getIdOrNull($qb));
+    }
+    
+    /**
+     * Return next page tweet id
+     */
+    private function getNextTweetId($tweetId)
+    {
+        $qb = $this->getQueryBuilder()
+            ->where('t.id > :tweetId')
+            ->setParameter(':tweetId', $tweetId)
+            
+            ->orderBy('t.id', 'ASC')
+        ;
+        
+        return($this->getIdOrNull($qb));
+    }
+    
+    private function getIdOrNull($qb)
+    {
         $result = $qb->getQuery()->getOneOrNullResult();
         
         return(is_array($result) ? $result['id'] : null);
@@ -79,8 +106,8 @@ class TweetRepository extends EntityRepository
     public function getPreviousAndNextTweetId($tweetId)
     {
         return(array(
-            $this->getTweetId($tweetId, true),
-            $this->getTweetId($tweetId, false)
+            $this->getPreviousTweetId($tweetId),
+            $this->getNextTweetId($tweetId)
         ));
     }
     
