@@ -20,7 +20,11 @@ class StatusesReadCommand extends BaseCommand
             ->addArgument('page', InputArgument::OPTIONAL, 'Page')
         ;
     }
-
+    
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $page = $input->getArgument('page');

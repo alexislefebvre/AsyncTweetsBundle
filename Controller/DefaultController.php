@@ -9,6 +9,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param string|null $firstTweetId
+     * 
+     * @return Response $response
+     */
     public function indexAction(Request $request, $firstTweetId = null)
     {
         $previousTweetId = $nextTweetId = null;
@@ -31,7 +37,7 @@ class DefaultController extends Controller
             list($previousTweetId, $nextTweetId) = $tweetRepository
                 ->getPreviousAndNextTweetId($firstTweetId);
             
-            list($cookie, $cookieTweetId) = $this->getCookie($request,
+            list($cookie, $cookieTweetId) = $this->getCookieValues($request,
                 $firstTweetId);
             
             $numberOfTweets = $tweetRepository
@@ -58,25 +64,50 @@ class DefaultController extends Controller
         return $response;
     }
     
-    private function getCookie(Request $request, $firstTweetId)
+    /**
+     * @param Request $request
+     */
+    private function getLastTweetIdFromCookie(Request $request)
     {
-        $cookie = $cookieTweetId = null;
-        
         if ($request->cookies->has('lastTweetId'))
         {
-            $cookieTweetId = $request->cookies->get('lastTweetId');
+            return($request->cookies->get('lastTweetId'));
         }
+        else
+        {
+            return(null);
+        }
+    }
+    
+    /**
+     * @param string $firstTweetId
+     */
+    private function getCookie($firstTweetId)
+    {
+        $nextYear = new \Datetime('now');
+        $nextYear->add(new \DateInterval('P1Y'));
+        
+        # Set last Tweet Id
+        $cookie = new Cookie('lastTweetId', $firstTweetId,
+            $nextYear->format('U'));
+        
+        return($cookie);
+    }
+    
+    /**
+     * @param Request $request
+     * @param integer $firstTweetId
+     */
+    private function getCookieValues(Request $request, $firstTweetId)
+    {
+        $cookie = null;
+        $cookieTweetId = $this->getLastTweetIdFromCookie($request);
         
         # Only update the cookie if the last Tweet Id is bigger than
         #  the one in the cookie
         if ($firstTweetId > $cookieTweetId)
         {
-            $nextYear = new \Datetime('now');
-            $nextYear->add(new \DateInterval('P1Y'));
-            
-            # Set last Tweet Id
-            $cookie = new Cookie('lastTweetId', $firstTweetId,
-                $nextYear->format('U'));
+            $cookie = $this->getCookie($firstTweetId);
             
             $cookieTweetId = $firstTweetId;
         }
@@ -84,6 +115,9 @@ class DefaultController extends Controller
         return array($cookie, $cookieTweetId);
     }
     
+    /**
+     * @return Response $response
+     */
     public function resetCookieAction()
     {
         /** @see http://www.craftitonline.com/2011/07/symfony2-how-to-set-a-cookie/ */
