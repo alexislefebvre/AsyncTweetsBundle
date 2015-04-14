@@ -163,11 +163,11 @@ class DefaultControllerTest extends WebTestCase
         
         # Tweet
         $this->assertEquals(
-            6,
+            10,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
-            );
+        );
     }
     
     public function testCookie()
@@ -215,7 +215,7 @@ class DefaultControllerTest extends WebTestCase
         );
         
         # Reset the cookie
-        $path = $this->router->generate('asynctweets_tweets_reset_cookie');
+        $path = $this->router->generate('asynctweets_reset_cookie');
         
         $this->client->followRedirects();
         
@@ -235,5 +235,101 @@ class DefaultControllerTest extends WebTestCase
         $this->client->request('GET', $path);
         
         $this->assertTrue($this->client->getResponse()->isRedirect());
+    }
+    
+    public function testDeleteTweets()
+    {
+        $this->loadFixtures(array(
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetPagesData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
+        ));
+        
+        $path = $this->router->generate(
+            'asynctweets_tweets_sinceTweetId',
+            array('firstTweetId' => 15)
+        );
+        
+        $crawler = $this->client->request('GET', $path);
+        
+        # Test that there is a previous page
+        $this->assertEquals(
+            '',
+            $crawler->filter('main.container > div.navigation:first-child '.
+                '> div > ul.pagination > li:first-child')
+                ->attr('class')
+        );
+        
+        # Check that "disabled" class is not present
+        $this->assertNotEquals(
+            'disabled',
+            $crawler->filter('main.container > div.navigation '.
+                '> div > ul.pagination > li:first-child')
+                ->attr('class')
+        );
+        
+        $link = $crawler->filter('a#tweets-delete')->link();
+        
+        $this->client->followRedirects(true);
+        
+        $crawler = $this->client->click($link);
+        
+        # Count deleted tweets
+        $this->assertEquals(
+            1,
+            $crawler->filter(
+                'div.alert.alert-success'.
+                    ':contains("14 tweets deleted.")')
+                ->count()
+        );
+        
+        # Test that there is no previous page
+        # The flashbag add an element before "main.container > div.navigation"
+        $this->assertEquals(
+            'disabled',
+            $crawler->filter('main.container > div.navigation '.
+                '> div > ul.pagination > li:first-child')
+                ->attr('class')
+        );
+        
+        # Deleting tweets should not remove Media associated to several
+        #  Tweet
+        # Check that there is a Media on Next page
+        $link = $crawler
+            ->filter('ul.pagination > li > a:contains("Next")')
+            ->eq(0)
+            ->link()
+        ;
+        
+        $crawler = $this->client->click($link);
+        
+        # Image
+        $this->assertEquals(1,
+            $crawler->filter('main.container > div.tweets blockquote.media-body > '.
+                'p > a > img')->count());
+        
+        # Delete the second Tweet in order to remove all the Media
+        
+        # Go to Next page
+        $link = $crawler
+            ->filter('ul.pagination > li > a:contains("Next")')
+            ->eq(0)
+            ->link()
+        ;
+        
+        $crawler = $this->client->click($link);
+        
+        $link = $crawler->filter('a#tweets-delete')->link();
+        
+        $crawler = $this->client->click($link);
+        
+        # Count deleted tweets
+        $this->assertEquals(
+            1,
+            $crawler->filter(
+                'div.alert.alert-success'.
+                    ':contains("20 tweets deleted.")')
+                ->count()
+        );
     }
 }

@@ -15,7 +15,7 @@ class LoadTweetPagesData extends AbstractFixture implements OrderedFixtureInterf
      */
     public function load(ObjectManager $manager)
     {
-        foreach (range(1, 30) as $tweetId)
+        foreach (range(1, 40) as $tweetId)
         {
             $tweet = new Tweet($tweetId);
             $tweet
@@ -28,6 +28,22 @@ class LoadTweetPagesData extends AbstractFixture implements OrderedFixtureInterf
             
             $manager->persist($tweet);
         }
+        
+        $manager->flush();
+        
+        # Attach the same Media to 2 Tweet
+        $tweet = $manager
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->find(5);
+        $tweet->addMedia($this->getReference('media'));
+        $manager->persist($tweet);
+        
+        $tweet = $manager
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->find(25);
+        $tweet->addMedia($this->getReference('media'));
+        
+        $manager->persist($tweet);
         
         $manager->flush();
     }

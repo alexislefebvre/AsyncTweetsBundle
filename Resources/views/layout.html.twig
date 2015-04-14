@@ -74,13 +74,6 @@
                     </div>
                 {% endfor %}
                 
-                {% for flashMessage in app.session.flashbag.get('error') %}
-                    <div class="alert alert-danger">
-                        {{ flashMessage|raw }}
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    </div>
-                {% endfor %}
-                
                 {% block content %}Empty block.{% endblock %}
             </main>
             
@@ -189,6 +182,14 @@
                         event.preventDefault();
                         
                         return false;
+                    }
+                );
+                
+                $('main.container').on(
+                    'click',
+                    '#tweets-delete',
+                    function() {
+                        return window.confirm('Delete old tweets?');
                     }
                 );
             });

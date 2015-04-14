@@ -9,6 +9,10 @@ asynctweets_tweets_sinceTweetId:
     requirements:
         firstTweetId: \d+
 
-asynctweets_tweets_reset_cookie:
+asynctweets_reset_cookie:
     pattern:  /resetCookie
     defaults: { _controller: AsyncTweetsBundle:Default:resetCookie }
+
+asynctweets_tweets_delete:
+    pattern:  /tweets/delete/
+    defaults: { _controller: AsyncTweetsBundle:Default:deleteLessThan }

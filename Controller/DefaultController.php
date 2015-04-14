@@ -131,5 +131,26 @@ class DefaultController extends Controller
         
         return $response;
     }
+    
+    /**
+     * @return RedirectResponse $response
+     */
+    public function deleteLessThanAction(Request $request)
+    {
+        $lastTweetId = $this->getLastTweetIdFromCookie($request);
+        
+        if ($lastTweetId)
+        {
+            $count = $this->getDoctrine()
+                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->deleteTweetsLessThanId($lastTweetId);
+            
+            $this->get('session')->getFlashBag()->add('message',
+                sprintf('%s tweets deleted.', $count)
+            );
+        }
+        
+        return $this->redirect($this->generateUrl('asynctweets_homepage'));
+    }
 }
 

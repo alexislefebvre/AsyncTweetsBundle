@@ -113,4 +113,51 @@ class TweetRepository extends EntityRepository
         
         return $qb->getQuery()->getOneOrNullResult();
     }
+    
+    private function getTweetsLessThanId($tweetId)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t, m')
+            ->leftJoin('t.medias', 'm')
+            ->where('t.id < :tweetId')
+            ->setParameter(':tweetId', $tweetId)
+            
+            ->orderBy('t.id', 'DESC')
+        ;
+        
+        return($qb->getQuery()->getResult());
+    }
+    
+    /**
+     * Remove Media not associated to any Tweet
+     */
+    private function removeOrphanMedias(Media $media, Tweet $tweet)
+    {
+        if (count($media->getTweets()) == 0)
+        {
+            $this->_em->remove($media);
+        }
+    }
+    
+    public function deleteTweetsLessThanId($tweetId)
+    {
+        $count = 0;
+        
+        foreach ($this->getTweetsLessThanId($tweetId) as $tweet)
+        {
+            foreach ($tweet->getMedias() as $media)
+            {
+                $tweet->removeMedia($media);
+                $this->removeOrphanMedias($media, $tweet);
+            }
+            
+            $this->_em->remove($tweet);
+            
+            $count++;
+        }
+        
+        $this->_em->flush();
+        
+        return($count);
+    }
 }

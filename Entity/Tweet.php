@@ -224,6 +224,19 @@ class Tweet
     }
     
     /**
+     * Remove a media
+     *
+     * @return Tweet
+     */
+    public function removeMedia(Media $media)
+    {
+        $this->medias->removeElement($media);
+        $media->removeTweet($this);
+        
+        return $this;
+    }
+    
+    /**
      * Call setter functions
      * 
      * @param \stdClass $tweetTmp

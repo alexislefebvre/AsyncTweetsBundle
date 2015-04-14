@@ -10,29 +10,25 @@ endif%}{% endblock %}
         {% set pagination %}
         <div class="col-sm-5 col-xs-12">
             <ul class="pagination">
-                {% if (previousTweetId is not null) %}
-                    <li>
+                <li class="{{ ((previousTweetId is null) ? 'disabled') }}">
+                    {% if (previousTweetId is not null) %}
                         <a href="{{ path('asynctweets_tweets_sinceTweetId', {
                             'firstTweetId': previousTweetId
                         }) }}">«&nbsp;Previous</a>
-                    </li>
-                {% else %}
-                    <li class="disabled">
+                    {% else %}
                         <span>«&nbsp;Previous</span>
-                    </li>
-                {% endif %}
+                    {% endif %}
+                </li>
                 
-                {% if (nextTweetId is not null) %}
-                    <li>
+                <li class="{{ ((nextTweetId is null) ? 'disabled') }}">
+                    {% if (nextTweetId is not null) %}
                         <a href="{{ path('asynctweets_tweets_sinceTweetId', {
                             'firstTweetId': nextTweetId
                         }) }}">Next&nbsp;»</a>
-                    </li>
-                {% else %}
-                    <li class="disabled">
+                    {% else %}
                         <span>Next&nbsp;»</span>
-                    </li>
-                {% endif %}
+                    {% endif %}
+                </li>
             </ul>
         </div>
         {% endset %}
@@ -46,10 +42,15 @@ endif%}{% endblock %}
                     <a href="{{ path('asynctweets_tweets_sinceTweetId', {
                             'firstTweetId': cookieTweetId
                         }) }}">{{ cookieTweetId }}</a>
-                    <a href="{{ path('asynctweets_tweets_reset_cookie') }}"
+                    <a href="{{ path('asynctweets_reset_cookie') }}"
                         class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                        Reset
+                        Reset cookie
+                    </a>
+                    <a href="{{ path('asynctweets_tweets_delete') }}"
+                        class="btn btn-default btn-xs" id="tweets-delete">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        Delete old tweets
                     </a>
                 </p>
             {% endif %}

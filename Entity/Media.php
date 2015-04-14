@@ -174,6 +174,18 @@ class Media
     }
     
     /**
+     * Remove a tweet
+     *
+     * @return Media
+     */
+    public function removeTweet(Tweet $tweet)
+    {
+        $this->tweets->removeElement($tweet);
+        
+        return $this;
+    }
+    
+    /**
      * Get tweets
      *
      * @return ArrayCollection
