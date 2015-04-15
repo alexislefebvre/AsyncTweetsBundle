@@ -2,7 +2,7 @@
 
 A Symfony2 bundle providing a Twitter reader for asynchronous reading
 
-[![Build status][Travis Master image]][Travis Master] [![Scrutinizer Code Quality][Scrutinizer image]][Scrutinizer] [![Scrutinizer Coverage][Scrutinizer Coverage Image]][Scrutinizer Coverage] [![Dependency Status][Dependency Status Image]][Dependency Status] [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
+[![Build status][Travis Master image]][Travis Master] [![Scrutinizer Code Quality][Scrutinizer image] ![Scrutinizer][Scrutinizer Coverage Image]][Scrutinizer] [![Dependency Status][Dependency Status Image]][Dependency Status] [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
 
 [Packagist][Packagist]
 
@@ -103,7 +103,6 @@ Or by installing `phpunit` with Composer:
 [Scrutinizer image]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/badges/quality-score.png?b=master
 [Scrutinizer]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/?branch=master
 [Scrutinizer Coverage image]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/badges/coverage.png?b=master
-[Scrutinizer Coverage]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/?branch=master
 [Dependency Status Image]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd/badge.svg?style=flat
 [Dependency Status]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd
 [SensioLabsInsight Image]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d/mini.png
