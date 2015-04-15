@@ -46,7 +46,9 @@ class Tweet
     
     public function __construct($id = null)
     {
-        $this->setId($id);
+        if (! is_null($id)) {
+            $this->setId($id);
+        }
         
         $this->medias = new ArrayCollection();
     }
