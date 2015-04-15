@@ -54,6 +54,10 @@ class TweetRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+    /**
+     * @param string $condition
+     * @param string $order
+     */
     private function getTweetId($condition, $order, $tweetId)
     {
         $qb = $this->createQueryBuilder('t')
@@ -131,7 +135,7 @@ class TweetRepository extends EntityRepository
     /**
      * Remove Media not associated to any Tweet
      */
-    private function removeOrphanMedias(Media $media, Tweet $tweet)
+    private function removeOrphanMedias(Media $media)
     {
         if (count($media->getTweets()) == 0)
         {
@@ -148,7 +152,7 @@ class TweetRepository extends EntityRepository
             foreach ($tweet->getMedias() as $media)
             {
                 $tweet->removeMedia($media);
-                $this->removeOrphanMedias($media, $tweet);
+                $this->removeOrphanMedias($media);
             }
             
             $this->_em->remove($tweet);

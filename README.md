@@ -40,8 +40,7 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
  2. Add the bundle in <kbd>app/AppKernel.php</kbd>:
 
         <?php
-        // app/AppKernel.php
-
+        
         public function registerBundles()
         {
             $bundles = array(
