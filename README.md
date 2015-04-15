@@ -30,32 +30,46 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
  - [Twitter keys][Twitter keys]
  - PHP >= 5.4 (required by abraham/twitteroauth 0.5.3)
  - a database (must be supported by Doctrine2)
+ - [Symfony 2][Symfony2 GitHub] (2.3 or higher) with [Composer][Composer]. If you want to install it:
+
+        php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.6.*" -vvv
 
 ### Steps:
  
- 1. Install [Symfony 2][Symfony2 GitHub] (2.3 or higher) with [Composer][Composer]: `php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.6.*" -vvv`
- 2. Install this bundle with Composer: `cd YOUR_DIRECTORY ; php composer.phar require alexislefebvre/async-tweets-bundle dev-master --prefer-dist -vvv`
- 3. Add the bundle in <kbd>app/AppKernel.php</kbd>:
- 
-        new AlexisLefebvre\Bundle\AsyncTweetsBundle\AsyncTweetsBundle(),
+ 1. Install this bundle with Composer: `cd YOUR_DIRECTORY ; php composer.phar require alexislefebvre/async-tweets-bundle dev-master --prefer-dist -vvv`
+ 2. Add the bundle in <kbd>app/AppKernel.php</kbd>:
 
- 4. Enter your Twitter keys at the end of the <kbd>app/config/parameters.yml</kbd> file:
+        <?php
+        // app/AppKernel.php
+
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new AlexisLefebvre\Bundle\AsyncTweetsBundle\AsyncTweetsBundle(),
+            );
+        }
+
+ 3. Enter your Twitter keys at the end of the <kbd>app/config/parameters.yml</kbd> file:
 
         twitter_consumer_key: null
         twitter_consumer_secret: null
         twitter_token: null
         twitter_token_secret: null
    
- 5. Create the database and create the tables: `php app/console doctrine:schema:update --force --env=prod`
- 6. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table --env=prod`, with the ` --table` option the imported tweets will be shown
- 7. Import the routes in your <kbd>app/config/routing.yml</kbd>:
+ 4. Create the database and create the tables: `php app/console doctrine:schema:update --force --env=prod`
+
+### Usage:
+
+ 1. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table --env=prod`, with the ` --table` option the imported tweets will be shown
+ 2. Import the routes in your <kbd>app/config/routing.yml</kbd>:
  
         asynctweets_website:
             resource: "@AsyncTweetsBundle/Resources/config/routing.yml"
             prefix:   /asynctweets # Use only "/" if you want AsyncTweets at the root of the website
 
- 8. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
- 9. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
+ 3. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
+ 4. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ## Dependencies
  - [symfony/symfony][Symfony2 GitHub] (2.3+)
