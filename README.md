@@ -2,9 +2,9 @@
 
 A Symfony2 bundle providing a Twitter reader for asynchronous reading
 
-[![Build status][Travis Master image]][Travis Master] [![Scrutinizer Code Quality][Scrutinizer image] ![Scrutinizer][Scrutinizer Coverage Image]][Scrutinizer] [![Dependency Status][Dependency Status Image]][Dependency Status] [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
+[Packagist ![Latest Stable Version][Packagist Stable Image] ![Latest Unstable Version][Packagist Unstable Image]][Packagist]
 
-[Packagist][Packagist]
+[![Build status][Travis Master image]][Travis Master] [![Scrutinizer Code Quality][Scrutinizer image] ![Scrutinizer][Scrutinizer Coverage Image]][Scrutinizer] [![Dependency Status][Dependency Status Image]][Dependency Status] [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
 
 ## Links
 
@@ -92,6 +92,8 @@ Or by installing `phpunit` with Composer:
  - [liip/functional-test-bundle][functional-test-bundle] (~1.0)
 
 [Packagist]: https://packagist.org/packages/alexislefebvre/async-tweets-bundle
+[Packagist Stable Image]: https://poser.pugx.org/alexislefebvre/async-tweets-bundle/v/stable.svg
+[Packagist Unstable Image]: https://poser.pugx.org/alexislefebvre/async-tweets-bundle/v/unstable.svg
 
 [Symfony2]: http://symfony.com/
 [Twitter keys]: https://apps.twitter.com/
@@ -107,6 +109,7 @@ Or by installing `phpunit` with Composer:
 [Dependency Status]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd
 [SensioLabsInsight Image]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d/mini.png
 [SensioLabsInsight]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d
+
 [twitteroauth]: https://github.com/abraham/twitteroauth
 [Twitter Bootstrap]: https://github.com/twbs/bootstrap
 [Bootstrap CDN]: http://www.bootstrapcdn.com/#bootswatch_tab
