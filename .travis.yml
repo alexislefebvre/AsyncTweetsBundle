@@ -7,13 +7,18 @@ php:
   - 7.0
   - hhvm
 
+env:
+  - SYMFONY_VERSION="2.3.*"
+  - SYMFONY_VERSION="dev-master"
+
 # https://github.com/travis-ci/travis-ci/issues/1075#issuecomment-17136080
 before_install:
   - sudo apt-get update
   - sudo apt-get install php5-sqlite
 
-before_script:
+install:
   - composer self-update
+  - composer require symfony/symfony:${SYMFONY_VERSION}
   - composer install --prefer-dist
 
 script: phpunit
