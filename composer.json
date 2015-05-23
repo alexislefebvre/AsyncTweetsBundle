@@ -13,7 +13,7 @@
     }],
     "require" : {
         "php": ">=5.4",
-        "symfony/symfony": "~2.3",
+        "symfony/symfony": "~2.5",
         "abraham/twitteroauth": "0.5.3"
     },
     "require-dev": {
@@ -29,4 +29,3 @@
         }
     }
 }
-
