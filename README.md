@@ -30,7 +30,7 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
  - [Twitter keys][Twitter keys]
  - PHP >= 5.4 (required by abraham/twitteroauth 0.5.3)
  - a database (must be supported by Doctrine2)
- - [Symfony 2][Symfony2 GitHub] (2.3 or higher) with [Composer][Composer]. If you want to install it:
+ - [Symfony 2][Symfony2 GitHub] (2.5 or higher) with [Composer][Composer]. If you want to install it:
 
         php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.6.*" -vvv
 
@@ -71,7 +71,7 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
  4. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ## Dependencies
- - [symfony/symfony][Symfony2 GitHub] (2.3+)
+ - [symfony/symfony][Symfony2 GitHub] (2.5+)
  - [abraham/twitteroauth][twitteroauth] (0.5.3)
  - [twitter/bootstrap][Twitter Bootstrap] (use [Bootswatch 3.3.2][Bootstrap CDN])
 
