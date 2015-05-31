@@ -3,7 +3,6 @@
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Command;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Tester\CommandTester;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 /**
