@@ -10,6 +10,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
+use Symfony\Component\Console\Helper\Table;
 
 class StatusesHomeTimelineCommand extends BaseCommand
 {
@@ -163,10 +164,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
         $tweets = array_reverse($content);
         
         $this->setProgressBar($output, $numberOfTweets);
-        $this->setTable($input);
+        $this->setTable($input, $output);
         $this->iterateTweets($tweets);
         $this->endProgressBar($output);
-        $this->displayTable($output);
+        $this->displayTable();
     }
     
     /**
@@ -184,14 +185,15 @@ class StatusesHomeTimelineCommand extends BaseCommand
     /**
      * @param InputInterface $input
      */
-    protected function setTable(InputInterface $input)
+    protected function setTable(InputInterface $input,
+        OutputInterface $output)
     {
         $this->displayTable = $input->getOption('table');
         
         # Display
         if ($this->displayTable)
         {
-            $this->table = $this->getHelper('table');
+            $this->table = new Table($output);
             $this->table
                 ->setHeaders(array('Datetime', 'Text excerpt', 'Name'))
             ;
@@ -220,11 +222,11 @@ class StatusesHomeTimelineCommand extends BaseCommand
     /**
      * @param OutputInterface $output
      */
-    protected function displayTable(OutputInterface $output)
+    protected function displayTable()
     {
         if ($this->displayTable)
         {
-            $this->table->render($output);
+            $this->table->render();
         }
     }
     

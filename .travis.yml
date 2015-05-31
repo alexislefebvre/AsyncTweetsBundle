@@ -10,6 +10,7 @@ php:
 env:
   - SYMFONY_VERSION="2.5.*"
   - SYMFONY_VERSION="2.6.*"
+  - SYMFONY_VERSION="2.7.*"
 
 # https://github.com/travis-ci/travis-ci/issues/1075#issuecomment-17136080
 before_install:

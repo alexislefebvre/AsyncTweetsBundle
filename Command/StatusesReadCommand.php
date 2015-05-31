@@ -5,6 +5,7 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Helper\Table;
 
 class StatusesReadCommand extends BaseCommand
 {
@@ -55,7 +56,7 @@ class StatusesReadCommand extends BaseCommand
     protected function displayTweets(OutputInterface $output,
         $tweets)
     {
-        $this->setTable();
+        $this->setTable($output);
         
         foreach ($tweets as $tweet)
         {
@@ -72,12 +73,12 @@ class StatusesReadCommand extends BaseCommand
             );
         }
         
-        $this->displayTable($output);
+        $this->table->render();
     }
     
-    protected function setTable()
+    protected function setTable(OutputInterface $output)
     {
-        $this->table = $this->getHelper('table');
+        $this->table = new Table($output);
         $this->table
             ->setHeaders(array(
                 # Add spaces to use all the 80 columns,
@@ -104,13 +105,5 @@ class StatusesReadCommand extends BaseCommand
                 wordwrap($content, $length, "\n")
             ).
             '</'.$tag.'>');
-    }
-    
-    /**
-     * @param OutputInterface $output
-     */
-    protected function displayTable(OutputInterface $output)
-    {
-        $this->table->render($output);
     }
 }

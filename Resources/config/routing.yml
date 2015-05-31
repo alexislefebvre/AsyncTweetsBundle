@@ -1,18 +1,18 @@
 # Default
 asynctweets_homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: AsyncTweetsBundle:Default:index }
 
 asynctweets_tweets_sinceTweetId:
-    pattern:  /sinceId/{firstTweetId}
+    path:  /sinceId/{firstTweetId}
     defaults: { _controller: AsyncTweetsBundle:Default:index }
     requirements:
         firstTweetId: \d+
 
 asynctweets_reset_cookie:
-    pattern:  /resetCookie
+    path:  /resetCookie
     defaults: { _controller: AsyncTweetsBundle:Default:resetCookie }
 
 asynctweets_tweets_delete:
-    pattern:  /tweets/delete/
+    path:  /tweets/delete/
     defaults: { _controller: AsyncTweetsBundle:Default:deleteLessThan }
