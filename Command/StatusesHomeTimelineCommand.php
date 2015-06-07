@@ -219,9 +219,6 @@ class StatusesHomeTimelineCommand extends BaseCommand
         $output->writeln('');
     }
     
-    /**
-     * @param OutputInterface $output
-     */
     protected function displayTable()
     {
         if ($this->displayTable)

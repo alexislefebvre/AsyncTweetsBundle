@@ -8,7 +8,6 @@ php:
   - hhvm
 
 env:
-  - SYMFONY_VERSION="2.5.*"
   - SYMFONY_VERSION="2.6.*"
   - SYMFONY_VERSION="2.7.*"
 
@@ -19,7 +18,6 @@ before_install:
 
 install:
   - composer self-update
-  - composer require symfony/symfony:${SYMFONY_VERSION}
-  - composer install --prefer-dist
+  - composer require symfony/symfony:${SYMFONY_VERSION} --prefer-dist
 
 script: phpunit
