@@ -1,3 +1,5 @@
+sudo: false
+
 language: php
 
 php:
@@ -11,10 +13,10 @@ env:
   - SYMFONY_VERSION="2.6.*"
   - SYMFONY_VERSION="2.7.*"
 
-# https://github.com/travis-ci/travis-ci/issues/1075#issuecomment-17136080
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install php5-sqlite
+addons:
+  apt:
+    packages:
+    - php5-sqlite
 
 install:
   - composer self-update
