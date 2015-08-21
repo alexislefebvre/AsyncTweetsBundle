@@ -32,7 +32,7 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
  - a database (must be supported by Doctrine2)
  - [Symfony 2][Symfony2 GitHub] (2.5 or higher) with [Composer][Composer]. If you want to install it:
 
-        php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.6.*" -vvv
+        php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.7.*" -vvv
 
 ### Steps:
  
