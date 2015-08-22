@@ -50,46 +50,62 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $path);
         
         # <body>
-        $this->assertEquals(1,
-            $crawler->filter('html > body')->count());
+        $this->assertEquals(
+            1,
+            $crawler->filter('html > body')->count()
+        );
         
         # <title>
-        $this->assertEquals(1,
-            $crawler->filter('title:contains("Home timeline - since 565258739000049664 - AsyncTweets")')->count());
+        $this->assertContains(
+            'Home timeline - since 565258739000049664 - AsyncTweets',
+            $crawler->filter('title')->text()
+        );
         
         # 2 navigation blocks
-        $this->assertEquals(2,
-            $crawler->filter('main.container > div.navigation')->count());
+        $this->assertEquals(
+            2,
+            $crawler->filter('main.container > div.navigation')->count()
+        );
         
         # Tweet
-        $this->assertEquals(2,
+        $this->assertEquals(
+            2,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
-            )->count());
+            )->count()
+        );
         
         # Link
-        $this->assertEquals(2,
+        $this->assertEquals(
+                2,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > '.
                 'p > a'
-            )->count());
+            )->count()
+        );
         
         # TODO: Hashtags
         
         # Image
-        $this->assertEquals(1,
+        $this->assertEquals(
+            1,
             $crawler->filter('main.container > div.tweets blockquote.media-body > '.
-                'p > a > img')->count());
+                'p > a > img')->count()
+        );
         
-        $this->assertEquals(3,
+        $this->assertEquals(
+            3,
             $crawler->filter(
-                'blockquote.media-body > p')->count());
+                'blockquote.media-body > p')->count()
+        );
         
         # User
-        $this->assertEquals(2,
+        $this->assertEquals(
+            2,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > small > a:contains("Asynchronous tweets")'
-            )->count());
+            )->count()
+        );
     }
     
     public function testSinceTweetId()
@@ -118,24 +134,32 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $path);
         
         # <title>
-        $this->assertEquals(1,
-            $crawler->filter('title:contains("Home timeline - since 15 - AsyncTweets")')->count());
+        $this->assertContains(
+            'Home timeline - since 15 - AsyncTweets',
+            $crawler->filter('title')->text()
+        );
         
         # Tweet
-        $this->assertEquals(10,
+        $this->assertEquals(
+            10,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
-            )->count());
+            )->count()
+        );
         
-        $this->assertEquals(10,
+        $this->assertEquals(
+            10,
             $crawler->filter(
-                'blockquote.media-body > p')->count());
+                'blockquote.media-body > p')->count()
+        );
         
         # User
-        $this->assertEquals(10,
+        $this->assertEquals(
+            10,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > small > a:contains("Asynchronous tweets")'
-            )->count());
+            )->count()
+        );
         
         # Test previous and next page
         $previousPage = $crawler->filter('main.container > div.navigation:first-child '.
@@ -168,6 +192,34 @@ class DefaultControllerTest extends WebTestCase
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
         );
+        
+        # "Mark as read" link
+        $this->assertEquals(
+            10,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > '.
+                    'blockquote.media-body > small > '.
+                    'a:contains("Mark as read")'
+            )->count()
+        );
+        
+        # Click on the link
+        $link = $crawler->filter(
+            'main.container > div.tweets > div.media > '.
+                'blockquote.media-body > small > a:last-child'
+            )
+            ->eq(9)->link();
+        
+        $crawler = $this->client->click($link);
+        
+        # Tweet
+        $this->assertEquals(
+            7,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+
     }
     
     public function testCookie()
@@ -275,12 +327,9 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->click($link);
         
         # Count deleted tweets
-        $this->assertEquals(
-            1,
-            $crawler->filter(
-                'div.alert.alert-success'.
-                    ':contains("14 tweets deleted.")')
-                ->count()
+        $this->assertContains(
+            '14 tweets deleted.',
+            $crawler->filter('div.alert.alert-success')->text()
         );
         
         # Test that there is no previous page
@@ -324,12 +373,9 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->click($link);
         
         # Count deleted tweets
-        $this->assertEquals(
-            1,
-            $crawler->filter(
-                'div.alert.alert-success'.
-                    ':contains("20 tweets deleted.")')
-                ->count()
+        $this->assertContains(
+            '20 tweets deleted.',
+            $crawler->filter('div.alert.alert-success')->text()
         );
     }
 }

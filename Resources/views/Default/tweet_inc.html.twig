@@ -38,6 +38,12 @@
                 <span class="glyphicon glyphicon-retweet"></span>
                 {{ tweet.retweetCount }}
             </span>
+            
+            <a href="{{ path('asynctweets_tweets_sinceTweetId',
+                {'firstTweetId': tweet.id}) }}" class="pull-right">
+                <span class="glyphicon glyphicon-check"></span>
+                Mark as read
+            </a>
         </small>
     </blockquote>
 </div>
