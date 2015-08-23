@@ -33,11 +33,26 @@ class Tweet
      * @var integer
      */
     private $favorite_count;
-        
+    
     /**
      * @var User
      */
     private $user;
+    
+    /**
+     * @var ArrayCollection
+     */
+    private $retweets;
+    
+    /**
+     * In timeline: false for retweeted Tweets
+     */
+    private $in_timeline = false;
+    
+    /**
+     * @var Tweet
+     */
+    private $retweeted_status = null;
     
     /**
      * @var ArrayCollection
@@ -200,6 +215,54 @@ class Tweet
     public function getUser()
     {
         return $this->user;
+    }
+    
+    /**
+     * Set in timeline
+     *
+     * @param boolean $inTimeline
+     * @return Tweet
+     */
+    public function setInTimeline($inTimeline)
+    {
+        $this->in_timeline = $inTimeline;
+        
+        return $this;
+    }
+    
+    /**
+     * Get in timeline
+     *
+     * @return boolean
+     */
+    public function getInTimeline()
+    {
+        return $this->in_timeline;
+    }
+    
+    /**
+     * Set retweeted
+     * "This attribute contains a representation of the original Tweet
+     *  that was retweeted."
+     *
+     * @param Tweet $retweetedStatus
+     * @return Tweet
+     */
+    public function setRetweetedStatus(Tweet $retweetedStatus)
+    {
+        $this->retweeted_status = $retweetedStatus;
+        
+        return $this;
+    }
+    
+    /**
+     * Get retweeted status
+     *
+     * @return Tweet
+     */
+    public function getRetweetedStatus()
+    {
+        return $this->retweeted_status;
     }
     
     /**

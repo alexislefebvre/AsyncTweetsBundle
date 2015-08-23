@@ -22,6 +22,7 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
             ->setText('Hello Twitter! #myfirstTweet')
             ->setRetweetCount(0)
             ->setFavoriteCount(0)
+            ->setInTimeline(true)
         ;
         
         $manager->persist($tweet);
@@ -35,8 +36,41 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
             ->setText('#image #test http://t.co/rX1oieH1ug')
             ->setRetweetCount(0)
             ->setFavoriteCount(0)
+            ->setInTimeline(true)
             ->addMedia($this->getReference('media'))
         ;
+        
+        $manager->persist($tweet);
+        $manager->flush();
+        
+        # Tweet with retweet
+        $tweet = new Tweet();
+        $tweet
+            ->setId(634047285240926208)
+            ->setUser($this->getReference('user-github'))
+            ->setCreatedAt(new \Datetime('2015-08-19 17:00:27'))
+            ->setText('RT @GitHubEng: Cross-platform UI in GitHub '.
+                'Desktop by @rob_rix http://t.co/j1SautZKs7')
+            ->setRetweetCount(77)
+            ->setFavoriteCount(0)
+            ->setInTimeline(true)
+        ;
+        
+        $retweet = new Tweet();
+        $retweet
+            ->setId(634046200505868289)
+            ->setUser($this->getReference('user-githubeng'))
+            ->setCreatedAt(new \Datetime('2015-08-20 01:10:01'))
+            ->setText('Cross-platform UI in GitHub Desktop by @rob_rix '.
+                'http://t.co/j1SautZKs7')
+            ->setRetweetCount(77)
+            ->setFavoriteCount(151)
+        ;
+        
+        $manager->persist($retweet);
+        $manager->flush();
+        
+        $tweet->setRetweetedStatus($retweet);
         
         $manager->persist($tweet);
         $manager->flush();

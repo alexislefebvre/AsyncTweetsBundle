@@ -4,6 +4,7 @@
 #  --fields="media_url:string(255) url:string(255) \
 #  display_url:string(255) expanded_url:string(255)" \
 #  --format=yml
+
 AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet:
     type: entity
     table: 'asynctweets_tweet'
@@ -25,10 +26,15 @@ AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet:
         favorite_count:
             type: integer
             length: null
+        in_timeline:
+            type: boolean
+            default: false
     manyToOne:
         user:
             targetEntity: User
             inversedBy: tweets
+        retweeted_status:
+            targetEntity: Tweet
     manyToMany:
         medias:
             targetEntity: Media

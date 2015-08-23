@@ -35,27 +35,27 @@ class TweetRepositoryTest extends WebTestCase
             ->getWithUsers(1)
         ;
 
-        $this->assertCount(2, $tweets);
+        $this->assertCount(3, $tweets);
         
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->getWithUsersAndMedias(null, false)
         ;
 
-        $this->assertCount(2, $tweets);
+        $this->assertCount(3, $tweets);
         
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->getWithUsersAndMedias(null, true)
         ;
 
-        $this->assertCount(2, $tweets);
+        $this->assertCount(3, $tweets);
         
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->countPendingTweets(565258739000049664)
         ;
         
-        $this->assertEquals(2, $tweets);
+        $this->assertEquals(3, $tweets);
     }
 }
