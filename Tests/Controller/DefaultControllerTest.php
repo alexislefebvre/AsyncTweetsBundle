@@ -69,7 +69,7 @@ class DefaultControllerTest extends WebTestCase
         
         # Tweet
         $this->assertEquals(
-            2,
+            3,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
@@ -77,7 +77,7 @@ class DefaultControllerTest extends WebTestCase
         
         # Link
         $this->assertEquals(
-                2,
+            2,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > '.
                 'p > a'
@@ -94,7 +94,7 @@ class DefaultControllerTest extends WebTestCase
         );
         
         $this->assertEquals(
-            3,
+            4,
             $crawler->filter(
                 'blockquote.media-body > p')->count()
         );
@@ -104,6 +104,25 @@ class DefaultControllerTest extends WebTestCase
             2,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > small > a:contains("Asynchronous tweets")'
+            )->count()
+        );
+        
+        // Retweet
+        $this->assertEquals(
+            1,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > '.
+                'blockquote.media-body > div.media > blockquote'
+            )->count()
+        );
+        
+        // Link
+        $this->assertEquals(
+            1,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body > '.
+                'div.media > blockquote.media-body > '.
+                'p > a'
             )->count()
         );
     }
@@ -242,6 +261,14 @@ class DefaultControllerTest extends WebTestCase
         # Test the cookie
         $cookieJar = $this->client->getCookieJar();
         
+        $this->assertNotNull(
+            $cookieJar
+        );
+        
+        $this->assertNotNull(
+            $cookieJar->get('lastTweetId')
+        );
+        
         $this->assertEquals(
             $tweetId,
             $cookieJar->get('lastTweetId')->getValue()
@@ -262,7 +289,7 @@ class DefaultControllerTest extends WebTestCase
         $cookieJar = $this->client->getCookieJar();
         
         $this->assertEquals(
-            $nextTweetId,
+            567836201210900500,
             $cookieJar->get('lastTweetId')->getValue()
         );
         

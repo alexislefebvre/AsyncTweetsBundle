@@ -27,6 +27,34 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
         
         $this->addReference('user', $user);
+        
+        // User who retweet
+        $user = new User();
+        $user
+            ->setId(13334762)
+            ->setName('GitHub')
+            ->setScreenName('github')
+            ->setProfileImageUrl('http://pbs.twimg.com/profile_images/616309728688238592/pBeeJQDQ_normal.png')
+        ;
+
+        $manager->persist($user);
+        $manager->flush();
+        
+        $this->addReference('user-github', $user);
+        
+        // Use whose tweet is retweeted
+        $user = new User();
+        $user
+            ->setId(3131295561)
+            ->setName('GitHub Engineering')
+            ->setScreenName('GitHubEng')
+            ->setProfileImageUrl('http://pbs.twimg.com/profile_images/593061696039706627/uzIQ4lJF_normal.png')
+        ;
+
+        $manager->persist($user);
+        $manager->flush();
+        
+        $this->addReference('user-githubeng', $user);
     }
     
     /**

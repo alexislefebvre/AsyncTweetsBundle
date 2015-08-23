@@ -125,7 +125,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $display = $this->commandTester->getDisplay();
         
         $this->assertContains(
-            'since_id parameter = 634276390079172609',
+            'since_id parameter = 634047285240926208',
             $display
         );
     }

@@ -24,6 +24,7 @@ class LoadTweetPagesData extends AbstractFixture implements OrderedFixtureInterf
                 ->setText($tweetId)
                 ->setRetweetCount($tweetId)
                 ->setFavoriteCount($tweetId)
+                ->setInTimeline(true)
             ;
             
             $manager->persist($tweet);
@@ -36,6 +37,7 @@ class LoadTweetPagesData extends AbstractFixture implements OrderedFixtureInterf
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->find(5);
         $tweet->addMedia($this->getReference('media'));
+        
         $manager->persist($tweet);
         
         $tweet = $manager
