@@ -112,11 +112,15 @@ class TweetRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('t');
         
-        $qb->add('select', $qb->expr()->count('t.id'));
+        $qb
+            ->add('select', $qb->expr()->count('t.id'))
+            // Ignore tweets that were only retweeted
+            ->where('t.in_timeline = 1')
+        ;
         
         if (! is_null($lastTweetId))
         {
-            $qb->where(
+            $qb->andWhere(
                 $qb->expr()->gte('t.id', $lastTweetId)
             );
         }
