@@ -17,8 +17,10 @@ class TweetRepository extends EntityRepository
     public function getWithUsers($page = 1)
     {
         $firstResult = (($page - 1) * $this->nbTweets);
+                
+        $qb = $this->createQueryBuilder('t');
         
-        $qb = $this->createQueryBuilder('t')
+        $query = $qb
             ->select('t, user')
             ->innerJoin('t.user', 'user')
             
@@ -29,7 +31,9 @@ class TweetRepository extends EntityRepository
             ->leftJoin('rt.user', 'rt_user')
             
             // Ignore tweets that were only retweeted
-            ->where('t.in_timeline = 1')
+            ->where(
+                $qb->expr()->eq('t.in_timeline', 'true')
+            )
             
             ->orderBy('t.id', 'DESC')
             
@@ -37,12 +41,14 @@ class TweetRepository extends EntityRepository
             ->setMaxResults($this->nbTweets)
         ;
         
-        return $qb->getQuery()->getResult();
+        return $query->getQuery()->getResult();
     }
     
     public function getWithUsersAndMedias($firstTweetId = null)
     {
-        $qb = $this->createQueryBuilder('t')
+        $qb = $this->createQueryBuilder('t');
+        
+        $query = $qb
             ->select('t, user, medias')
             ->innerJoin('t.user', 'user')
             ->leftJoin('t.medias', 'medias')
@@ -54,7 +60,9 @@ class TweetRepository extends EntityRepository
             ->leftJoin('rt.user', 'rt_user')
             
             // Ignore tweets that were only retweeted
-            ->where('t.in_timeline = 1')
+            ->where(
+                $qb->expr()->eq('t.in_timeline', 'true')
+            )
             
             ->orderBy('t.id', 'ASC')
             
@@ -64,12 +72,12 @@ class TweetRepository extends EntityRepository
         
         if (! is_null($firstTweetId))
         {
-            $qb = $qb->andWhere(
+            $query = $query->andWhere(
                 $qb->expr()->gte('t.id', $firstTweetId)
             );
         }
         
-        return $qb->getQuery()->getResult();
+        return $query->getQuery()->getResult();
     }
     
     /**
@@ -112,21 +120,23 @@ class TweetRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('t');
         
-        $qb
+        $query = $qb
             ->add('select', $qb->expr()->count('t.id'))
             // Ignore tweets that were only retweeted
-            ->where('t.in_timeline = 1')
+            ->where(
+                $qb->expr()->eq('t.in_timeline', 'true')
+            )
         ;
         
         if (! is_null($lastTweetId))
         {
-            $qb->andWhere(
+            $query = $query->andWhere(
                 $qb->expr()->gte('t.id', $lastTweetId)
             );
         }
         
         # return result of "COUNT()" query
-        return $qb->getQuery()->getSingleScalarResult();
+        return $query->getQuery()->getSingleScalarResult();
     }
     
     public function getLastTweet()

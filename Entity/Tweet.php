@@ -40,11 +40,6 @@ class Tweet
     private $user;
     
     /**
-     * @var ArrayCollection
-     */
-    private $retweets;
-    
-    /**
      * In timeline: false for retweeted Tweets
      */
     private $in_timeline = false;
