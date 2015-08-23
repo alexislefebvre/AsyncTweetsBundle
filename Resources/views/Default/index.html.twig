@@ -61,7 +61,11 @@ endif%}{% endblock %}
     
     <div class="tweets">
         {% for tweet in tweets %}
-            {% include 'AsyncTweetsBundle:Default:tweet_inc.html.twig' %}
+            {% if (tweet.retweetedStatus) %}
+                {% include 'AsyncTweetsBundle:Default:retweet_inc.html.twig' %}
+            {% else %}
+                {% include 'AsyncTweetsBundle:Default:tweet_inc.html.twig' %}
+            {% endif %}
         {% else %}
             <p>No tweet to display.</p>
         {% endfor %}

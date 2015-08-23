@@ -22,6 +22,15 @@ class TweetRepository extends EntityRepository
             ->select('t, user')
             ->innerJoin('t.user', 'user')
             
+            ->addSelect('rt')
+            ->leftJoin('t.retweeted_status', 'rt')
+            
+            ->addSelect('rt_user')
+            ->leftJoin('rt.user', 'rt_user')
+            
+            // Ignore tweets that were only retweeted
+            ->where('t.in_timeline = 1')
+            
             ->orderBy('t.id', 'DESC')
             
             ->setFirstResult($firstResult)
@@ -38,6 +47,15 @@ class TweetRepository extends EntityRepository
             ->innerJoin('t.user', 'user')
             ->leftJoin('t.medias', 'medias')
             
+            ->addSelect('rt')
+            ->leftJoin('t.retweeted_status', 'rt')
+            
+            ->addSelect('rt_user')
+            ->leftJoin('rt.user', 'rt_user')
+            
+            // Ignore tweets that were only retweeted
+            ->where('t.in_timeline = 1')
+            
             ->orderBy('t.id', 'ASC')
             
             ->setFirstResult(0)
@@ -46,7 +64,7 @@ class TweetRepository extends EntityRepository
         
         if (! is_null($firstTweetId))
         {
-            $qb = $qb->where(
+            $qb = $qb->andWhere(
                 $qb->expr()->gte('t.id', $firstTweetId)
             );
         }

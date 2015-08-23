@@ -207,7 +207,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
     {
         foreach ($tweets as $tweetTmp)
         {
-            $this->addTweet($tweetTmp);
+            $this->addTweet($tweetTmp, true);
             
             $this->progress->advance();
         }
@@ -282,13 +282,41 @@ class StatusesHomeTimelineCommand extends BaseCommand
     /**
      * @param \stdClass $tweetTmp
      * @param User $user
+     * @param boolean $inTimeline
      */
-    protected function persistTweet(\stdClass $tweetTmp, User $user)
+    protected function persistTweet(\stdClass $tweetTmp, User $user,
+        $inTimeline)
     {
-        $tweet = new Tweet($tweetTmp->id);
-        $tweet->setValues($tweetTmp);
-        $tweet->setUser($user);
-        $this->addMedias($tweetTmp, $tweet);
+        $tweet = $this->em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findOneById($tweetTmp->id)
+        ;
+        
+        if (! $tweet)
+        {
+            $tweet = new Tweet($tweetTmp->id);
+            $tweet->setValues($tweetTmp);
+            $tweet->setUser($user);
+            $tweet->setInTimeline($inTimeline);
+            $this->addMedias($tweetTmp, $tweet);
+        }
+        
+        if (isset($tweetTmp->retweeted_status))
+        {
+            $retweet = $this->em
+                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->findOneById($tweetTmp->retweeted_status->id)
+            ;
+            
+            if (! $retweet)
+            {
+                $retweet = $this->addTweet(
+                    $tweetTmp->retweeted_status
+                );
+            }
+            
+            $tweet->setRetweetedStatus($retweet);
+        }
         
         $this->em->persist($tweet);
         $this->em->flush();
@@ -313,6 +341,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
             $media = new Media($mediaTmp->id);
             $media->setValues($mediaTmp);
             $this->em->persist($media);
+            $this->em->flush();
         }
         
         $tweet->addMedia($media);
@@ -320,12 +349,13 @@ class StatusesHomeTimelineCommand extends BaseCommand
     
     /**
      * @param \stdClass $tweetTmp
+     * @param boolean $inTimeline
      */
-    protected function addTweet(\stdClass $tweetTmp)
+    protected function addTweet(\stdClass $tweetTmp, $inTimeline = false)
     {
         $user = $this->persistUser($tweetTmp->user);
         
-        $tweet = $this->persistTweet($tweetTmp, $user);
+        $tweet = $this->persistTweet($tweetTmp, $user, $inTimeline);
         
         if ($this->displayTable)
         {
@@ -335,5 +365,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
                 $user->getName()
             ));
         }
+        
+        return $tweet;
     }
 }

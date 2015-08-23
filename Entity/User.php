@@ -47,7 +47,7 @@ class User
      * Set id
      *
      * @param bigint $id
-     * @return User 
+     * @return User
      */
     public function setId($id)
     {
@@ -59,7 +59,7 @@ class User
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -105,7 +105,7 @@ class User
     /**
      * Get screen_name
      *
-     * @return string 
+     * @return string
      */
     public function getScreenName()
     {
@@ -128,7 +128,7 @@ class User
     /**
      * Get profile_image_url
      *
-     * @return string 
+     * @return string
      */
     public function getProfileImageUrl()
     {
@@ -138,7 +138,7 @@ class User
     /**
      * Get tweets
      *
-     * @return ArrayCollection 
+     * @return ArrayCollection
      */
     public function getTweets()
     {
