@@ -92,6 +92,8 @@ class TweetRepository extends EntityRepository
             ->where('t.id '.$condition.' :tweetId')
             ->setParameter(':tweetId', $tweetId)
             
+            ->andWhere('t.in_timeline = true')
+            
             ->orderBy('t.id', $order)
             
             ->setFirstResult($this->nbTweets - 1)
@@ -155,8 +157,19 @@ class TweetRepository extends EntityRepository
         $qb = $this->createQueryBuilder('t')
             ->select('t, m')
             ->leftJoin('t.medias', 'm')
+            
             ->where('t.id < :tweetId')
             ->setParameter(':tweetId', $tweetId)
+            
+            // Ignore retweeted tweets (it would break foreign keys)
+            //  http://stackoverflow.com/questions/15087933/how-to-do-left-join-in-doctrine/15088250#15088250
+            ->leftJoin(
+                'AsyncTweetsBundle:Tweet',
+                't2',
+                'WITH',
+                't.id = t2.retweeted_status'
+            )
+            ->andWhere('(t2.retweeted_status IS NULL)')
             
             ->orderBy('t.id', 'DESC')
         ;
@@ -187,9 +200,13 @@ class TweetRepository extends EntityRepository
                 $this->removeOrphanMedias($media);
             }
             
-            $this->_em->remove($tweet);
+            // Ignore tweets that were only retweeted
+            if ($tweet->getInTimeline())
+            {
+                $count++;
+            }
             
-            $count++;
+            $this->_em->remove($tweet);
         }
         
         $this->_em->flush();
