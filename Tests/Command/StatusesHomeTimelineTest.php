@@ -41,7 +41,7 @@ class StatusesHomeTimelineTest extends StatusesBase
             '--test' => true
         ));
         
-        $this->assertContains('Number of tweets: 3', $this->commandTester->getDisplay());
+        $this->assertContains('Number of tweets: 4', $this->commandTester->getDisplay());
     }
     
     public function testStatusesHomeTimelineNotArray()
@@ -79,7 +79,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $display = $this->commandTester->getDisplay();
         
-        $this->assertContains('Number of tweets: 3', $display);
+        $this->assertContains('Number of tweets: 4', $display);
         
         # Test the headers of the table
         $this->assertContains(
@@ -105,6 +105,14 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->assertContains(
             '| 2015-02-18 00:01:14 | '.
                 '#image #test http://t.co/rX1oieH1ug | '.
+                'Asynchronous tweets |',
+            $display
+        );
+        
+        // Test the retweet
+        $this->assertContains(
+            '| 2015-03-03 21:18:00 | '.
+                'RT This is a retweet.               | '.
                 'Asynchronous tweets |',
             $display
         );

@@ -357,7 +357,8 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         $tweet = $this->persistTweet($tweetTmp, $user, $inTimeline);
         
-        if ($this->displayTable)
+        // Ignore retweeted tweets
+        if ($this->displayTable && $inTimeline)
         {
             $this->table->addRow(array(
                 $tweet->getCreatedAt()->format('Y-m-d H:i:s'),

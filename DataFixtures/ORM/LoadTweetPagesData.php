@@ -15,12 +15,29 @@ class LoadTweetPagesData extends AbstractFixture implements OrderedFixtureInterf
      */
     public function load(ObjectManager $manager)
     {
-        foreach (range(1, 40) as $tweetId)
+        $tweetId = 1;
+        
+        // Add retweeted Tweet
+        $retweeted = new Tweet($tweetId);
+        $retweeted
+            ->setUser($this->getReference('user-githubeng'))
+            ->setCreatedAt(new \Datetime(
+                '2015-02-10 21:18:'.sprintf('%02d', $tweetId)))
+            ->setText($tweetId)
+            ->setRetweetCount($tweetId)
+            ->setFavoriteCount($tweetId)
+        ;
+        
+        $manager->persist($retweeted);
+        
+        // not retweet tweets
+        foreach (range(2, 40) as $tweetId)
         {
             $tweet = new Tweet($tweetId);
             $tweet
                 ->setUser($this->getReference('user'))
-                ->setCreatedAt(new \Datetime('2015-02-10 21:19:'.$tweetId))
+                ->setCreatedAt(
+                    new \Datetime('2015-02-10 21:19:'.sprintf('%02d', $tweetId)))
                 ->setText($tweetId)
                 ->setRetweetCount($tweetId)
                 ->setFavoriteCount($tweetId)
@@ -48,6 +65,16 @@ class LoadTweetPagesData extends AbstractFixture implements OrderedFixtureInterf
         $manager->persist($tweet);
         
         $manager->flush();
+        
+        
+        // Set tweet as retweet
+        $retweet = $manager
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->find(5);
+        
+        $retweet->setRetweetedStatus($retweeted);
+        
+        $manager->persist($tweet);
     }
     
     /**

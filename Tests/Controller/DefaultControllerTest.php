@@ -355,7 +355,7 @@ class DefaultControllerTest extends WebTestCase
         
         # Count deleted tweets
         $this->assertContains(
-            '14 tweets deleted.',
+            '13 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
         );
         

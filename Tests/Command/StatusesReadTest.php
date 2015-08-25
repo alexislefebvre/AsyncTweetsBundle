@@ -51,5 +51,13 @@ class StatusesReadTest extends StatusesBase
                 '2015-02-10 21:19 |',
             $display
         );
+        
+        // Test the retweet
+        $this->assertContains(
+            '| GitHub        | '.
+                'RT @GitHubEng: Cross-platform UI in      | '.
+                '2015-08-19 17:00 |',
+            $display
+        );
     }
 }
