@@ -21,19 +21,13 @@ class TweetRepository extends EntityRepository
         $qb = $this->createQueryBuilder('t');
         
         $query = $qb
-            ->select('t, user')
+            ->select('t, user, rt, rt_user')
             ->innerJoin('t.user', 'user')
-            
-            ->addSelect('rt')
             ->leftJoin('t.retweeted_status', 'rt')
-            
-            ->addSelect('rt_user')
             ->leftJoin('rt.user', 'rt_user')
             
             // Ignore tweets that were only retweeted
-            ->where(
-                $qb->expr()->eq('t.in_timeline', 'true')
-            )
+            ->where($qb->expr()->eq('t.in_timeline', 'true'))
             
             ->orderBy('t.id', 'DESC')
             
@@ -49,20 +43,14 @@ class TweetRepository extends EntityRepository
         $qb = $this->createQueryBuilder('t');
         
         $query = $qb
-            ->select('t, user, medias')
+            ->select('t, user, medias, rt, rt_user')
             ->innerJoin('t.user', 'user')
             ->leftJoin('t.medias', 'medias')
-            
-            ->addSelect('rt')
             ->leftJoin('t.retweeted_status', 'rt')
-            
-            ->addSelect('rt_user')
             ->leftJoin('rt.user', 'rt_user')
             
             // Ignore tweets that were only retweeted
-            ->where(
-                $qb->expr()->eq('t.in_timeline', 'true')
-            )
+            ->where($qb->expr()->eq('t.in_timeline', 'true'))
             
             ->orderBy('t.id', 'ASC')
             
@@ -157,7 +145,6 @@ class TweetRepository extends EntityRepository
         $qb = $this->createQueryBuilder('t')
             ->select('t, m')
             ->leftJoin('t.medias', 'm')
-            
             ->where('t.id < :tweetId')
             ->setParameter(':tweetId', $tweetId)
             
@@ -192,17 +179,14 @@ class TweetRepository extends EntityRepository
     {
         $count = 0;
         
-        foreach ($this->getTweetsLessThanId($tweetId) as $tweet)
-        {
-            foreach ($tweet->getMedias() as $media)
-            {
+        foreach ($this->getTweetsLessThanId($tweetId) as $tweet) {
+            foreach ($tweet->getMedias() as $media) {
                 $tweet->removeMedia($media);
                 $this->removeOrphanMedias($media);
             }
             
             // Ignore tweets that were only retweeted
-            if ($tweet->getInTimeline())
-            {
+            if ($tweet->getInTimeline()) {
                 $count++;
             }
             

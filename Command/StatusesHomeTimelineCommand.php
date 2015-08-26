@@ -229,6 +229,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
     
     /**
      * @param \stdClass $userTmp
+     * @return User
      */
     protected function persistUser(\stdClass $userTmp)
     {
@@ -283,6 +284,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
      * @param \stdClass $tweetTmp
      * @param User $user
      * @param boolean $inTimeline
+     * @return Tweet
      */
     protected function persistTweet(\stdClass $tweetTmp, User $user,
         $inTimeline)
@@ -292,29 +294,18 @@ class StatusesHomeTimelineCommand extends BaseCommand
             ->findOneById($tweetTmp->id)
         ;
         
-        if (! $tweet)
-        {
+        if (! $tweet) {
             $tweet = new Tweet($tweetTmp->id);
-            $tweet->setValues($tweetTmp);
-            $tweet->setUser($user);
-            $tweet->setInTimeline($inTimeline);
+            $tweet
+                ->setValues($tweetTmp)
+                ->setUser($user)
+                ->setInTimeline($inTimeline)
+            ;
             $this->addMedias($tweetTmp, $tweet);
         }
         
-        if (isset($tweetTmp->retweeted_status))
-        {
-            $retweet = $this->em
-                ->getRepository('AsyncTweetsBundle:Tweet')
-                ->findOneById($tweetTmp->retweeted_status->id)
-            ;
-            
-            if (! $retweet)
-            {
-                $retweet = $this->addTweet(
-                    $tweetTmp->retweeted_status
-                );
-            }
-            
+        if (isset($tweetTmp->retweeted_status)) {
+            $retweet = $this->persistRetweetedTweet($tweetTmp);
             $tweet->setRetweetedStatus($retweet);
         }
         
@@ -322,6 +313,27 @@ class StatusesHomeTimelineCommand extends BaseCommand
         $this->em->flush();
         
         return $tweet;
+    }
+    
+    /**
+     * @param \stdClass $tweetTmp
+     * @param boolean $inTimeline
+     * @return Tweet
+     */
+    protected function persistRetweetedTweet(\stdClass $tweetTmp)
+    {
+        $retweet = $this->em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findOneById($tweetTmp->retweeted_status->id)
+        ;
+        
+        if (! $retweet) {
+            $retweet = $this->addTweet(
+                $tweetTmp->retweeted_status
+            );
+        }
+        
+        return($retweet);
     }
     
     /**
