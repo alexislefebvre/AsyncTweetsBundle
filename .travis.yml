@@ -15,7 +15,7 @@ env:
 
 matrix:
   allow_failures:
-    - env: "2.8.*-dev"
+    - env: SYMFONY_VERSION="2.8.*-dev"
 
 addons:
   apt:
