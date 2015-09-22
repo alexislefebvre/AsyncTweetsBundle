@@ -39,6 +39,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->setAndDisplayLastTweet($output);
@@ -62,6 +66,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
         $this->addAndDisplayTweets($input, $output, $content, $numberOfTweets);
     }
     
+    /**
+     * @param OutputInterface $output
+     */
     protected function setAndDisplayLastTweet(OutputInterface $output)
     {
         # Get the last tweet
@@ -84,6 +91,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
         $output->writeln('<comment>'.$comment.'</comment>');
     }
     
+    /**
+     * @return array
+     */
     protected function getTestContent()
     {
         /** @see https://insight.sensiolabs.com/what-we-analyse/symfony.dependency_injection.use_dir_file_constant */
@@ -184,6 +194,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
     
     /**
      * @param InputInterface $input
+     * @param OutputInterface $output
      */
     protected function setTable(InputInterface $input,
         OutputInterface $output)
@@ -213,6 +224,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
         }
     }
     
+    /**
+     * @param OutputInterface $output
+     */
     protected function endProgressBar($output)
     {
         $this->progress->finish();
@@ -229,6 +243,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
     
     /**
      * @param \stdClass $userTmp
+     * 
      * @return User
      */
     protected function persistUser(\stdClass $userTmp)
@@ -284,6 +299,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
      * @param \stdClass $tweetTmp
      * @param User $user
      * @param boolean $inTimeline
+     * 
      * @return Tweet
      */
     protected function persistTweet(\stdClass $tweetTmp, User $user,
@@ -317,7 +333,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
     
     /**
      * @param \stdClass $tweetTmp
-     * @param boolean $inTimeline
+     * 
      * @return Tweet
      */
     protected function persistRetweetedTweet(\stdClass $tweetTmp)
@@ -362,6 +378,8 @@ class StatusesHomeTimelineCommand extends BaseCommand
     /**
      * @param \stdClass $tweetTmp
      * @param boolean $inTimeline
+     * 
+     * @return Tweet
      */
     protected function addTweet(\stdClass $tweetTmp, $inTimeline = false)
     {
