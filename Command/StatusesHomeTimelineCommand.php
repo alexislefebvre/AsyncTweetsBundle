@@ -144,7 +144,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
     
     /**
      * @param OutputInterface $output
-     * @param array $content
+     * @param null|object $content
      */
     protected function displayContentNotArrayError(OutputInterface $output,
         $content)
@@ -296,6 +296,30 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
     
     /**
+     * Create a Tweet object and return it
+     * 
+     * @param \stdClass $tweetTmp
+     * @param User $user
+     * @param boolean $inTimeline
+     * 
+     * @return Tweet
+     */
+    protected function createTweet($tweetTmp, $user, $inTimeline)
+    {
+        $tweet = new Tweet($tweetTmp->id);
+        
+        $tweet
+            ->setValues($tweetTmp)
+            ->setUser($user)
+            ->setInTimeline($inTimeline)
+        ;
+        
+        $this->addMedias($tweetTmp, $tweet);
+        
+        return $tweet;
+    }
+    
+    /**
      * @param \stdClass $tweetTmp
      * @param User $user
      * @param boolean $inTimeline
@@ -311,13 +335,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         ;
         
         if (! $tweet) {
-            $tweet = new Tweet($tweetTmp->id);
-            $tweet
-                ->setValues($tweetTmp)
-                ->setUser($user)
-                ->setInTimeline($inTimeline)
-            ;
-            $this->addMedias($tweetTmp, $tweet);
+            $tweet = $this->createTweet($tweetTmp, $user, $inTimeline);
         }
         
         if (isset($tweetTmp->retweeted_status)) {

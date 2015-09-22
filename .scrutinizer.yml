@@ -1,19 +1,19 @@
 checks:
-    php: true
+  php: true
 
 filter:
-    excluded_paths:
-        - Tests/*
-    paths:
-        - Command/*
-        - Controller/*
-        - Entity/*
+  excluded_paths:
+    - Tests/*
+  paths:
+    - Command/*
+    - Controller/*
+    - Entity/*
 
 build:
-    tests:
-        override:
-            -
-                command: 'phpunit --coverage-clover=coverage-clover'
-                coverage:
-                    file: 'coverage-clover'
-                    format: 'php-clover'
+  tests:
+    override:
+      -
+        command: 'phpunit --coverage-clover=coverage-clover'
+        coverage:
+          file: 'coverage-clover'
+          format: 'php-clover'

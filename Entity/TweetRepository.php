@@ -38,10 +38,8 @@ class TweetRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
     
-    public function getWithUsersAndMedias($firstTweetId = null)
+    private function getWithUsersAndMediasQuery($qb)
     {
-        $qb = $this->createQueryBuilder('t');
-        
         $query = $qb
             ->select('t, user, medias, rt, rt_user')
             ->innerJoin('t.user', 'user')
@@ -57,6 +55,15 @@ class TweetRepository extends EntityRepository
             ->setFirstResult(0)
             ->setMaxResults($this->nbTweets)
         ;
+        
+        return $query;
+    }
+    
+    public function getWithUsersAndMedias($firstTweetId = null)
+    {
+        $qb = $this->createQueryBuilder('t');
+        
+        $query = $this->getWithUsersAndMediasQuery($qb);
         
         if (! is_null($firstTweetId))
         {
@@ -175,22 +182,47 @@ class TweetRepository extends EntityRepository
         }
     }
     
+    /**
+     * Remove the tweet and return 1 is the deleted tweet is not a
+     *  retweet
+     * 
+     * @param Tweet $tweet
+     * 
+     * @return integer
+     */
+    protected function removeTweet($tweet)
+    {
+        $count = 0;
+        
+        foreach ($tweet->getMedias() as $media) {
+            $tweet->removeMedia($media);
+            $this->removeOrphanMedias($media);
+        }
+        
+        // Don't count tweets that were only retweeted
+        if ($tweet->getInTimeline()) {
+            $count = 1;
+        }
+        
+        $this->_em->remove($tweet);
+        
+        return $count;
+    }
+    
+    /**
+     * Delete tweets and return the number of deleted tweets (excluding
+     *  retweeted-only tweets)
+     * 
+     * @param integer $tweetId
+     * 
+     * @return integer
+     */
     public function deleteTweetsLessThanId($tweetId)
     {
         $count = 0;
         
         foreach ($this->getTweetsLessThanId($tweetId) as $tweet) {
-            foreach ($tweet->getMedias() as $media) {
-                $tweet->removeMedia($media);
-                $this->removeOrphanMedias($media);
-            }
-            
-            // Ignore tweets that were only retweeted
-            if ($tweet->getInTimeline()) {
-                $count++;
-            }
-            
-            $this->_em->remove($tweet);
+            $count += $this->removeTweet($tweet, $count);
         }
         
         $this->_em->flush();
