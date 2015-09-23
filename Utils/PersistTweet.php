@@ -82,7 +82,7 @@ class PersistTweet
      * 
      * @return Tweet
      */
-    protected function createTweet($tweetTmp, $user, $inTimeline)
+    protected function createTweet(\stdClass $tweetTmp, $user, $inTimeline)
     {
         $tweet = new Tweet($tweetTmp->id);
         

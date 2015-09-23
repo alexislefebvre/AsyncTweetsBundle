@@ -28,6 +28,7 @@
             <directory>Command</directory>
             <directory>Controller</directory>
             <directory>Entity</directory>
+            <directory>Utils</directory>
             <exclude>
                 <directory>Tests</directory>
                 <directory>vendor/</directory>

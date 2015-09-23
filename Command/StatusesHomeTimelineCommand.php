@@ -7,9 +7,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Abraham\TwitterOAuth\TwitterOAuth;
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 use Symfony\Component\Console\Helper\Table;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Utils\PersistTweet;
 
