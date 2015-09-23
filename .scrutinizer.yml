@@ -8,6 +8,7 @@ filter:
     - Command/*
     - Controller/*
     - Entity/*
+    - Utils/*
 
 build:
   tests:
