@@ -38,6 +38,9 @@ class TweetRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
     
+    /**
+     * @param \Doctrine\ORM\QueryBuilder $qb
+     */
     private function getWithUsersAndMediasQuery($qb)
     {
         $query = $qb
@@ -147,6 +150,9 @@ class TweetRepository extends EntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
     
+    /**
+     * @param integer $tweetId
+     */
     private function getTweetsLessThanId($tweetId)
     {
         $qb = $this->createQueryBuilder('t')
@@ -222,7 +228,7 @@ class TweetRepository extends EntityRepository
         $count = 0;
         
         foreach ($this->getTweetsLessThanId($tweetId) as $tweet) {
-            $count += $this->removeTweet($tweet, $count);
+            $count += $this->removeTweet($tweet);
         }
         
         $this->_em->flush();
