@@ -13,7 +13,7 @@
     }],
     "require" : {
         "php": ">=5.5",
-        "symfony/symfony": "~2.5",
+        "symfony/symfony": "~2.6",
         "abraham/twitteroauth": "^0.6.0"
     },
     "require-dev": {
@@ -22,8 +22,9 @@
         "symfony/monolog-bundle": "~2.4",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "liip/functional-test-bundle": "~1.0",
-        "phpunit/phpunit": "4.8.*",
-        "symfony/phpunit-bridge": "^2.7"
+        "phpunit/phpunit": "5.0.*",
+        "symfony/phpunit-bridge": "^2.7",
+        "phpmd/phpmd" : "@stable"
     },
     "autoload" : {
         "psr-4" : {
