@@ -31,34 +31,34 @@ class TweetTest extends \PHPUnit_Framework_TestCase
             ->addMedia($media)
         ;
         
-        $this->assertEquals(
+        $this->assertSame(
             565939802152120320,
             $tweet->getId()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             $now,
             $tweet->getCreatedAt()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             'Hello World!',
             $tweet->getText()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             1999,
             $tweet->getRetweetCount()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             42,
             $tweet->getFavoriteCount()
         );
         
         # Check Tweet associated to Media
         # Count Tweet associated to the User
-        $this->assertEquals(
+        $this->assertSame(
             1,
             count($media->getTweets())
         );
@@ -82,7 +82,7 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         );
         
         # Count Tweet associated to the User
-        $this->assertEquals(
+        $this->assertSame(
             1,
             count($user->getTweets())
         );

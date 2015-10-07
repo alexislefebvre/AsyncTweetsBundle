@@ -16,22 +16,22 @@ class UserTest extends \PHPUnit_Framework_TestCase
             ->setProfileImageUrl('http://abs.twimg.com/sticky/default_profile_images/default_profile_5_normal.png')
         ;
         
-        $this->assertEquals(
+        $this->assertSame(
             90556897,
             $user->getId()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             'Twitter France',
             $user->getName()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             'TwitterFrance',
             $user->getScreenName()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             'http://abs.twimg.com/sticky/default_profile_images/default_profile_5_normal.png',
             $user->getProfileImageUrl()
         );

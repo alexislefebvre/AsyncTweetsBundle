@@ -24,11 +24,11 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $path);
         
         # <body>
-        $this->assertEquals(1,
+        $this->assertSame(1,
             $crawler->filter('html > body')->count());
         
         # Tweet
-        $this->assertEquals(0,
+        $this->assertSame(0,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count());
@@ -50,7 +50,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $path);
         
         # <body>
-        $this->assertEquals(
+        $this->assertSame(
             1,
             $crawler->filter('html > body')->count()
         );
@@ -62,13 +62,13 @@ class DefaultControllerTest extends WebTestCase
         );
         
         # 2 navigation blocks
-        $this->assertEquals(
+        $this->assertSame(
             2,
             $crawler->filter('main.container > div.navigation')->count()
         );
         
         # Tweet
-        $this->assertEquals(
+        $this->assertSame(
             3,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
@@ -76,7 +76,7 @@ class DefaultControllerTest extends WebTestCase
         );
         
         # Link
-        $this->assertEquals(
+        $this->assertSame(
             2,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > '.
@@ -87,20 +87,20 @@ class DefaultControllerTest extends WebTestCase
         # TODO: Hashtags
         
         # Image
-        $this->assertEquals(
+        $this->assertSame(
             1,
             $crawler->filter('main.container > div.tweets blockquote.media-body > '.
                 'p > a > img')->count()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             4,
             $crawler->filter(
                 'blockquote.media-body > p')->count()
         );
         
         # User
-        $this->assertEquals(
+        $this->assertSame(
             2,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > small > a:contains("Asynchronous tweets")'
@@ -108,7 +108,7 @@ class DefaultControllerTest extends WebTestCase
         );
         
         // Retweet
-        $this->assertEquals(
+        $this->assertSame(
             1,
             $crawler->filter(
                 'main.container > div.tweets > div.media > '.
@@ -117,7 +117,7 @@ class DefaultControllerTest extends WebTestCase
         );
         
         // Link
-        $this->assertEquals(
+        $this->assertSame(
             1,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > '.
@@ -159,21 +159,21 @@ class DefaultControllerTest extends WebTestCase
         );
         
         # Tweet
-        $this->assertEquals(
+        $this->assertSame(
             10,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             10,
             $crawler->filter(
                 'blockquote.media-body > p')->count()
         );
         
         # User
-        $this->assertEquals(
+        $this->assertSame(
             10,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > small > a:contains("Asynchronous tweets")'
@@ -193,7 +193,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $previousPage);
         
         # Tweet
-        $this->assertEquals(
+        $this->assertSame(
             10,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
@@ -205,7 +205,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $nextPage);
         
         # Tweet
-        $this->assertEquals(
+        $this->assertSame(
             10,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
@@ -213,7 +213,7 @@ class DefaultControllerTest extends WebTestCase
         );
         
         # "Mark as read" link
-        $this->assertEquals(
+        $this->assertSame(
             10,
             $crawler->filter(
                 'main.container > div.tweets > div.media > '.
@@ -232,7 +232,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->click($link);
         
         # Tweet
-        $this->assertEquals(
+        $this->assertSame(
             7,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
@@ -332,7 +332,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $path);
         
         # Test that there is a previous page
-        $this->assertEquals(
+        $this->assertSame(
             '',
             $crawler->filter('main.container > div.navigation:first-child '.
                 '> div > ul.pagination > li:first-child')
@@ -361,7 +361,7 @@ class DefaultControllerTest extends WebTestCase
         
         # Test that there is no previous page
         # The flashbag add an element before "main.container > div.navigation"
-        $this->assertEquals(
+        $this->assertSame(
             'disabled',
             $crawler->filter('main.container > div.navigation '.
                 '> div > ul.pagination > li:first-child')
@@ -380,7 +380,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->client->click($link);
         
         # Image
-        $this->assertEquals(1,
+        $this->assertSame(1,
             $crawler->filter('main.container > div.tweets blockquote.media-body > '.
                 'p > a > img')->count());
         

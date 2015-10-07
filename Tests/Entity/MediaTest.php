@@ -17,27 +17,27 @@ class MediaTest extends \PHPUnit_Framework_TestCase
             ->setExpandedUrl('http://twitter.com/AsyncTweets/status/567836201210900480/photo/1')
         ;
         
-        $this->assertEquals(
+        $this->assertSame(
             567836200242003968,
             $media->getId()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             'http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg',
             $media->getMediaUrlHttps()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             'http://t.co/rX1oieH1ug',
             $media->getUrl()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             'pic.twitter.com/rX1oieH1ug',
             $media->getDisplayUrl()
         );
         
-        $this->assertEquals(
+        $this->assertSame(
             'http://twitter.com/AsyncTweets/status/567836201210900480/photo/1',
             $media->getExpandedUrl()
         );
