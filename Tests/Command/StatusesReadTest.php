@@ -25,7 +25,16 @@ class StatusesReadTest extends StatusesBase
     {
         $this->loadFixtures(array());
         
-        $this->commandTester->execute(array());
+        // Disable decoration for tests on Windows
+        $options = array();
+        
+        // http://stackoverflow.com/questions/5879043/php-script-detect-whether-running-under-linux-or-windows/5879078#5879078
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // https://tracker.phpbb.com/browse/PHPBB3-12752
+            $options['decorated'] = false;
+        }
+        
+        $this->commandTester->execute(array(), $options);
 
         $this->assertContains('Current page: 1', $this->commandTester->getDisplay());
     }
@@ -38,7 +47,16 @@ class StatusesReadTest extends StatusesBase
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
-        $this->commandTester->execute(array());
+        // Disable decoration for tests on Windows
+        $options = array();
+        
+        // http://stackoverflow.com/questions/5879043/php-script-detect-whether-running-under-linux-or-windows/5879078#5879078
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // https://tracker.phpbb.com/browse/PHPBB3-12752
+            $options['decorated'] = false;
+        }
+        
+        $this->commandTester->execute(array(), $options);
         
         $display = $this->commandTester->getDisplay();
         
