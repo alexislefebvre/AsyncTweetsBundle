@@ -10,7 +10,7 @@ class MediaTest extends \PHPUnit_Framework_TestCase
     {
         $media = new Media();
         $media
-            ->setId(567836200242003968)
+            ->setId((PHP_INT_SIZE === 8) ? 567836200242003968 : 242003968)
             ->setMediaUrlHttps('http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg')
             ->setUrl('http://t.co/rX1oieH1ug')
             ->setDisplayUrl('pic.twitter.com/rX1oieH1ug')
@@ -18,7 +18,7 @@ class MediaTest extends \PHPUnit_Framework_TestCase
         ;
         
         $this->assertSame(
-            567836200242003968,
+            ((PHP_INT_SIZE === 8) ? 567836200242003968 : 242003968),
             $media->getId()
         );
         

@@ -57,7 +57,9 @@ class DefaultControllerTest extends WebTestCase
         
         # <title>
         $this->assertContains(
-            'Home timeline - since 565258739000049664 - AsyncTweets',
+            'Home timeline - since '.
+                ((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664).
+                ' - AsyncTweets',
             $crawler->filter('title')->text()
         );
         
@@ -132,7 +134,7 @@ class DefaultControllerTest extends WebTestCase
         $this->testTweets(
             $this->router->generate(
                 'asynctweets_tweets_sinceTweetId',
-                array('firstTweetId' => 565258739000049664)
+                array('firstTweetId' => ((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664))
             )
         );
     }
@@ -249,7 +251,7 @@ class DefaultControllerTest extends WebTestCase
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
-        $tweetId = 565258739000049664;
+        $tweetId = ((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664);
         
         $path = $this->router->generate(
             'asynctweets_tweets_sinceTweetId',
@@ -275,7 +277,7 @@ class DefaultControllerTest extends WebTestCase
         );
         
         # Display next tweet
-        $nextTweetId = 567836201210900500;
+        $nextTweetId = ((PHP_INT_SIZE === 8) ? 567836201210900500 : 1210900500);
          
         $path = $this->router->generate(
             'asynctweets_tweets_sinceTweetId',
@@ -289,7 +291,7 @@ class DefaultControllerTest extends WebTestCase
         $cookieJar = $this->client->getCookieJar();
         
         $this->assertEquals(
-            567836201210900500,
+            ((PHP_INT_SIZE === 8) ? 567836201210900500 : 49664),
             $cookieJar->get('lastTweetId')->getValue()
         );
         

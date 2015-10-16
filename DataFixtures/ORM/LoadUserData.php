@@ -17,7 +17,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
     {
         $user = new User();
         $user
-            ->setId(3012301465)
+            ->setId((PHP_INT_SIZE === 8) ? 3012301465 : 12301465)
             ->setName('Asynchronous tweets')
             ->setScreenName('AsyncTweets')
             ->setProfileImageUrl('http://abs.twimg.com/sticky/default_profile_images/default_profile_5_normal.png')
@@ -45,7 +45,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         // Use whose tweet is retweeted
         $user = new User();
         $user
-            ->setId(3131295561)
+            ->setId((PHP_INT_SIZE === 8) ? 3131295561 : 131295561)
             ->setName('GitHub Engineering')
             ->setScreenName('GitHubEng')
             ->setProfileImageUrl('http://pbs.twimg.com/profile_images/593061696039706627/uzIQ4lJF_normal.png')
