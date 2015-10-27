@@ -130,6 +130,92 @@ class StatusesHomeTimelineTest extends StatusesBase
         );
     }
     
+    public function testStatusesHomeTimelineWithTweetAndRetweet()
+    {
+        $this->loadFixtures(array());
+        
+        // Disable decoration for tests on Windows
+        $options = array();
+        
+        // http://stackoverflow.com/questions/5879043/php-script-detect-whether-running-under-linux-or-windows/5879078#5879078
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // https://tracker.phpbb.com/browse/PHPBB3-12752
+            $options['decorated'] = false;
+        }
+        
+        $this->commandTester->execute(
+            array(
+                '--table' => true,
+                '--test_with_retweet' => true
+            ),
+            $options
+        );
+        
+        $display = $this->commandTester->getDisplay();
+        
+        $this->assertContains('Number of tweets: 1', $display);
+        
+        // Test the headers of the table
+        $this->assertContains(
+            '| Datetime            | '.
+                'Text excerpt                             | '.
+                'Name                |',
+            $display
+        );
+        
+        // Test the retweet
+        $this->assertContains(
+            '| 2015-08-22 20:20:27 | '.
+                'RT @travisci: Good morning! We shipped o | '.
+                'Asynchronous tweets |',
+            $display
+        );
+        
+        // Fetch tweet from database
+        $em = $this
+            ->getContainer()->get('doctrine.orm.entity_manager');
+
+        $tweet = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findOneBy(array(
+                'id' => 999080449,
+            ));
+        
+        $this->assertEquals(
+            999080449,
+            $tweet->getId()
+        );
+        
+        // The number of retweet is the same for both tweets
+        $this->assertEquals(
+            89,
+            $tweet->getRetweetCount()
+        );
+        
+        $this->assertEquals(
+            42,
+            $tweet->getFavoriteCount()
+        );
+        
+        $retweet = $tweet->getRetweetedStatus();
+        
+        $this->assertEquals(
+            79172609,
+            $retweet->getId()
+        );
+        
+        // The number of retweet is the same for both tweets
+        $this->assertEquals(
+            89,
+            $retweet->getRetweetCount()
+        );
+        
+        $this->assertEquals(
+            61,
+            $retweet->getFavoriteCount()
+        );
+    }
+    
     public function testStatusesHomeTimelineWithSinceIdParameter()
     {
         $this->loadFixtures(array(

@@ -32,6 +32,7 @@
             <exclude>
                 <directory>Tests</directory>
                 <directory>vendor/</directory>
+                <file>Command/StatusesShowCommand.php</file>
             </exclude>
         </whitelist>
     </filter>

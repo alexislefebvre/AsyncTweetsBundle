@@ -31,7 +31,8 @@ class StatusesHomeTimelineCommand extends BaseCommand
             ->setDescription('Fetch home timeline')
             # http://symfony.com/doc/2.3/cookbook/console/console_command.html#automatically-registering-commands
             ->addOption('table', null, InputOption::VALUE_NONE, 'Display a table with tweets')
-            ->addOption('test', null, InputOption::VALUE_NONE, 'Read a tweet from a JSON file')
+            ->addOption('test', null, InputOption::VALUE_NONE, 'Read tweets from a JSON file')
+            ->addOption('test_with_retweet', null, InputOption::VALUE_NONE, 'Read a tweet with a retweet from a JSON file')
             ->addOption('notarray', null, InputOption::VALUE_NONE, 'Return null instead of JSON')
             ->addOption('emptyarray', null, InputOption::VALUE_NONE, 'Return an empty array instead of JSON')
         ;
@@ -106,6 +107,19 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
     
     /**
+     * @return array
+     */
+    protected function getTestContentWithRetweet()
+    {
+        /** @see https://insight.sensiolabs.com/what-we-analyse/symfony.dependency_injection.use_dir_file_constant */
+        return(json_decode(file_get_contents(
+            $this->container->get('kernel')->locateResource(
+                '@AsyncTweetsBundle/Tests/Command/data/tweet_with_retweet.json'
+            )
+        )));
+    }
+    
+    /**
      * @param InputInterface $input
      */
     protected function getContent(InputInterface $input)
@@ -113,6 +127,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
         if ($input->getOption('test'))
         {
             return($this->getTestContent());
+        }
+        else if ($input->getOption('test_with_retweet'))
+        {
+            return($this->getTestContentWithRetweet());
         }
         else if ($input->getOption('notarray'))
         {
