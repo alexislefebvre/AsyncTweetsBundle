@@ -206,7 +206,7 @@ class TweetRepository extends EntityRepository
         }
         
         // Don't count tweets that were only retweeted
-        if ($tweet->getInTimeline()) {
+        if ($tweet->isInTimeline()) {
             $count = 1;
         }
         

@@ -159,8 +159,7 @@ class PersistTweet
             ->findOneById($mediaTmp->id)
         ;
         
-        if (! $media)
-        {
+        if (! $media) {
             # Only set the id and values when adding the Media
             $media = new Media($mediaTmp->id);
             $media->setValues($mediaTmp);
@@ -177,15 +176,13 @@ class PersistTweet
      * 
      * @return Tweet
      */
-    public function addTweet(\stdClass $tweetTmp, $inTimeline = false)
-    {
+    public function addTweet(\stdClass $tweetTmp, $inTimeline = false) {
         $user = $this->persistUser($tweetTmp->user);
         
         $tweet = $this->persistTweet($tweetTmp, $user, $inTimeline);
         
         // Ignore retweeted tweets
-        if ($this->displayTable && $inTimeline)
-        {
+        if ($this->displayTable && $inTimeline) {
             $this->table->addRow(array(
                 $tweet->getCreatedAt()->format('Y-m-d H:i:s'),
                 mb_substr($tweet->getText(), 0, 40),

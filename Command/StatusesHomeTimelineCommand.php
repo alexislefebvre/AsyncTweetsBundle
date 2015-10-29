@@ -76,16 +76,14 @@ class StatusesHomeTimelineCommand extends BaseCommand
             ->getLastTweet();
         
         # And use it in the request if it exists
-        if ($lastTweet)
-        {
+        if ($lastTweet) {
             $this->parameters['since_id'] = $lastTweet->getId();
             
-            $comment = 'since_id parameter = '.$this->parameters['since_id'];
+            $comment = 'last tweet = '.$this->parameters['since_id'];
         }
-        else
-        {
-            $comment = 'no since_id parameter';
-        }
+        else {
+            $comment = 'no last tweet';
+        }    
         
         $output->writeln('<comment>'.$comment.'</comment>');
     }
@@ -124,26 +122,22 @@ class StatusesHomeTimelineCommand extends BaseCommand
      */
     protected function getContent(InputInterface $input)
     {
-        if ($input->getOption('test'))
-        {
+        // Test
+        if ($input->getOption('test')) {
             return($this->getTestContent());
         }
-        else if ($input->getOption('test_with_retweet'))
-        {
+        else if ($input->getOption('test_with_retweet')) {
             return($this->getTestContentWithRetweet());
         }
-        else if ($input->getOption('notarray'))
-        {
+        else if ($input->getOption('notarray')) {
             return(null);
         }
-        else if ($input->getOption('emptyarray'))
-        {
+        else if ($input->getOption('emptyarray')) {
             return(array());
         }
-        else
-        {
-            return($this->getConnection());
-        }
+        
+        // Normal behaviour
+        return($this->getConnection());
     }
     
     protected function getConnection()

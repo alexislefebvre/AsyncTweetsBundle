@@ -30,8 +30,7 @@ class DefaultController extends Controller
         
         $numberOfTweets = 0;
         
-        if (count($tweets) > 0)
-        {
+        if (count($tweets) > 0) {
             $firstTweetId = $tweets[0]->getId();
             
             list($previousTweetId, $nextTweetId) = $tweetRepository
@@ -56,8 +55,7 @@ class DefaultController extends Controller
             )
         );
         
-        if (! is_null($cookie))
-        {
+        if (! is_null($cookie)) {
             $response->headers->setCookie($cookie);
         }
         
@@ -69,14 +67,11 @@ class DefaultController extends Controller
      */
     private function getLastTweetIdFromCookie(Request $request)
     {
-        if ($request->cookies->has('lastTweetId'))
-        {
+        if ($request->cookies->has('lastTweetId')) {
             return($request->cookies->get('lastTweetId'));
         }
-        else
-        {
-            return(null);
-        }
+        // else
+        return(null);
     }
     
     /**
@@ -105,8 +100,7 @@ class DefaultController extends Controller
         
         # Only update the cookie if the last Tweet Id is bigger than
         #  the one in the cookie
-        if ($firstTweetId > $cookieTweetId)
-        {
+        if ($firstTweetId > $cookieTweetId) {
             $cookie = $this->getCookie($firstTweetId);
             
             $cookieTweetId = $firstTweetId;
@@ -139,8 +133,7 @@ class DefaultController extends Controller
     {
         $lastTweetId = $this->getLastTweetIdFromCookie($request);
         
-        if ($lastTweetId)
-        {
+        if ($lastTweetId) {
             $count = $this->getDoctrine()
                 ->getRepository('AsyncTweetsBundle:Tweet')
                 ->deleteTweetsLessThanId($lastTweetId);

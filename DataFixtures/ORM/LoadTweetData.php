@@ -48,7 +48,7 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
         $tweet
             ->setId((PHP_INT_SIZE === 8) ? 634047285240926208 : 240926208)
             ->setUser($this->getReference('user-github'))
-            ->setCreatedAt(new \Datetime('2015-08-19 17:00:27'))
+            ->setCreatedAt(new \Datetime('2015-08-20 17:00:27'))
             ->setText('RT @GitHubEng: Cross-platform UI in GitHub '.
                 'Desktop by @rob_rix http://t.co/j1SautZKs7')
             ->setRetweetCount(77)
@@ -60,7 +60,7 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
         $retweet
             ->setId((PHP_INT_SIZE === 8) ? 634046200505868289 : 1005868289)
             ->setUser($this->getReference('user-githubeng'))
-            ->setCreatedAt(new \Datetime('2015-08-20 01:10:01'))
+            ->setCreatedAt(new \Datetime('2015-08-19 01:10:01'))
             ->setText('Cross-platform UI in GitHub Desktop by @rob_rix '.
                 'http://t.co/j1SautZKs7')
             ->setRetweetCount(77)

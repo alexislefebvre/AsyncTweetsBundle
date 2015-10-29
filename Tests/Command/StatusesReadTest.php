@@ -74,7 +74,7 @@ class StatusesReadTest extends StatusesBase
         $this->assertContains(
             '| GitHub        | '.
                 'RT @GitHubEng: Cross-platform UI in      | '.
-                '2015-08-19 17:00 |',
+                '2015-08-20 17:00 |',
             $display
         );
     }

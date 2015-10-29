@@ -128,6 +128,19 @@ class StatusesHomeTimelineTest extends StatusesBase
                 'Asynchronous tweets |',
             $display
         );
+        
+        // Fetch tweet from database
+        $em = $this
+            ->getContainer()->get('doctrine.orm.entity_manager');
+        
+        $tweets = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findAll();
+        
+        $this->assertEquals(
+            5,
+            count($tweets)
+        );
     }
     
     public function testStatusesHomeTimelineWithTweetAndRetweet()
@@ -214,6 +227,15 @@ class StatusesHomeTimelineTest extends StatusesBase
             61,
             $retweet->getFavoriteCount()
         );
+        
+        $tweets = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findAll();
+        
+        $this->assertEquals(
+            2,
+            count($tweets)
+        );
     }
     
     public function testStatusesHomeTimelineWithSinceIdParameter()
@@ -235,7 +257,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $this->commandTester->execute(
             array(
-                '--emptyarray' => true
+                '--emptyarray' => true,
             ),
             $options
         );
@@ -243,7 +265,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $display = $this->commandTester->getDisplay();
         
         $this->assertContains(
-            'since_id parameter = '.
+            'last tweet = '.
                 ((PHP_INT_SIZE === 8) ? 634047285240926208 : 1005868289),
             $display
         );

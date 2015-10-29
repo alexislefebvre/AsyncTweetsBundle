@@ -230,7 +230,7 @@ class Tweet
      *
      * @return boolean
      */
-    public function getInTimeline()
+    public function isInTimeline()
     {
         return $this->in_timeline;
     }
