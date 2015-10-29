@@ -19,7 +19,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $this->loadFixtures(array());
         
-        $path = $this->router->generate('asynctweets_homepage');
+        $path = '/';
         
         $crawler = $this->client->request('GET', $path);
         
@@ -44,7 +44,7 @@ class DefaultControllerTest extends WebTestCase
         
         if (is_null($path))
         {
-            $path = $this->router->generate('asynctweets_homepage');
+            $path = '/';
         }
         
         $crawler = $this->client->request('GET', $path);
@@ -88,7 +88,7 @@ class DefaultControllerTest extends WebTestCase
         
         # TODO: Hashtags
         
-        # Image
+        # Images
         $this->assertSame(
             1,
             $crawler->filter('main.container > div.tweets blockquote.media-body > '.
@@ -132,10 +132,8 @@ class DefaultControllerTest extends WebTestCase
     public function testSinceTweetId()
     {
         $this->testTweets(
-            $this->router->generate(
-                'asynctweets_tweets_sinceTweetId',
-                array('firstTweetId' => ((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664))
-            )
+            '/sinceId/'.
+                ((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664)
         );
     }
     
@@ -147,10 +145,7 @@ class DefaultControllerTest extends WebTestCase
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
-        $path = $this->router->generate(
-            'asynctweets_tweets_sinceTweetId',
-            array('firstTweetId' => 15)
-        );
+        $path = '/sinceId/15';
         
         $crawler = $this->client->request('GET', $path);
         
@@ -253,10 +248,7 @@ class DefaultControllerTest extends WebTestCase
         
         $tweetId = ((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664);
         
-        $path = $this->router->generate(
-            'asynctweets_tweets_sinceTweetId',
-            array('firstTweetId' => $tweetId)
-        );
+        $path = '/sinceId/'.$tweetId;
         
         $this->client->request('GET', $path);
         
@@ -278,11 +270,8 @@ class DefaultControllerTest extends WebTestCase
         
         # Display next tweet
         $nextTweetId = ((PHP_INT_SIZE === 8) ? 567836201210900500 : 1210900500);
-         
-        $path = $this->router->generate(
-            'asynctweets_tweets_sinceTweetId',
-            array('firstTweetId' => $nextTweetId)
-        );
+        
+        $path = '/sinceId/'.$nextTweetId;
         
         $this->client->request('GET', $path);
         
@@ -296,7 +285,7 @@ class DefaultControllerTest extends WebTestCase
         );
         
         # Reset the cookie
-        $path = $this->router->generate('asynctweets_reset_cookie');
+        $path = '/resetCookie';
         
         $this->client->followRedirects();
         
@@ -326,9 +315,28 @@ class DefaultControllerTest extends WebTestCase
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
-        $path = $this->router->generate(
-            'asynctweets_tweets_sinceTweetId',
-            array('firstTweetId' => 15)
+        $path = '/sinceId/15';
+        
+        // Fetch tweet from database
+        $em = $this
+            ->getContainer()->get('doctrine.orm.entity_manager');
+        
+        $tweets = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findAll();
+        
+        $this->assertEquals(
+            40,
+            count($tweets)
+        );
+        
+        $medias = $em
+            ->getRepository('AsyncTweetsBundle:Media')
+            ->findAll();
+        
+        $this->assertEquals(
+            2,
+            count($medias)
         );
         
         $crawler = $this->client->request('GET', $path);
@@ -379,6 +387,24 @@ class DefaultControllerTest extends WebTestCase
             ->link()
         ;
         
+        $tweets = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findAll();
+        
+        $this->assertEquals(
+            26,
+            count($tweets)
+        );
+        
+        $medias = $em
+            ->getRepository('AsyncTweetsBundle:Media')
+            ->findAll();
+        
+        $this->assertEquals(
+            1,
+            count($medias)
+        );
+        
         $crawler = $this->client->click($link);
         
         # Image
@@ -395,6 +421,24 @@ class DefaultControllerTest extends WebTestCase
             ->link()
         ;
         
+        $tweets = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findAll();
+        
+        $this->assertEquals(
+            26,
+            count($tweets)
+        );
+        
+        $medias = $em
+            ->getRepository('AsyncTweetsBundle:Media')
+            ->findAll();
+        
+        $this->assertEquals(
+            1,
+            count($medias)
+        );
+        
         $crawler = $this->client->click($link);
         
         $link = $crawler->filter('a#tweets-delete')->link();
@@ -405,6 +449,57 @@ class DefaultControllerTest extends WebTestCase
         $this->assertContains(
             '20 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
+        );
+        
+        $tweets = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findAll();
+        
+        $this->assertEquals(
+            6,
+            count($tweets)
+        );
+        
+        $medias = $em
+            ->getRepository('AsyncTweetsBundle:Media')
+            ->findAll();
+        
+        $this->assertEquals(
+            0,
+            count($medias)
+        );
+        
+        // Delete all the tweets except the last
+        $path = '/sinceId/40';
+        
+        $crawler = $this->client->request('GET', $path);
+        
+        $link = $crawler->filter('a#tweets-delete')->link();
+        
+        $crawler = $this->client->click($link);
+        
+        # Count deleted tweets
+        $this->assertContains(
+            '5 tweets deleted.',
+            $crawler->filter('div.alert.alert-success')->text()
+        );
+        
+        $tweets = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findAll();
+        
+        $this->assertEquals(
+            1,
+            count($tweets)
+        );
+        
+        $medias = $em
+            ->getRepository('AsyncTweetsBundle:Media')
+            ->findAll();
+        
+        $this->assertEquals(
+            0,
+            count($medias)
         );
     }
 }

@@ -216,6 +216,35 @@ class TweetRepository extends EntityRepository
     }
     
     /**
+     * @param integer $tweetId
+     */
+    private function getAllTweetsLessThanId($tweetId)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.id < :tweetId')
+            ->setParameter(':tweetId', $tweetId)
+            ->orderBy('t.id', 'DESC')
+        ;
+        
+        return($qb->getQuery()->getResult());
+    }
+    
+    /**
+     * Hide tweets
+     * 
+     * @param Tweet $tweet
+     */
+    protected function hideTweetsLessThanId($tweetId)
+    {
+        foreach ($this->getAllTweetsLessThanId($tweetId) as $tweet) {
+            $tweet->setInTimeline(false);
+            $this->_em->persist($tweet);
+        }
+        
+        $this->_em->flush();
+    }
+    
+    /**
      * Delete tweets and return the number of deleted tweets (excluding
      *  retweeted-only tweets)
      * 
@@ -232,6 +261,8 @@ class TweetRepository extends EntityRepository
         }
         
         $this->_em->flush();
+        
+        $this->hideTweetsLessThanId($tweetId);
         
         return($count);
     }

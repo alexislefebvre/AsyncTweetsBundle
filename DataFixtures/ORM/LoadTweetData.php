@@ -37,7 +37,7 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
             ->setRetweetCount(0)
             ->setFavoriteCount(0)
             ->setInTimeline(true)
-            ->addMedia($this->getReference('media'))
+            ->addMedia($this->getReference('media-1'))
         ;
         
         $manager->persist($tweet);
@@ -71,6 +71,20 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
         
         $tweet->setRetweetedStatus($retweet);
+        
+        $manager->persist($tweet);
+        
+        $tweet = new Tweet();
+        $tweet
+            ->setId((PHP_INT_SIZE === 8) ? 634046200505868490 : 1005868490)
+            ->setUser($this->getReference('user-githubeng'))
+            ->setCreatedAt(new \Datetime('2015-08-25 04:10:01'))
+            ->setText('Cross-platform UI in GitHub Desktop by @rob_rix '.
+                'http://t.co/j1SautZKs7')
+            ->setRetweetCount(7)
+            ->setFavoriteCount(42)
+            ->addMedia($this->getReference('media-2'))
+        ;
         
         $manager->persist($tweet);
         $manager->flush();

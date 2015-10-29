@@ -53,14 +53,14 @@ class LoadTweetPagesData extends AbstractFixture implements OrderedFixtureInterf
         $tweet = $manager
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->find(5);
-        $tweet->addMedia($this->getReference('media'));
+        $tweet->addMedia($this->getReference('media-1'));
         
         $manager->persist($tweet);
         
         $tweet = $manager
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->find(25);
-        $tweet->addMedia($this->getReference('media'));
+        $tweet->addMedia($this->getReference('media-2'));
         
         $manager->persist($tweet);
         
@@ -70,7 +70,7 @@ class LoadTweetPagesData extends AbstractFixture implements OrderedFixtureInterf
         // Set tweet as retweet
         $retweet = $manager
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->find(5);
+            ->find(15);
         
         $retweet->setRetweetedStatus($retweeted);
         

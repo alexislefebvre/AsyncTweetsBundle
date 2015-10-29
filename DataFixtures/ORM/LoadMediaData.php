@@ -27,7 +27,21 @@ class LoadMediaData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($media);
         $manager->flush();
         
-        $this->addReference('media', $media);
+        $this->addReference('media-1', $media);
+        
+        $media = new Media();
+        $media
+            ->setId((PHP_INT_SIZE === 8) ? 567836200242003969 : 42003969)
+            ->setMediaUrlHttps('http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg')
+            ->setUrl('http://t.co/rX1oieH1ug')
+            ->setDisplayUrl('pic.twitter.com/rX1oieH1ug')
+            ->setExpandedUrl('http://twitter.com/AsyncTweets/status/567836201210900480/photo/1')
+        ;
+        
+        $manager->persist($media);
+        $manager->flush();
+        
+        $this->addReference('media-2', $media);
     }
     
     /**

@@ -3,4 +3,4 @@
 # Tests/App/routing.yml
 asynctweets_website:
     resource: "@AsyncTweetsBundle/Resources/config/routing.yml"
-    prefix:   /asynctweets
+    prefix:   /
