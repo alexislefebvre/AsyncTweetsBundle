@@ -15,7 +15,7 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $tweet = new Tweet((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664);
+        $tweet = new Tweet(49664);
         $tweet
             ->setUser($this->getReference('user'))
             ->setCreatedAt(new \Datetime('2015-02-10 21:19:20'))
@@ -30,7 +30,7 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
         
         $tweet = new Tweet();
         $tweet
-            ->setId((PHP_INT_SIZE === 8) ? 567836201210900500 : 210900500)
+            ->setId(210900500)
             ->setUser($this->getReference('user'))
             ->setCreatedAt(new \Datetime('2015-02-18 00:01:14'))
             ->setText('#image #test http://t.co/rX1oieH1ug')
@@ -46,7 +46,7 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
         # Tweet with retweet
         $tweet = new Tweet();
         $tweet
-            ->setId((PHP_INT_SIZE === 8) ? 634047285240926208 : 240926208)
+            ->setId(240926208)
             ->setUser($this->getReference('user-github'))
             ->setCreatedAt(new \Datetime('2015-08-20 17:00:27'))
             ->setText('RT @GitHubEng: Cross-platform UI in GitHub '.
@@ -58,7 +58,7 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
         
         $retweet = new Tweet();
         $retweet
-            ->setId((PHP_INT_SIZE === 8) ? 634046200505868289 : 1005868289)
+            ->setId(1005868289)
             ->setUser($this->getReference('user-githubeng'))
             ->setCreatedAt(new \Datetime('2015-08-19 01:10:01'))
             ->setText('Cross-platform UI in GitHub Desktop by @rob_rix '.
@@ -73,10 +73,11 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
         $tweet->setRetweetedStatus($retweet);
         
         $manager->persist($tweet);
+        $manager->flush();
         
         $tweet = new Tweet();
         $tweet
-            ->setId((PHP_INT_SIZE === 8) ? 634046200505868490 : 1005868490)
+            ->setId(1005868490)
             ->setUser($this->getReference('user-githubeng'))
             ->setCreatedAt(new \Datetime('2015-08-25 04:10:01'))
             ->setText('Cross-platform UI in GitHub Desktop by @rob_rix '.

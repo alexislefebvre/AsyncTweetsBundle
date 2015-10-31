@@ -29,6 +29,6 @@ addons:
 
 install:
   - composer self-update
-  - composer require symfony/symfony:${SYMFONY_VERSION} --prefer-dist
+  - composer require symfony/symfony:${SYMFONY_VERSION}
 
 script: php ./vendor/bin/phpunit

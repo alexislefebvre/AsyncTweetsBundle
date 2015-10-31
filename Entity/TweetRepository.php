@@ -232,7 +232,7 @@ class TweetRepository extends EntityRepository
     /**
      * Hide tweets
      * 
-     * @param Tweet $tweet
+     * @param integer $tweetId
      */
     protected function hideTweetsLessThanId($tweetId)
     {

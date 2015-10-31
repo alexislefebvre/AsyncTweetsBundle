@@ -265,8 +265,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $display = $this->commandTester->getDisplay();
         
         $this->assertContains(
-            'last tweet = '.
-                ((PHP_INT_SIZE === 8) ? 634047285240926208 : 1005868490),
+            'last tweet = 1005868490',
             $display
         );
     }

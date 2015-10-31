@@ -29,7 +29,7 @@ install:
     - IF %PHP%==1 echo @php %%~dp0composer.phar %%* > composer.bat
     - appveyor DownloadFile https://getcomposer.org/composer.phar
     - cd c:\projects\asynctweetsbundle
-    - composer install --prefer-dist --no-progress --ansi
+    - composer install --no-progress --ansi
 
 test_script:
     - cd c:\projects\asynctweetsbundle

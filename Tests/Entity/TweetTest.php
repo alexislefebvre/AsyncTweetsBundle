@@ -13,7 +13,7 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         $now = new \Datetime('now');
         
         # Media
-        $media = new Media((PHP_INT_SIZE === 8) ? 567836200242003968 : 42003968);
+        $media = new Media(42003968);
         $media
             ->setMediaUrlHttps('http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg')
             ->setUrl('http://t.co/rX1oieH1ug')
@@ -22,7 +22,7 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         ;
         
         # Tweet
-        $tweet = new Tweet((PHP_INT_SIZE === 8) ? 565939802152120320 : 152120320);
+        $tweet = new Tweet(152120320);
         $tweet
             ->setCreatedAt($now)
             ->setText('Hello World!')
@@ -32,7 +32,7 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         ;
         
         $this->assertSame(
-            ((PHP_INT_SIZE === 8) ? 565939802152120320 : 152120320),
+            152120320,
             $tweet->getId()
         );
         

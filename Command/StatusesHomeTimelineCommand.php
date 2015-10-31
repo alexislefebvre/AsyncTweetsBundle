@@ -92,9 +92,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
      */
     protected function getTestContent()
     {
-        $filename = 'tweets'.
-            ((PHP_INT_SIZE === 8) ? '' : '_32_bits').
-            '.json';
+        $filename = 'tweets_32_bits.json';
         /** @see https://insight.sensiolabs.com/what-we-analyse/symfony.dependency_injection.use_dir_file_constant */
         return(json_decode(file_get_contents(
             $this->container->get('kernel')->locateResource(

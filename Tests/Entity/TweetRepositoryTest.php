@@ -53,7 +53,7 @@ class TweetRepositoryTest extends WebTestCase
         
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->countPendingTweets((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664)
+            ->countPendingTweets(49664)
         ;
         
         $this->assertEquals(3, $tweets);

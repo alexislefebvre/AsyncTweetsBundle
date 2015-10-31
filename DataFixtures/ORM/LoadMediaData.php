@@ -17,7 +17,7 @@ class LoadMediaData extends AbstractFixture implements OrderedFixtureInterface
     {
         $media = new Media();
         $media
-            ->setId((PHP_INT_SIZE === 8) ? 567836200242003968 : 42003968)
+            ->setId(42003968)
             ->setMediaUrlHttps('http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg')
             ->setUrl('http://t.co/rX1oieH1ug')
             ->setDisplayUrl('pic.twitter.com/rX1oieH1ug')
@@ -31,7 +31,7 @@ class LoadMediaData extends AbstractFixture implements OrderedFixtureInterface
         
         $media = new Media();
         $media
-            ->setId((PHP_INT_SIZE === 8) ? 567836200242003969 : 42003969)
+            ->setId(42003969)
             ->setMediaUrlHttps('http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg')
             ->setUrl('http://t.co/rX1oieH1ug')
             ->setDisplayUrl('pic.twitter.com/rX1oieH1ug')

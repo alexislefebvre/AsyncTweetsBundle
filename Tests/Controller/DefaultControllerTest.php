@@ -57,9 +57,7 @@ class DefaultControllerTest extends WebTestCase
         
         # <title>
         $this->assertContains(
-            'Home timeline - since '.
-                ((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664).
-                ' - AsyncTweets',
+            'Home timeline - since 49664 - AsyncTweets',
             $crawler->filter('title')->text()
         );
         
@@ -131,10 +129,7 @@ class DefaultControllerTest extends WebTestCase
     
     public function testSinceTweetId()
     {
-        $this->testTweets(
-            '/sinceId/'.
-                ((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664)
-        );
+        $this->testTweets('/sinceId/49664');
     }
     
     public function testTweetsPages()
@@ -155,7 +150,7 @@ class DefaultControllerTest extends WebTestCase
             $crawler->filter('title')->text()
         );
         
-        # Tweet
+        // Number of displayed Tweets
         $this->assertSame(
             10,
             $crawler->filter(
@@ -246,7 +241,7 @@ class DefaultControllerTest extends WebTestCase
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
-        $tweetId = ((PHP_INT_SIZE === 8) ? 565258739000049664 : 49664);
+        $tweetId = 49664;
         
         $path = '/sinceId/'.$tweetId;
         
@@ -269,7 +264,7 @@ class DefaultControllerTest extends WebTestCase
         );
         
         # Display next tweet
-        $nextTweetId = ((PHP_INT_SIZE === 8) ? 567836201210900500 : 1210900500);
+        $nextTweetId = 1210900500;
         
         $path = '/sinceId/'.$nextTweetId;
         
@@ -280,7 +275,7 @@ class DefaultControllerTest extends WebTestCase
         $cookieJar = $this->client->getCookieJar();
         
         $this->assertEquals(
-            ((PHP_INT_SIZE === 8) ? 567836201210900500 : 49664),
+            49664,
             $cookieJar->get('lastTweetId')->getValue()
         );
         
