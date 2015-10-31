@@ -30,11 +30,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
             ->setName('statuses:hometimeline')
             ->setDescription('Fetch home timeline')
             # http://symfony.com/doc/2.3/cookbook/console/console_command.html#automatically-registering-commands
-            ->addOption('table', null, InputOption::VALUE_NONE, 'Display a table with tweets')
-            ->addOption('test', null, InputOption::VALUE_NONE, 'Read tweets from a JSON file')
-            ->addOption('test_with_retweet', null, InputOption::VALUE_NONE, 'Read a tweet with a retweet from a JSON file')
-            ->addOption('notarray', null, InputOption::VALUE_NONE, 'Return null instead of JSON')
-            ->addOption('emptyarray', null, InputOption::VALUE_NONE, 'Return an empty array instead of JSON')
+            ->addOption('table', null, InputOption::VALUE_NONE,
+                'Display a table with tweets')
+            ->addOption('test', null, InputOption::VALUE_NONE,
+                'Return data for tests')
         ;
     }
 
@@ -105,6 +104,8 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
     
     /**
+     * Read a tweet with a retweet from a JSON file
+     * 
      * @return array
      */
     protected function getTestContentWithRetweet()
@@ -122,22 +123,21 @@ class StatusesHomeTimelineCommand extends BaseCommand
      */
     protected function getContent(InputInterface $input)
     {
-        // Test
-        if ($input->getOption('test')) {
-            return($this->getTestContent());
+        switch($input->getOption('test')) {
+            case 'json':
+                return($this->getTestContent());
+            case 'json_with_retweet':
+                return($this->getTestContentWithRetweet());
+            case 'not_array':
+                // Return null instead of JSON
+                return(null);
+            case 'empty_array':
+                // Return an empty array instead of JSON
+                return(array());
+            default:
+                // Normal behaviour
+                return($this->getConnection());    
         }
-        else if ($input->getOption('test_with_retweet')) {
-            return($this->getTestContentWithRetweet());
-        }
-        else if ($input->getOption('notarray')) {
-            return(null);
-        }
-        else if ($input->getOption('emptyarray')) {
-            return(array());
-        }
-        
-        // Normal behaviour
-        return($this->getConnection());
     }
     
     protected function getConnection()

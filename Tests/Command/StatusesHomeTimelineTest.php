@@ -38,7 +38,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->loadFixtures(array());
         
         $this->commandTester->execute(array(
-            '--test' => true
+            '--test' => 'json'
         ));
         
         $this->assertContains('Number of tweets: 4', $this->commandTester->getDisplay());
@@ -49,7 +49,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->loadFixtures(array());
         
         $this->commandTester->execute(array(
-            '--notarray' => true
+            '--test' => 'not_array'
         ));
         
         $this->assertContains('Something went wrong, $content is not an array.', $this->commandTester->getDisplay());
@@ -60,7 +60,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->loadFixtures(array());
         
         $this->commandTester->execute(array(
-            '--emptyarray' => true
+            '--test' => 'empty_array'
         ));
         
         $display = $this->commandTester->getDisplay();
@@ -84,7 +84,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->commandTester->execute(
             array(
                 '--table' => true,
-                '--test' => true
+                '--test' => 'json'
             ),
             $options
         );
@@ -159,7 +159,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->commandTester->execute(
             array(
                 '--table' => true,
-                '--test_with_retweet' => true
+                '--test' => 'json_with_retweet'
             ),
             $options
         );
@@ -257,7 +257,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $this->commandTester->execute(
             array(
-                '--emptyarray' => true,
+                '--test' => 'empty_array',
             ),
             $options
         );
