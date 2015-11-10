@@ -35,7 +35,7 @@ class StatusesShowCommand extends BaseCommand
             $this->container->getParameter('twitter_token_secret')
         );
         
-        $output->println(
+        $output->writeln(
             json_encode($connection->get('statuses/show/'.$tweet_id))
         );
     }

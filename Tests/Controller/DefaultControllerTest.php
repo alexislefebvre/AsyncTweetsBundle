@@ -152,21 +152,21 @@ class DefaultControllerTest extends WebTestCase
         
         // Number of displayed Tweets
         $this->assertSame(
-            10,
+            5,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
         );
         
         $this->assertSame(
-            10,
+            5,
             $crawler->filter(
                 'blockquote.media-body > p')->count()
         );
         
         # User
         $this->assertSame(
-            10,
+            5,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > small > a:contains("Asynchronous tweets")'
             )->count()
@@ -186,7 +186,7 @@ class DefaultControllerTest extends WebTestCase
         
         # Tweet
         $this->assertSame(
-            10,
+            5,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
@@ -198,7 +198,7 @@ class DefaultControllerTest extends WebTestCase
         
         # Tweet
         $this->assertSame(
-            10,
+            5,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
@@ -206,7 +206,7 @@ class DefaultControllerTest extends WebTestCase
         
         # "Mark as read" link
         $this->assertSame(
-            10,
+            5,
             $crawler->filter(
                 'main.container > div.tweets > div.media > '.
                     'blockquote.media-body > small > '.
@@ -219,13 +219,26 @@ class DefaultControllerTest extends WebTestCase
             'main.container > div.tweets > div.media > '.
                 'blockquote.media-body > small > a:last-child'
             )
-            ->eq(9)->link();
+            ->eq(4)->link();
         
         $crawler = $this->client->click($link);
         
         # Tweet
         $this->assertSame(
-            7,
+            5,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+        
+        // Go to last page
+        $path = '/sinceId/38';
+        
+        $crawler = $this->client->request('GET', $path);
+        
+        // Tweet
+        $this->assertSame(
+            3,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
@@ -402,6 +415,14 @@ class DefaultControllerTest extends WebTestCase
         
         $crawler = $this->client->click($link);
         
+        $link = $crawler
+            ->filter('ul.pagination > li > a:contains("Next")')
+            ->eq(0)
+            ->link()
+        ;
+        
+        $crawler = $this->client->click($link);
+        
         # Image
         $this->assertSame(1,
             $crawler->filter('main.container > div.tweets blockquote.media-body > '.
@@ -433,6 +454,14 @@ class DefaultControllerTest extends WebTestCase
             1,
             count($medias)
         );
+        
+        $crawler = $this->client->click($link);
+        
+        $link = $crawler
+            ->filter('ul.pagination > li > a:contains("Next")')
+            ->eq(0)
+            ->link()
+        ;
         
         $crawler = $this->client->click($link);
         

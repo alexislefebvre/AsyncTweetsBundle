@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class TweetRepository extends EntityRepository
 {
-    private $nbTweets = 10;
+    private $nbTweets = 5;
     
     public function getWithUsers($page = 1)
     {

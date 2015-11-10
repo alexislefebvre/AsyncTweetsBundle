@@ -1,6 +1,13 @@
 languages:
   PHP: true
 
+ratings:
+  paths:
+    - Command/*
+    - Controller/*
+    - Entity/*
+    - Utils/*
+
 exclude_paths:
   - DataFixtures/ORM/*
   - Tests/*
