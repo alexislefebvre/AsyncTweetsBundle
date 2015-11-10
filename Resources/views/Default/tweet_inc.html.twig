@@ -8,15 +8,11 @@
     <blockquote class="media-body">
         <p>{{ tweet.textLinkified|raw }}</p>
         {% for media in tweet.medias %}
-            {% if loop.first %}
-                <p>
-            {% endif %}
+            {% if loop.first %}<p>{% endif %}
                 <a href="{{ media.expandedUrl }}" title="{{ media.displayUrl }}">
                     <img src="{{ media.mediaUrlHttps }}" height="200"
                     alt="{{ media.url }}" /></a>
-            {% if loop.last %}
-                </p>
-            {% endif %}
+            {% if loop.last %}</p>{% endif %}
         {% endfor %}
         <small>
             <a href="{{
@@ -41,7 +37,7 @@
                 {{ tweet.retweetCount }}
             </span>
             
-             {% if tweet.inTimeline %}
+             {% if (mark_as_read_link is not defined) %}
                 <a href="{{ path('asynctweets_tweets_sinceTweetId',
                     {'firstTweetId': tweet.id}) }}" class="pull-right">
                     <span class="glyphicon glyphicon-check"></span>

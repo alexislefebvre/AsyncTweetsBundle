@@ -27,12 +27,12 @@ class Tweet
     /**
      * @var integer
      */
-    private $retweet_count;
+    private $retweet_count = 0;
     
     /**
      * @var integer
      */
-    private $favorite_count;
+    private $favorite_count = 0;
     
     /**
      * @var User
@@ -52,6 +52,11 @@ class Tweet
     /**
      * @var ArrayCollection
      */
+    private $retweeting_statuses;
+    
+    /**
+     * @var ArrayCollection
+     */
     private $medias;
     
     public function __construct($id = null)
@@ -61,6 +66,7 @@ class Tweet
         }
         
         $this->medias = new ArrayCollection();
+        $this->retweeting_statuses = new ArrayCollection();
     }
     
     /**
@@ -294,6 +300,16 @@ class Tweet
         $media->removeTweet($this);
         
         return $this;
+    }
+    
+    /**
+     * Get retweeting status
+     *
+     * @return ArrayCollection 
+     */
+    public function getRetweetingStatuses()
+    {
+        return $this->retweeting_statuses;
     }
     
     /**

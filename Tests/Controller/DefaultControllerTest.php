@@ -358,7 +358,7 @@ class DefaultControllerTest extends WebTestCase
         
         $crawler = $this->client->click($link);
         
-        # Count deleted tweets
+        // Count deleted tweets
         $this->assertContains(
             '13 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
@@ -440,7 +440,7 @@ class DefaultControllerTest extends WebTestCase
         
         $crawler = $this->client->click($link);
         
-        # Count deleted tweets
+        // Count deleted tweets
         $this->assertContains(
             '20 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
@@ -473,7 +473,7 @@ class DefaultControllerTest extends WebTestCase
         
         $crawler = $this->client->click($link);
         
-        # Count deleted tweets
+        // Count deleted tweets
         $this->assertContains(
             '5 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
@@ -495,6 +495,249 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(
             0,
             count($medias)
+        );
+    }
+    
+    public function testHideRetweetedTweets()
+    {
+        $this->loadFixtures(array(
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetAndRetweetData',
+        ));
+        
+        ////////// Homepage //////////
+        $path = '/';
+        
+        // Fetch tweet from database
+        $em = $this
+            ->getContainer()->get('doctrine.orm.entity_manager');
+        
+        $tweets = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findAll();
+        
+        $this->assertEquals(
+            5,
+            count($tweets)
+        );
+        
+        $retweeted_tweet = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findOneBy(array('id' => 20));
+        
+        $this->assertTrue($retweeted_tweet->isInTimeline());
+        
+        $crawler = $this->client->request('GET', $path);
+        
+        // Number of displayed Tweets
+        $this->assertSame(
+            5,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+        
+        ////////// Click on the second "Mark as read" link //////////
+        // One Tweet will be deleted (id = 10)
+        $link = $crawler->filter('a:contains("Mark as read")')
+            ->eq(1)->link();
+        
+        $this->client->followRedirects(true);
+        
+        $crawler = $this->client->click($link);
+        
+        $this->assertStringEndsWith(
+            '/sinceId/20',
+            $this->client->getRequest()->getUri()
+        );
+        
+        // Number of displayed Tweets
+        $this->assertSame(
+            4,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+        
+        // Delete old tweets
+        $link = $crawler->filter('a#tweets-delete')->link();
+        
+        $crawler = $this->client->click($link);
+        
+        // Count deleted tweets
+        $this->assertEquals(
+            1,
+            $crawler->filter('div.alert.alert-success')->count(),
+            $crawler->text()
+        );
+        
+        $this->assertContains(
+            '1 tweets deleted.',
+            $crawler->filter('div.alert.alert-success')->text()
+        );
+        
+        // Number of displayed Tweets
+        $this->assertSame(
+            4,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+        
+        // Number of tweets
+        $this->assertEquals(
+            4,
+            count($em
+                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->findAll())
+        );
+        
+        $retweeted_tweet = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findOneBy(array('id' => 20));
+        
+        $em->refresh($retweeted_tweet);
+        
+        $this->assertTrue($retweeted_tweet->isInTimeline());
+        
+        ////////// Click on the second "Mark as read" link //////////
+        // One Tweet will be hidden
+        $link = $crawler->filter('a:contains("Mark as read")')
+            ->eq(1)->link();
+        
+        $crawler = $this->client->click($link);
+        
+        $this->assertStringEndsWith(
+            '/sinceId/30',
+            $this->client->getRequest()->getUri()
+        );
+        
+        // Number of displayed Tweets
+        $this->assertSame(
+            3,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+        
+        // Tweet has not been hidden
+        $retweeted_tweet = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findOneBy(array('id' => 20));
+        
+        $em->refresh($retweeted_tweet);
+        
+        $this->assertTrue($retweeted_tweet->isInTimeline());
+        
+        // Delete old tweets
+        $link = $crawler->filter('a#tweets-delete')->link();
+        
+        $crawler = $this->client->click($link);
+        
+        // Tweet has been hidden
+        $retweeted_tweet = $em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findOneBy(array('id' => 20));
+        
+        $em->refresh($retweeted_tweet);
+        
+        $this->assertFalse($retweeted_tweet->isInTimeline());
+        
+        // Count deleted tweets
+        $this->assertContains(
+            '0 tweets deleted.',
+            $crawler->filter('div.alert.alert-success')->text()
+        );
+        
+        // Number of displayed Tweets
+        $this->assertSame(
+            3,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+       
+        // The tweet has not been deleted
+        $this->assertEquals(
+            4,
+            count($em
+                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->findAll())
+        );
+        
+        ////////// Click on the second "Mark as read" link //////////
+        $link = $crawler->filter('a:contains("Mark as read")')
+            ->eq(1)->link();
+        
+        $crawler = $this->client->click($link);
+        
+        $this->assertStringEndsWith(
+            '/sinceId/40',
+            $this->client->getRequest()->getUri()
+        );
+        
+        // Delete old tweets
+        $link = $crawler->filter('a#tweets-delete')->link();
+        
+        $crawler = $this->client->click($link);
+        
+        // Number of displayed Tweets
+        $this->assertSame(
+            2,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+        
+        // Count deleted tweets
+        $this->assertContains(
+            '1 tweets deleted.',
+            $crawler->filter('div.alert.alert-success')->text()
+        );
+        
+        // The tweet has been deleted
+        $this->assertEquals(
+            2,
+            count($em
+                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->findAll())
+        );
+        
+        // Click on the second "Mark as read" link
+        $link = $crawler->filter('a:contains("Mark as read")')
+            ->eq(1)->link();
+        
+        $crawler = $this->client->click($link);
+        
+        $this->assertStringEndsWith(
+            '/sinceId/50',
+            $this->client->getRequest()->getUri()
+        );
+        
+        // Delete old tweets
+        $link = $crawler->filter('a#tweets-delete')->link();
+        
+        $crawler = $this->client->click($link);
+        
+        // Number of displayed Tweets
+        $this->assertSame(
+            1,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+        
+        // Count deleted tweets
+        $this->assertContains(
+            '1 tweets deleted.',
+            $crawler->filter('div.alert.alert-success')->text()
+        );
+        
+        $this->assertEquals(
+            1,
+            count($em
+                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->findAll())
         );
     }
 }

@@ -28,6 +28,7 @@ class TweetTest extends \PHPUnit_Framework_TestCase
             ->setText('Hello World!')
             ->setRetweetCount(1999)
             ->setFavoriteCount(42)
+            ->setInTimeline(true)
             ->addMedia($media)
         ;
         
@@ -54,6 +55,10 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(
             42,
             $tweet->getFavoriteCount()
+        );
+        
+        $this->assertTrue(
+            $tweet->isInTimeline()
         );
         
         # Check Tweet associated to Media
@@ -85,6 +90,12 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(
             1,
             count($user->getTweets())
+        );
+        
+        $tweet->setInTimeline(false);
+        
+        $this->assertFalse(
+            $tweet->isInTimeline()
         );
     }
 }

@@ -18,7 +18,8 @@
                 margin-bottom: 0px;
             }
             .pagination {margin:10px 0px;}
-            div.tweets > div.media > blockquote > p {
+            /* don't use "white-space: pre-wrap;" on the <p> image container */
+            div.tweets > div.media > blockquote > p:first-child {
                 white-space: pre-wrap;
             }
         </style>

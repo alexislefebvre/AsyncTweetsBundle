@@ -161,7 +161,7 @@ class TweetRepository extends EntityRepository
             ->where('t.id < :tweetId')
             ->setParameter(':tweetId', $tweetId)
             
-            // Ignore retweeted tweets (it would break foreign keys)
+            // Get retweeted tweets (it would break foreign keys)
             //  http://stackoverflow.com/questions/15087933/how-to-do-left-join-in-doctrine/15088250#15088250
             ->leftJoin(
                 'AsyncTweetsBundle:Tweet',
@@ -169,7 +169,6 @@ class TweetRepository extends EntityRepository
                 'WITH',
                 't.id = t2.retweeted_status'
             )
-            ->andWhere('(t2.retweeted_status IS NULL)')
             
             ->orderBy('t.id', 'DESC')
         ;
@@ -216,35 +215,6 @@ class TweetRepository extends EntityRepository
     }
     
     /**
-     * @param integer $tweetId
-     */
-    private function getAllTweetsLessThanId($tweetId)
-    {
-        $qb = $this->createQueryBuilder('t')
-            ->where('t.id < :tweetId')
-            ->setParameter(':tweetId', $tweetId)
-            ->orderBy('t.id', 'DESC')
-        ;
-        
-        return($qb->getQuery()->getResult());
-    }
-    
-    /**
-     * Hide tweets
-     * 
-     * @param integer $tweetId
-     */
-    protected function hideTweetsLessThanId($tweetId)
-    {
-        foreach ($this->getAllTweetsLessThanId($tweetId) as $tweet) {
-            $tweet->setInTimeline(false);
-            $this->_em->persist($tweet);
-        }
-        
-        $this->_em->flush();
-    }
-    
-    /**
      * Delete tweets and return the number of deleted tweets (excluding
      *  retweeted-only tweets)
      * 
@@ -252,17 +222,38 @@ class TweetRepository extends EntityRepository
      * 
      * @return integer
      */
-    public function deleteTweetsLessThanId($tweetId)
+    public function deleteAndHideTweetsLessThanId($tweetId)
     {
         $count = 0;
         
         foreach ($this->getTweetsLessThanId($tweetId) as $tweet) {
-            $count += $this->removeTweet($tweet);
+            // The Tweet has not been retweeted, it can be removed
+            if (count($tweet->getRetweetingStatuses()) == 0) {
+                $count += $this->removeTweet($tweet);
+            }
+            else {
+                $delete = false;
+                
+                foreach ($tweet->getRetweetingStatuses() as $retweeting_status) {
+                    if ($retweeting_status->getId() < $tweetId) {
+                        $delete = true;
+                        break;
+                    }
+                }
+                
+                // The Tweet can be deleted
+                if ($delete) {
+                    $count += $this->removeTweet($tweet);
+                }
+                // The Tweet is still in the timeline, it can only be hidden
+                else {
+                    $tweet->setInTimeline(false);
+                    $this->_em->persist($tweet);
+                }
+            }
         }
         
         $this->_em->flush();
-        
-        $this->hideTweetsLessThanId($tweetId);
         
         return($count);
     }

@@ -136,7 +136,7 @@ class DefaultController extends Controller
         if ($lastTweetId) {
             $count = $this->getDoctrine()
                 ->getRepository('AsyncTweetsBundle:Tweet')
-                ->deleteTweetsLessThanId($lastTweetId);
+                ->deleteAndHideTweetsLessThanId($lastTweetId);
             
             $this->get('session')->getFlashBag()->add('message',
                 sprintf('%s tweets deleted.', $count)
