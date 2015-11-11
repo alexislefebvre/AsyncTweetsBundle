@@ -29,14 +29,8 @@ addons:
     packages:
     - php5-sqlite
 
-before_install:
-  - pip install --user codecov
-
 install:
   - composer self-update
   - composer require symfony/symfony:${SYMFONY_VERSION}
 
 script: php ./vendor/bin/phpunit
-
-after_success:
-  - codecov
