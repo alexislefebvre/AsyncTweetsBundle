@@ -10,7 +10,7 @@
         {% for media in tweet.medias %}
             {% if loop.first %}<p>{% endif %}
                 <a href="{{ media.expandedUrl }}" title="{{ media.displayUrl }}">
-                    <img src="{{ media.mediaUrlHttps }}" height="200"
+                    <img src="{{ media.mediaUrlHttps }}"
                     alt="{{ media.url }}" /></a>
             {% if loop.last %}</p>{% endif %}
         {% endfor %}
