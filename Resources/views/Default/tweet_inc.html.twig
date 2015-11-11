@@ -28,16 +28,16 @@
             }}">{{ tweet.createdAt|date('c') }}</a>
             
             <span class="badge">
-                <span class="glyphicon glyphicon-star"></span>
-                {{ tweet.favoriteCount }}
-            </span>
-            
-            <span class="badge">
                 <span class="glyphicon glyphicon-retweet"></span>
                 {{ tweet.retweetCount }}
             </span>
             
-             {% if (mark_as_read_link is not defined) %}
+            <span class="badge">
+                <span class="glyphicon glyphicon-heart"></span>
+                {{ tweet.favoriteCount }}
+            </span>
+            
+            {% if (mark_as_read_link is not defined) %}
                 <a href="{{ path('asynctweets_tweets_sinceTweetId',
                     {'firstTweetId': tweet.id}) }}" class="pull-right">
                     <span class="glyphicon glyphicon-check"></span>
