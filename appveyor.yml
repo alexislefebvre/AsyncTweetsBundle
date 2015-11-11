@@ -3,6 +3,10 @@ shallow_clone: true
 platform: x64
 clone_folder: c:\projects\asynctweetsbundle
 
+# https://github.com/travis-ci/travis-ci/issues/3005#issuecomment-71320541
+skip_commits:
+    message: /.*\[skip appveyor\].*/
+    
 cache:
     - c:\tools\php -> appveyor.yml
 
