@@ -7,12 +7,10 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
 class DefaultControllerTest extends WebTestCase
 {
     private $client = null;
-    private $router = null;
         
     public function setUp()
     {
-        $this->client = static::createClient();
-        $this->router = $this->client->getContainer()->get('router');
+        $this->client = static::makeClient();
     }
     
     public function testNoTweets()
