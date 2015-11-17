@@ -143,11 +143,6 @@
                             el.get(0).click();
                         }
                         
-                        $('html, body').animate({
-                            scrollTop: $('main.container > div.tweets')
-                                .last().offset().top
-                        }, 250);
-                        
                         return false;
                     }
                 });
@@ -181,6 +176,12 @@
                                 
                                 /* update the <title> */
                                 $('title').text($data.find('title').text());
+                                
+                                /* Scroll to the top of tweets */
+                                $('html, body').animate({
+                                    scrollTop: $('main.container > div.tweets')
+                                        .last().offset().top
+                                }, 250);
                             }
                         });
                         
