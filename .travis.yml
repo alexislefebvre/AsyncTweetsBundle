@@ -26,5 +26,10 @@ addons:
 install:
   - composer self-update
   - composer require symfony/symfony:${SYMFONY_VERSION}
+  - composer require --dev "codeclimate/php-test-reporter:dev-master"
 
-script: php ./vendor/bin/phpunit
+script: php ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+# Only send code coverage for the current versions of PHP and Symfony
+# https://github.com/doctrine/doctrine2/blob/3570f4a49afc7e98fed71e0596dded6a39d4fd7b/.travis.yml#L16
+after_success: if [[ $TRAVIS_PHP_VERSION = '5.6' && $SYMFONY_VERSION = '2.7.*' ]]; then php ./vendor/bin/test-reporter; fi
