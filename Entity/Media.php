@@ -205,7 +205,7 @@ class Media
     public function setValues(\stdClass $mediaTmp)
     {
         $this
-            ->setMediaUrlHttps($mediaTmp->media_url)
+            ->setMediaUrlHttps($mediaTmp->media_url_https)
             ->setUrl($mediaTmp->url)
             ->setDisplayUrl($mediaTmp->display_url)
             ->setExpandedUrl($mediaTmp->expanded_url)
