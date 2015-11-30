@@ -11,7 +11,12 @@ php:
 env:
   - SYMFONY_VERSION="2.6.*"
   - SYMFONY_VERSION="2.7.*"
-  - SYMFONY_VERSION="2.8.*-dev"
+  - SYMFONY_VERSION="2.8.*"
+  - SYMFONY_VERSION="3.0.*"
+
+matrix:
+  allow_failures:
+    - env: SYMFONY_VERSION="3.0.*"  
 
 addons:
   apt:
@@ -20,7 +25,7 @@ addons:
 
 # Only generate code coverage for the current versions of PHP and Symfony
 # https://github.com/doctrine/doctrine2/blob/3570f4a49afc7e98fed71e0596dded6a39d4fd7b/.travis.yml#L16
-before_install: if [[ $TRAVIS_PHP_VERSION = '5.6' && $SYMFONY_VERSION = '2.7.*' ]]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; else PHPUNIT_FLAGS=""; fi
+before_install: if [[ $TRAVIS_PHP_VERSION = '5.6' && $SYMFONY_VERSION = '2.8.*' ]]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; else PHPUNIT_FLAGS=""; fi
 
 install:
   - composer self-update

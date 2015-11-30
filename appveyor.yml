@@ -33,7 +33,7 @@ install:
     - IF %PHP%==1 echo @php %%~dp0composer.phar %%* > composer.bat
     - appveyor DownloadFile https://getcomposer.org/composer.phar
     - cd c:\projects\asynctweetsbundle
-    - composer require "symfony/symfony:2.7.*" --no-progress
+    - composer require "symfony/symfony:2.8.*" --no-progress
 
 test_script:
     - cd c:\projects\asynctweetsbundle
