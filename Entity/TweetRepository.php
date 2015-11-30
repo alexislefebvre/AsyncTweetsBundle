@@ -226,32 +226,17 @@ class TweetRepository extends EntityRepository
     {
         $count = 0;
         
-        foreach ($this->getTweetsLessThanId($tweetId) as $tweet) {
-            // The Tweet has not been retweeted, it can be removed
-            if (count($tweet->getRetweetingStatuses()) == 0) {
-                $count += $this->removeTweet($tweet);
-            }
-            else {
-                $keep = false;
-                
-                // Check that this tweet has not been retweeted after $tweetId
-                foreach ($tweet->getRetweetingStatuses() as $retweeting_status) {
-                    // This tweet is retweeted in the timeline
-                    if ($retweeting_status->getId() >= $tweetId) {
-                        $keep = true;
-                        break;
-                    }
-                }
-                
+        $tweets = $this->getTweetsLessThanId($tweetId);
+        
+        foreach ($tweets as $tweet) {
+            if ($tweet->mustBeKept($tweetId)) {
                 // The Tweet is still in the timeline, it can only be hidden
-                if ($keep) {
-                    $tweet->setInTimeline(false);
-                    $this->_em->persist($tweet);
-                }
-                // The Tweet can be deleted
-                else {
-                    $count += $this->removeTweet($tweet);
-                }
+                $tweet->setInTimeline(false);
+                $this->_em->persist($tweet);
+             }
+             else {
+                 // The Tweet has not been retweeted, it can be removed
+                $count += $this->removeTweet($tweet);
             }
         }
         

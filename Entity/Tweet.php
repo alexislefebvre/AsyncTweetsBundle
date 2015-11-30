@@ -328,4 +328,29 @@ class Tweet
         
         return $this;
     }
+    
+    /**
+     * Check that tweet can be deleted
+     * 
+     * @param integer $tweetId
+     * 
+     * @return boolean
+     */
+    public function mustBeKept($tweetId)
+    {
+        if (count($this->getRetweetingStatuses()) == 0) {
+            // This tweet has not been retweeted
+            return(false);
+        }
+        
+        // Check that this tweet has not been retweeted after $tweetId
+        foreach ($this->getRetweetingStatuses() as $retweeting_status) {
+            // This tweet is retweeted in the timeline, keep it
+            if ($retweeting_status->getId() >= $tweetId) {
+                return(true);
+            }
+        }
+        
+        return(false);
+    }
 }
