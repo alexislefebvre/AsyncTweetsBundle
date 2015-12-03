@@ -1,8 +1,4 @@
-# https://gist.github.com/meatballhat/d0c8aab9e3bd8a8bcacd#file-00-toplevel-gce-precise-travis-yml
-# Most explicit routing to GCE Precise
-sudo: required
-dist: precise
-group: edge
+sudo: false
 
 language: php
 
@@ -16,11 +12,11 @@ env:
   - SYMFONY_VERSION="2.6.*"
   - SYMFONY_VERSION="2.7.*"
   - SYMFONY_VERSION="2.8.*"
-  - SYMFONY_VERSION="3.0.*"
+  #~ - SYMFONY_VERSION="3.0.*"
 
-matrix:
-  allow_failures:
-    - env: SYMFONY_VERSION="3.0.*"  
+#~ matrix:
+  #~ allow_failures:
+    #~ - env: SYMFONY_VERSION="3.0.*"
 
 addons:
   apt:
