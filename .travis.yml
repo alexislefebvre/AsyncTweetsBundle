@@ -1,4 +1,8 @@
-sudo: false
+# https://gist.github.com/meatballhat/d0c8aab9e3bd8a8bcacd#file-00-toplevel-gce-precise-travis-yml
+# Most explicit routing to GCE Precise
+sudo: required
+dist: precise
+group: edge
 
 language: php
 

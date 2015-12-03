@@ -84,7 +84,7 @@ If `phpunit` is installed:
 
 Or by installing `phpunit` with Composer:
 
-    php composer.phar require --dev phpunit/phpunit "4.8.* || 5.0.*" -vvv ; php vendor/bin/phpunit
+    php composer.phar require --dev phpunit/phpunit "4.8.* || 5.1.*" -vvv ; php vendor/bin/phpunit
 
 ### Development environment
 
