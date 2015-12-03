@@ -88,7 +88,7 @@ Or by installing `phpunit` with Composer:
 
 ### Development environment
 
- - [doctrine/doctrine-fixtures-bundle][doctrine-fixtures-bundle] (~2.2)
+ - [doctrine/doctrine-fixtures-bundle][doctrine-fixtures-bundle] (~2.3)
  - [liip/functional-test-bundle][functional-test-bundle] (~1.0)
 
 [Packagist]: https://packagist.org/packages/alexislefebvre/async-tweets-bundle
