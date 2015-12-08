@@ -32,8 +32,6 @@ class StatusesHomeTimelineCommand extends BaseCommand
             # http://symfony.com/doc/2.3/cookbook/console/console_command.html#automatically-registering-commands
             ->addOption('table', null, InputOption::VALUE_NONE,
                 'Display a table with tweets')
-            ->addOption('test', null, InputOption::VALUE_NONE,
-                'Return data for tests')
         ;
     }
 
@@ -88,57 +86,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
     
     /**
-     * @return array
-     */
-    protected function getTestContent()
-    {
-        $filename = 'tweets_32_bits.json';
-        /** @see https://insight.sensiolabs.com/what-we-analyse/symfony.dependency_injection.use_dir_file_constant */
-        return(json_decode(file_get_contents(
-            $this->container->get('kernel')->locateResource(
-                '@AsyncTweetsBundle/Tests/Command/data/'.$filename
-            )
-        )));
-    }
-    
-    /**
-     * Read a tweet with a retweet from a JSON file
-     * 
-     * @return array
-     */
-    protected function getTestContentWithRetweet()
-    {
-        /** @see https://insight.sensiolabs.com/what-we-analyse/symfony.dependency_injection.use_dir_file_constant */
-        return(json_decode(file_get_contents(
-            $this->container->get('kernel')->locateResource(
-                '@AsyncTweetsBundle/Tests/Command/data/tweet_with_retweet.json'
-            )
-        )));
-    }
-    
-    /**
      * @param InputInterface $input
      */
     protected function getContent(InputInterface $input)
-    {
-        switch($input->getOption('test')) {
-            case 'json':
-                return($this->getTestContent());
-            case 'json_with_retweet':
-                return($this->getTestContentWithRetweet());
-            case 'not_array':
-                // Return null instead of JSON
-                return(null);
-            case 'empty_array':
-                // Return an empty array instead of JSON
-                return(array());
-            default:
-                // Normal behaviour
-                return($this->getConnection());    
-        }
-    }
-    
-    protected function getConnection()
     {
         $connection = new TwitterOAuth(
             $this->container->getParameter('twitter_consumer_key'),

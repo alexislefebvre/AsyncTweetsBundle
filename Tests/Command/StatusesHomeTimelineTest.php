@@ -5,7 +5,7 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Command;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Command\StatusesHomeTimelineCommand;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Command\StatusesHomeTimelineTestCommand;
 
 class StatusesHomeTimelineTest extends StatusesBase
 {
@@ -15,9 +15,9 @@ class StatusesHomeTimelineTest extends StatusesBase
     {
         parent::setUp();
         
-        $this->application->add(new StatusesHomeTimelineCommand());
+        $this->application->add(new StatusesHomeTimelineTestCommand());
 
-        $command = $this->application->find('statuses:hometimeline');
+        $command = $this->application->find('statuses:hometimelinetest');
         $this->commandTester = new CommandTester($command);
     }
     
@@ -25,7 +25,9 @@ class StatusesHomeTimelineTest extends StatusesBase
     {
         $this->loadFixtures(array());
         
-        $this->commandTester->execute(array());
+        $this->commandTester->execute(array(
+            'test' => null
+        ));
         
         $display = $this->commandTester->getDisplay();
         
@@ -38,7 +40,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->loadFixtures(array());
         
         $this->commandTester->execute(array(
-            '--test' => 'json'
+            'test' => 'json'
         ));
         
         $this->assertContains('Number of tweets: 4', $this->commandTester->getDisplay());
@@ -49,7 +51,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->loadFixtures(array());
         
         $this->commandTester->execute(array(
-            '--test' => 'not_array'
+            'test' => 'not_array'
         ));
         
         $this->assertContains('Something went wrong, $content is not an array.', $this->commandTester->getDisplay());
@@ -60,7 +62,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->loadFixtures(array());
         
         $this->commandTester->execute(array(
-            '--test' => 'empty_array'
+            'test' => 'empty_array'
         ));
         
         $display = $this->commandTester->getDisplay();
@@ -83,8 +85,8 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $this->commandTester->execute(
             array(
+                'test' => 'json',
                 '--table' => true,
-                '--test' => 'json'
             ),
             $options
         );
@@ -158,8 +160,8 @@ class StatusesHomeTimelineTest extends StatusesBase
         
         $this->commandTester->execute(
             array(
+                'test' => 'json_with_retweet',
                 '--table' => true,
-                '--test' => 'json_with_retweet'
             ),
             $options
         );
@@ -256,9 +258,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         }
         
         $this->commandTester->execute(
-            array(
-                '--test' => 'empty_array',
-            ),
+            array('test' => 'empty_array'),
             $options
         );
         
