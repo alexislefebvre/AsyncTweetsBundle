@@ -7,16 +7,6 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class StatusesHomeTimelineTestCommand extends StatusesHomeTimelineCommand
 {
-    private $displayTable;
-    private $table;
-    private $progress;
-    
-    /** @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline */
-    private $parameters = array(
-        'count' => 200,
-        'exclude_replies' => true
-    );
-    
     protected function configure()
     {
         parent::configure();

@@ -37,4 +37,4 @@ install:
 
 test_script:
     - cd c:\projects\asynctweetsbundle
-    - vendor/bin/phpunit
+    - vendor/bin/phpunit --colors=never
