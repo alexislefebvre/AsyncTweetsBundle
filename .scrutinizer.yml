@@ -6,6 +6,7 @@ checks:
 filter:
   excluded_paths:
     - Tests/*
+    - Command/StatusesHomeTimelineTestCommand.php
   paths:
     - Command/*
     - Controller/*

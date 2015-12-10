@@ -31,44 +31,6 @@
     
     <body{% block body_attrs %}{% endblock %}>
         {% block body %}
-            <!-- Header -->
-            <div class="navbar navbar-default" role="navigation">
-              <div class="container">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a href="{{ path('asynctweets_homepage') }}"
-                      class="navbar-brand">
-                        AsyncTweets
-                  </a>
-                </div>
-                
-                <nav class="collapse navbar-collapse">
-                  <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="{{ path('asynctweets_homepage') }}">
-                            <span class="glyphicon glyphicon-th-list"></span>
-                            Tweets
-                        </a>
-                    </li>
-                  </ul>
-                  
-                  <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="https://github.com/alexislefebvre/AsyncTweetsBundle">
-                            <span class="glyphicon glyphicon-question-sign"></span>
-                            About
-                        </a>
-                    </li>
-                  </ul>
-                </nav><!--/.nav-collapse -->
-              </div>
-            </div>
-            
             <main class="container">
                 {% block content_title %}{% endblock %}
                 
@@ -91,7 +53,10 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                     </button>
+                    <a href="{{ path('asynctweets_homepage') }}"
+                      class="navbar-brand">AsyncTweets</a>
                   </div>
+
                   <div class="navbar-collapse collapse navbar-responsive-collapse">
                     <ul class="nav navbar-nav">
                       <li>
@@ -108,6 +73,15 @@
                       </li>
                       <li>
                         <a href="http://alexislefebvre.com/">AlexisLefebvre.com</a>
+                      </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                      <li>
+                        <a href="https://github.com/alexislefebvre/AsyncTweetsBundle">
+                          <span class="glyphicon glyphicon-question-sign"></span>
+                          About
+                        </a>
                       </li>
                     </ul>
                   </div>
