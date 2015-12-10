@@ -9,6 +9,7 @@ skip_commits:
     
 cache:
     - c:\tools\php -> appveyor.yml
+    - '%LOCALAPPDATA%\Composer\files'
 
 init:
     - SET PATH=C:\Program Files\OpenSSL;c:\tools\php;%PATH%

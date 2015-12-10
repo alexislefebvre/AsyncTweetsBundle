@@ -4,7 +4,13 @@ A Symfony2 bundle providing a Twitter reader for asynchronous reading
 
 [Packagist ![Latest Stable Version][Packagist Stable Image] ![Latest Unstable Version][Packagist Unstable Image]][Packagist]
 
-[![Build status][Travis Master image]][Travis Master] [![Scrutinizer Code Quality][Scrutinizer image] ![Scrutinizer][Scrutinizer Coverage Image]][Scrutinizer] [![Code Climate][Code Climate image]][Code Climate] [![AppVeyor][AppVeyor image]][AppVeyor] [![Dependency Status][Dependency Status Image]][Dependency Status] [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
+[![Build status][Travis Master image]][Travis Master]
+[![Scrutinizer Code Quality][Scrutinizer image]
+![Scrutinizer][Scrutinizer Coverage Image]][Scrutinizer]
+[![Code Climate][Code Climate image]][Code Climate]
+[![AppVeyor][AppVeyor image]][AppVeyor]
+[![Dependency Status][Dependency Status Image]][Dependency Status]
+[![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
 
 ## Links
 
@@ -14,8 +20,10 @@ A Symfony2 bundle providing a Twitter reader for asynchronous reading
 
 ## Goal
 
-The goal of this project is to create an online Twitter reader built with [Symfony2][Symfony2].
+The goal of this project is to create an online Twitter reader, built with [Symfony2][Symfony2].
 AsyncTweets retrieves and stores your timeline, allowing to read your Twitter timeline even if you're away from your Twitter client for several days.
+
+This bundle is also used to test several CI (Continuous Integration) services.
 
 ## Features
 
