@@ -38,7 +38,7 @@ This bundle is also used to test several CI (Continuous Integration) services.
  - [Twitter keys][Twitter keys]
  - PHP >= 5.5 (required by abraham/twitteroauth 0.6.0)
  - a database (must be supported by Doctrine2)
- - [Symfony 2][Symfony2 GitHub] (2.6 or higher) with [Composer][Composer]. If you want to install it:
+ - [Symfony 2][Symfony2 GitHub] (2.7 or higher) with [Composer][Composer]. If you want to install it:
 
         php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.7.*" -vvv
 
@@ -85,7 +85,7 @@ This bundle is also used to test several CI (Continuous Integration) services.
  5. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ## Dependencies
- - [symfony/symfony][Symfony2 GitHub] (2.6+)
+ - [symfony/symfony][Symfony2 GitHub] (2.7+)
  - [abraham/twitteroauth][twitteroauth] (^0.6.0)
  - [twitter/bootstrap][Twitter Bootstrap] (use [Bootswatch 3.3.2][Bootstrap CDN])
 
