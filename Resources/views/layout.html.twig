@@ -60,10 +60,11 @@
                   <div class="navbar-collapse collapse navbar-responsive-collapse">
                     <ul class="nav navbar-nav">
                       <li>
-                          <a href="http://validator.w3.org/check?uri=referer" title="Valid HTML5">
-                                <img width="32" height="32" alt="Valid HTML5"
-                                    src="http://alexislefebvre.com/images/HTML5_Badge_32.png">
-                            </a>
+                        <a href="http://validator.w3.org/check?uri=referer" title="Valid HTML5">
+                          {% image '@AsyncTweetsBundle/Resources/public/images/HTML5_Badge_32.png' %}
+                            <img width="32" height="32" alt="Valid HTML5" src="{{ asset_url }}">
+                          {% endimage %}
+                        </a>
                       </li>
                       <li>
                         <a href="http://bootswatch.com/cerulean/">Cerulean theme</a>

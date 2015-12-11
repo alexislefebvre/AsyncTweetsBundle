@@ -63,20 +63,26 @@ This bundle is also used to test several CI (Continuous Integration) services.
         twitter_consumer_secret: null
         twitter_token: null
         twitter_token_secret: null
-   
+
  4. Create the database and create the tables: `php app/console doctrine:schema:update --force --env=prod`
 
 ### Usage:
 
  1. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table --env=prod`, with the ` --table` option the imported tweets will be shown
- 2. Import the routes in your <kbd>app/config/routing.yml</kbd>:
+ 2. Update <kbd>app/config/config.yml</kbd> to enable Assetic if it's not activated yet:
+ 
+        framework:
+            # ...
+            assets: ~  
+
+ 3. Import the routes in your <kbd>app/config/routing.yml</kbd>:
  
         asynctweets_website:
             resource: "@AsyncTweetsBundle/Resources/config/routing.yml"
             prefix:   /asynctweets # Use only "/" if you want AsyncTweets at the root of the website
 
- 3. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
- 4. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
+ 4. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
+ 5. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ## Dependencies
  - [symfony/symfony][Symfony2 GitHub] (2.6+)

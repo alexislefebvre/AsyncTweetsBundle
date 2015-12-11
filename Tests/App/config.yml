@@ -14,6 +14,9 @@ framework:
         storage_id: session.storage.filesystem 
     profiler:
         collect: false
+    # Enable Assetic
+    # see https://github.com/symfony/assetic-bundle/issues/396#issuecomment-160986958
+    assets: ~    
 
 monolog:
     handlers:
@@ -45,4 +48,3 @@ parameters:
     twitter_consumer_secret: null
     twitter_token: null
     twitter_token_secret: null
-    
