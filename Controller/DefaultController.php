@@ -12,11 +12,12 @@ class DefaultController extends Controller
     private $tweetRepository;
     
     /**
+     * @param Request $request
      * @param string|null $firstTweetId
      * 
      * @return \Symfony\Component\HttpFoundation\Response $response $response
      */
-    public function indexAction($firstTweetId = null)
+    public function indexAction(Request $request, $firstTweetId = null)
     {
         $this->tweetRepository = $this->getDoctrine()
             ->getRepository('AsyncTweetsBundle:Tweet');
@@ -24,7 +25,7 @@ class DefaultController extends Controller
         $tweets = $this->tweetRepository
             ->getWithUsersAndMedias($firstTweetId);
         
-        $variables = $this->getVariables($tweets, $firstTweetId);
+        $variables = $this->getVariables($request, $tweets, $firstTweetId);
         
         $response = $this->render(
             'AsyncTweetsBundle:Default:index.html.twig',
@@ -42,20 +43,21 @@ class DefaultController extends Controller
     }
     
     /**
+     * @param Request $request
      * @param Tweets[] $tweets
      * @param integer $firstTweetId
      * 
      * @return array $vars
      */
-    private function getVariables($tweets, $firstTweetId)
+    private function getVariables(Request $request, $tweets, $firstTweetId)
     {
         $vars = array(
             'first' => $firstTweetId,
             'previous' => null,
             'next' => null,
             'number' => 0,
+            'cookieId' => $this->getLastTweetIdFromCookie($request),
             # No cookie by default
-            'cookieId' => null,
             'cookie' => null,
         );
         
@@ -152,7 +154,7 @@ class DefaultController extends Controller
     {
         $lastTweetId = $this->getLastTweetIdFromCookie($request);
         
-        if ($lastTweetId) {
+        if (! is_null($lastTweetId)) {
             $count = $this->getDoctrine()
                 ->getRepository('AsyncTweetsBundle:Tweet')
                 ->deleteAndHideTweetsLessThanId($lastTweetId);

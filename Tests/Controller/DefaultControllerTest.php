@@ -56,7 +56,8 @@ class DefaultControllerTest extends WebTestCase
         # <title>
         $this->assertContains(
             'Home timeline - since 49664 - AsyncTweets',
-            $crawler->filter('title')->text()
+            $crawler->filter('title')->text(),
+            $crawler->filter('html')->text()
         );
         
         # 2 navigation blocks
@@ -81,8 +82,6 @@ class DefaultControllerTest extends WebTestCase
                 'p > a'
             )->count()
         );
-        
-        # TODO: Hashtags
         
         # Images
         $this->assertSame(
@@ -241,7 +240,33 @@ class DefaultControllerTest extends WebTestCase
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
         );
-
+        
+        // Number of pending tweets
+        $this->assertContains(
+            '3 pending tweets',
+            $crawler->filter('main.container > div.navigation')
+                ->first()->filter('div.alert-info')->text()
+        );
+        
+        // Go to first page
+        $path = '/';
+        
+        $crawler = $this->client->request('GET', $path);
+        
+        // Tweet
+        $this->assertSame(
+            5,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count()
+        );
+        
+        // Number of pending tweets
+        $this->assertContains(
+            '3 pending tweets',
+            $crawler->filter('main.container > div.navigation')
+                ->first()->filter('div.alert-info')->text()
+        );
     }
     
     public function testCookie()
