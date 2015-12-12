@@ -9,61 +9,98 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
 {
+    private $tweetRepository;
+    
     /**
-     * @param Request $request
      * @param string|null $firstTweetId
      * 
      * @return \Symfony\Component\HttpFoundation\Response $response $response
      */
-    public function indexAction(Request $request, $firstTweetId = null)
+    public function indexAction($firstTweetId = null)
     {
-        $previousTweetId = $nextTweetId = null;
-        
-        # No cookie by default
-        $cookie = $cookieTweetId = null;
-        
-        $tweetRepository = $this->getDoctrine()
+        $this->tweetRepository = $this->getDoctrine()
             ->getRepository('AsyncTweetsBundle:Tweet');
         
-        $tweets = $tweetRepository
+        $tweets = $this->tweetRepository
             ->getWithUsersAndMedias($firstTweetId);
         
-        $numberOfTweets = 0;
-        
-        if (count($tweets) > 0) {
-            $firstTweetId = $tweets[0]->getId();
-            
-            list($previousTweetId, $nextTweetId) = $tweetRepository
-                ->getPreviousAndNextTweetId($firstTweetId);
-            
-            list($cookie, $cookieTweetId) = $this->getCookieValues($request,
-                $firstTweetId);
-            
-            $numberOfTweets = $tweetRepository
-                ->countPendingTweets($cookieTweetId);
-        }
+        $variables = $this->getVariables($tweets, $firstTweetId);
         
         $response = $this->render(
             'AsyncTweetsBundle:Default:index.html.twig',
             array(
                 'tweets' => $tweets,
-                'previousTweetId' => $previousTweetId,
-                'nextTweetId' => $nextTweetId,
-                'firstTweetId' => $firstTweetId,
-                'cookieTweetId' => $cookieTweetId,
-                'numberOfTweets' => $numberOfTweets,
+                'vars' => $variables,
             )
         );
         
-        if (! is_null($cookie)) {
-            $response->headers->setCookie($cookie);
+        if (! is_null($variables['cookie'])) {
+            $response->headers->setCookie($variables['cookie']);
         }
         
         return $response;
     }
     
     /**
+     * @param Tweets[] $tweets
+     * @param integer $firstTweetId
+     * 
+     * @return array $vars
+     */
+    private function getVariables($tweets, $firstTweetId)
+    {
+        $vars = array(
+            'first' => $firstTweetId,
+            'previous' => null,
+            'next' => null,
+            'number' => 0,
+            # No cookie by default
+            'cookieId' => null,
+            'cookie' => null,
+        );
+        
+        if (count($tweets) > 0) {
+            $vars = $this->getTweetsVars($tweets, $vars);
+        }
+        
+        return($vars);
+    }
+    
+    /**
+     * If a Tweet is displayed, fetch data from repository
+     * 
+     * @param Tweets[] $tweets
+     * @param array $vars
+     * 
+     * @return array $vars
+     */
+    private function getTweetsVars($tweets, $vars)
+    {
+        $firstTweetId = $tweets[0]->getId();
+        
+        $vars['previous'] = $this->tweetRepository
+            ->getPreviousTweetId($firstTweetId);
+        $vars['next'] = $this->tweetRepository
+            ->getNextTweetId($firstTweetId);
+        
+        # Only update the cookie if the last Tweet Id is bigger than
+        #  the one in the cookie
+        if ($firstTweetId > $vars['cookieId']) {
+            $vars['cookie'] = $this->getCookie($firstTweetId);
+            $vars['cookieId'] = $firstTweetId;
+        }    
+        
+        $vars['number'] = $this->tweetRepository
+            ->countPendingTweets($vars['cookieId']);
+        
+        $vars['first'] = $firstTweetId;
+        
+        return($vars);
+    }
+    
+    /**
      * @param Request $request
+     * @return integer|null
      */
     private function getLastTweetIdFromCookie(Request $request)
     {
@@ -76,6 +113,7 @@ class DefaultController extends Controller
     
     /**
      * @param string $firstTweetId
+     * @return Cookie $cookie
      */
     private function getCookie($firstTweetId)
     {
@@ -87,26 +125,6 @@ class DefaultController extends Controller
             $nextYear->format('U'));
         
         return($cookie);
-    }
-    
-    /**
-     * @param Request $request
-     * @param integer $firstTweetId
-     */
-    private function getCookieValues(Request $request, $firstTweetId)
-    {
-        $cookie = null;
-        $cookieTweetId = $this->getLastTweetIdFromCookie($request);
-        
-        # Only update the cookie if the last Tweet Id is bigger than
-        #  the one in the cookie
-        if ($firstTweetId > $cookieTweetId) {
-            $cookie = $this->getCookie($firstTweetId);
-            
-            $cookieTweetId = $firstTweetId;
-        }
-        
-        return array($cookie, $cookieTweetId);
     }
     
     /**
@@ -127,6 +145,7 @@ class DefaultController extends Controller
     }
     
     /**
+     * @param Request $request
      * @return RedirectResponse $response
      */
     public function deleteLessThanAction(Request $request)
@@ -146,4 +165,3 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('asynctweets_homepage'));
     }
 }
-

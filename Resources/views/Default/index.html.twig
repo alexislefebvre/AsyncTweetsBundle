@@ -1,7 +1,7 @@
 {% extends 'AsyncTweetsBundle::layout.html.twig' %}
 
-{% block title %}Home timeline - {% if (firstTweetId is not null)
-    %}since {{ firstTweetId }}{%
+{% block title %}Home timeline - {% if (vars.first is not null)
+    %}since {{ vars.first }}{%
 endif%}{% endblock %}
 
 {% block content %}
@@ -10,20 +10,20 @@ endif%}{% endblock %}
         {% set pagination %}
         <div class="col-sm-5 col-xs-12">
             <ul class="pagination">
-                <li class="{{ ((previousTweetId is null) ? 'disabled') }}">
-                    {% if (previousTweetId is not null) %}
+                <li class="{{ ((vars.previous is null) ? 'disabled') }}">
+                    {% if (vars.previous is not null) %}
                         <a href="{{ path('asynctweets_tweets_sinceTweetId', {
-                            'firstTweetId': previousTweetId
+                            'firstTweetId': vars.previous
                         }) }}">«&nbsp;Previous</a>
                     {% else %}
                         <span>«&nbsp;Previous</span>
                     {% endif %}
                 </li>
                 
-                <li class="{{ ((nextTweetId is null) ? 'disabled') }}">
-                    {% if (nextTweetId is not null) %}
+                <li class="{{ ((vars.next is null) ? 'disabled') }}">
+                    {% if (vars.next is not null) %}
                         <a href="{{ path('asynctweets_tweets_sinceTweetId', {
-                            'firstTweetId': nextTweetId
+                            'firstTweetId': vars.next
                         }) }}">Next&nbsp;»</a>
                     {% else %}
                         <span>Next&nbsp;»</span>
@@ -36,12 +36,12 @@ endif%}{% endblock %}
         {{ pagination }}
         
         <div class="col-sm-7 col-xs-12 count alert alert-info">
-            {% if (cookieTweetId is not null) %}
+            {% if (vars.cookieId is not null) %}
                 <p>
                     Last tweet id:
                     <a href="{{ path('asynctweets_tweets_sinceTweetId', {
-                            'firstTweetId': cookieTweetId
-                        }) }}">{{ cookieTweetId }}</a>
+                            'firstTweetId': vars.cookieId
+                        }) }}">{{ vars.cookieId }}</a>
                     <a href="{{ path('asynctweets_reset_cookie') }}"
                         class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
@@ -55,7 +55,7 @@ endif%}{% endblock %}
                 </p>
             {% endif %}
             
-            <p>{{ numberOfTweets }} pending tweets</p>
+            <p>{{ vars.number }} pending tweets</p>
         </div>
     </div>
     
