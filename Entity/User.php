@@ -29,6 +29,11 @@ class User
      */
     private $profile_image_url;
     
+     /**
+     * @var string
+     */
+    private $profile_image_url_https;
+    
     /**
      * @var ArrayCollection
      */
@@ -134,7 +139,45 @@ class User
     {
         return $this->profile_image_url;
     }
+    
+    /**
+     * Set profile_image_url_https
+     *
+     * @param string $profileImageUrlHttps
+     * @return User
+     */
+    public function setProfileImageUrlHttps($profileImageUrlHttps)
+    {
+        $this->profile_image_url_https = $profileImageUrlHttps;
+
+        return $this;
+    }
+    
+    /**
+     * Get profile_image_url_https
+     *
+     * @return string
+     */
+    public function getProfileImageUrlHttps()
+    {
+        return $this->profile_image_url_https;
+    }
+    
+    /**
+     * Get profile image, with HTTPS if available
+     *
+     * @return string
+     */
+    public function getProfileImageUrlHttpOrHttps()
+    {
+        if (! is_null($this->getProfileImageUrlHttps())) {
+            return $this->getProfileImageUrlHttps();
+        }
+        // else
         
+        return $this->getProfileImageUrl();
+    }
+    
     /**
      * Get tweets
      *
@@ -152,7 +195,7 @@ class User
      */
     public function addTweet(Tweet $tweet)
     {
-        $this->tweets[] = $tweet;
+        $this->tweets->add($tweet);
         
         return $this;
     }
@@ -167,7 +210,7 @@ class User
         $this
             ->setName($userTmp->name)
             ->setScreenName($userTmp->screen_name)
-            ->setProfileImageUrl($userTmp->profile_image_url)
+            ->setProfileImageUrlHttps($userTmp->profile_image_url_https)
         ;
         
         return $this;

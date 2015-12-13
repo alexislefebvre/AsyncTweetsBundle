@@ -283,8 +283,8 @@ class Tweet
      */
     public function addMedia(Media $media)
     {
+        $this->medias->add($media);
         $media->addTweet($this);
-        $this->medias[] = $media;
         
         return $this;
     }

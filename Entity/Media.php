@@ -170,7 +170,7 @@ class Media
      */
     public function addTweet(Tweet $tweet)
     {
-        $this->tweets[] = $tweet;
+        $this->tweets->add($tweet);
         
         return $this;
     }

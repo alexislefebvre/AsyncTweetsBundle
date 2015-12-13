@@ -88,7 +88,7 @@ class DefaultController extends Controller
         # Only update the cookie if the last Tweet Id is bigger than
         #  the one in the cookie
         if ($firstTweetId > $vars['cookieId']) {
-            $vars['cookie'] = $this->getCookie($firstTweetId);
+            $vars['cookie'] = $this->createCookie($firstTweetId);
             $vars['cookieId'] = $firstTweetId;
         }    
         
@@ -117,7 +117,7 @@ class DefaultController extends Controller
      * @param string $firstTweetId
      * @return Cookie $cookie
      */
-    private function getCookie($firstTweetId)
+    private function createCookie($firstTweetId)
     {
         $nextYear = new \Datetime('now');
         $nextYear->add(new \DateInterval('P1Y'));

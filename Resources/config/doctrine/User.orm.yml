@@ -20,6 +20,11 @@ AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User:
         profile_image_url:
             type: string
             length: '255'
+            nullable: true
+        profile_image_url_https:
+            type: string
+            length: '255'
+            nullable: true
     oneToMany:
         tweets:
             targetEntity: Tweet

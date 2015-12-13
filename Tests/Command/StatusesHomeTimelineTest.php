@@ -201,6 +201,22 @@ class StatusesHomeTimelineTest extends StatusesBase
             $tweet->getId()
         );
         
+        // Image URL was stored with HTTPS
+        $this->assertSame(
+            'https://abs.twimg.com/sticky/default_profile_images/default_profile_5_normal.png',
+            $tweet->getUser()->getProfileImageUrlHttpOrHttps()
+        );
+        
+        // Image URL with HTTP was not stored
+        $this->assertSame(
+            'https://abs.twimg.com/sticky/default_profile_images/default_profile_5_normal.png',
+            $tweet->getUser()->getProfileImageUrlHttps()
+        );
+        
+        $this->assertNull(
+            $tweet->getUser()->getProfileImageUrl()
+        );
+        
         // The number of retweet is the same for both tweets
         $this->assertEquals(
             89,

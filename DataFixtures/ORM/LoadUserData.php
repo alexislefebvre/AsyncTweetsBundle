@@ -20,7 +20,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             ->setId(12301465)
             ->setName('Asynchronous tweets')
             ->setScreenName('AsyncTweets')
-            ->setProfileImageUrl('http://abs.twimg.com/sticky/default_profile_images/default_profile_5_normal.png')
+            ->setProfileImageUrlHttps('https://abs.twimg.com/sticky/default_profile_images/default_profile_5_normal.png')
         ;
 
         $manager->persist($user);
@@ -34,7 +34,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             ->setId(13334762)
             ->setName('GitHub')
             ->setScreenName('github')
-            ->setProfileImageUrl('http://pbs.twimg.com/profile_images/616309728688238592/pBeeJQDQ_normal.png')
+            ->setProfileImageUrlHttps('https://pbs.twimg.com/profile_images/616309728688238592/pBeeJQDQ_normal.png')
         ;
 
         $manager->persist($user);
@@ -48,7 +48,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             ->setId(131295561)
             ->setName('GitHub Engineering')
             ->setScreenName('GitHubEng')
-            ->setProfileImageUrl('http://pbs.twimg.com/profile_images/593061696039706627/uzIQ4lJF_normal.png')
+            ->setProfileImageUrlHttps('https://pbs.twimg.com/profile_images/593061696039706627/uzIQ4lJF_normal.png')
         ;
 
         $manager->persist($user);
