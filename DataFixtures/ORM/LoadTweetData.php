@@ -2,16 +2,15 @@
 
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM;
 
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
-
 class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -22,12 +21,11 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
             ->setText('Hello Twitter! #myfirstTweet')
             ->setRetweetCount(0)
             ->setFavoriteCount(0)
-            ->setInTimeline(true)
-        ;
-        
+            ->setInTimeline(true);
+
         $manager->persist($tweet);
         $manager->flush();
-        
+
         $tweet = new Tweet();
         $tweet
             ->setId(210900500)
@@ -37,13 +35,12 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
             ->setRetweetCount(0)
             ->setFavoriteCount(0)
             ->setInTimeline(true)
-            ->addMedia($this->getReference('media-1'))
-        ;
-        
+            ->addMedia($this->getReference('media-1'));
+
         $manager->persist($tweet);
         $manager->flush();
-        
-        # Tweet with retweet
+
+        // Tweet with retweet
         $tweet = new Tweet();
         $tweet
             ->setId(240926208)
@@ -53,9 +50,8 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
                 'Desktop by @rob_rix http://t.co/j1SautZKs7')
             ->setRetweetCount(77)
             ->setFavoriteCount(0)
-            ->setInTimeline(true)
-        ;
-        
+            ->setInTimeline(true);
+
         $retweet = new Tweet();
         $retweet
             ->setId(1005868289)
@@ -64,17 +60,16 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
             ->setText('Cross-platform UI in GitHub Desktop by @rob_rix '.
                 'http://t.co/j1SautZKs7')
             ->setRetweetCount(77)
-            ->setFavoriteCount(151)
-        ;
-        
+            ->setFavoriteCount(151);
+
         $manager->persist($retweet);
         $manager->flush();
-        
+
         $tweet->setRetweetedStatus($retweet);
-        
+
         $manager->persist($tweet);
         $manager->flush();
-        
+
         $tweet = new Tweet();
         $tweet
             ->setId(1005868490)
@@ -84,15 +79,14 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
                 'http://t.co/j1SautZKs7')
             ->setRetweetCount(7)
             ->setFavoriteCount(42)
-            ->addMedia($this->getReference('media-2'))
-        ;
-        
+            ->addMedia($this->getReference('media-2'));
+
         $manager->persist($tweet);
         $manager->flush();
     }
-    
+
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOrder()
     {

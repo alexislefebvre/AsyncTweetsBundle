@@ -5,7 +5,7 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Tweet
+ * Tweet.
  */
 class Tweet
 {
@@ -13,89 +13,91 @@ class Tweet
      * @var bigint
      */
     private $id;
-    
+
     /**
      * @var \DateTime
      */
     private $created_at;
-    
+
     /**
      * @var string
      */
     private $text;
-    
+
     /**
-     * @var integer
+     * @var int
      */
     private $retweet_count = 0;
-    
+
     /**
-     * @var integer
+     * @var int
      */
     private $favorite_count = 0;
-    
+
     /**
      * @var User
      */
     private $user;
-    
+
     /**
-     * In timeline: false for retweeted Tweets
+     * In timeline: false for retweeted Tweets.
      */
     private $in_timeline = false;
-    
+
     /**
      * @var Tweet
      */
     private $retweeted_status = null;
-    
+
     /**
      * @var ArrayCollection
      */
     private $retweeting_statuses;
-    
+
     /**
      * @var ArrayCollection
      */
     private $medias;
-    
+
     public function __construct($id = null)
     {
-        if (! is_null($id)) {
+        if (!is_null($id)) {
             $this->setId($id);
         }
-        
+
         $this->medias = new ArrayCollection();
         $this->retweeting_statuses = new ArrayCollection();
     }
-    
+
     /**
-     * Set id
+     * Set id.
      *
      * @param bigint $id
-     * @return Tweet 
+     *
+     * @return Tweet
      */
     public function setId($id)
     {
         $this->id = $id;
-        
+
         return $this;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
-    
+
     /**
-     * Set created_at
+     * Set created_at.
      *
      * @param \DateTime $createdAt
+     *
      * @return Tweet
      */
     public function setCreatedAt(\Datetime $createdAt)
@@ -104,21 +106,22 @@ class Tweet
 
         return $this;
     }
-    
+
     /**
-     * Get created_at
+     * Get created_at.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
         return $this->created_at;
     }
-    
+
     /**
-     * Set text
+     * Set text.
      *
      * @param string $text
+     *
      * @return Tweet
      */
     public function setText($text)
@@ -127,31 +130,32 @@ class Tweet
 
         return $this;
     }
-    
+
     /**
-     * Get text
+     * Get text.
      *
-     * @return string 
+     * @return string
      */
     public function getText()
     {
         return $this->text;
     }
-    
+
     public function getTextLinkified()
     {
-        /** @see http://stackoverflow.com/questions/507436/how-do-i-linkify-urls-in-a-string-with-php/507459#507459 */
+        /* @see http://stackoverflow.com/questions/507436/how-do-i-linkify-urls-in-a-string-with-php/507459#507459 */
         return preg_replace(
-            "~[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]~",
-            "<a href=\"\\0\">\\0</a>", 
+            '~[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]~',
+            '<a href="\\0">\\0</a>',
             $this->getText()
         );
     }
-    
+
     /**
-     * Set retweet_count
+     * Set retweet_count.
      *
-     * @param integer $retweetCount
+     * @param int $retweetCount
+     *
      * @return Tweet
      */
     public function setRetweetCount($retweetCount)
@@ -160,21 +164,22 @@ class Tweet
 
         return $this;
     }
-    
+
     /**
-     * Get retweet_count
+     * Get retweet_count.
      *
-     * @return integer 
+     * @return int
      */
     public function getRetweetCount()
     {
         return $this->retweet_count;
     }
-    
+
     /**
-     * Set favorite_count
+     * Set favorite_count.
      *
-     * @param integer $favoriteCount
+     * @param int $favoriteCount
+     *
      * @return Tweet
      */
     public function setFavoriteCount($favoriteCount)
@@ -183,21 +188,22 @@ class Tweet
 
         return $this;
     }
-    
+
     /**
-     * Get favorite_count
+     * Get favorite_count.
      *
-     * @return integer
+     * @return int
      */
     public function getFavoriteCount()
     {
         return $this->favorite_count;
     }
-    
+
     /**
-     * Set user
+     * Set user.
      *
      * @param User $user
+     *
      * @return Tweet
      */
     public function setUser(User $user)
@@ -207,9 +213,9 @@ class Tweet
 
         return $this;
     }
-    
+
     /**
-     * Get User
+     * Get User.
      *
      * @return User
      */
@@ -217,47 +223,49 @@ class Tweet
     {
         return $this->user;
     }
-    
+
     /**
-     * Set in timeline
+     * Set in timeline.
      *
-     * @param boolean $inTimeline
+     * @param bool $inTimeline
+     *
      * @return Tweet
      */
     public function setInTimeline($inTimeline)
     {
         $this->in_timeline = $inTimeline;
-        
+
         return $this;
     }
-    
+
     /**
-     * Get in timeline
+     * Get in timeline.
      *
-     * @return boolean
+     * @return bool
      */
     public function isInTimeline()
     {
         return $this->in_timeline;
     }
-    
+
     /**
      * Set retweeted
      * "This attribute contains a representation of the original Tweet
-     *  that was retweeted."
+     *  that was retweeted.".
      *
      * @param Tweet $retweetedStatus
+     *
      * @return Tweet
      */
     public function setRetweetedStatus(Tweet $retweetedStatus)
     {
         $this->retweeted_status = $retweetedStatus;
-        
+
         return $this;
     }
-    
+
     /**
-     * Get retweeted status
+     * Get retweeted status.
      *
      * @return Tweet
      */
@@ -265,19 +273,19 @@ class Tweet
     {
         return $this->retweeted_status;
     }
-    
+
     /**
-     * Get medias
+     * Get medias.
      *
-     * @return ArrayCollection 
+     * @return ArrayCollection
      */
     public function getMedias()
     {
         return $this->medias;
     }
-    
+
     /**
-     * Add a media
+     * Add a media.
      *
      * @return Tweet
      */
@@ -285,12 +293,12 @@ class Tweet
     {
         $this->medias->add($media);
         $media->addTweet($this);
-        
+
         return $this;
     }
-    
+
     /**
-     * Remove a media
+     * Remove a media.
      *
      * @return Tweet
      */
@@ -298,22 +306,22 @@ class Tweet
     {
         $this->medias->removeElement($media);
         $media->removeTweet($this);
-        
+
         return $this;
     }
-    
+
     /**
-     * Get retweeting status
+     * Get retweeting status.
      *
-     * @return ArrayCollection 
+     * @return ArrayCollection
      */
     public function getRetweetingStatuses()
     {
         return $this->retweeting_statuses;
     }
-    
+
     /**
-     * Call setter functions
+     * Call setter functions.
      * 
      * @param \stdClass $tweetTmp
      */
@@ -323,34 +331,33 @@ class Tweet
             ->setCreatedAt(new \Datetime($tweetTmp->created_at))
             ->setText($tweetTmp->text)
             ->setRetweetCount($tweetTmp->retweet_count)
-            ->setFavoriteCount($tweetTmp->favorite_count)
-        ;
-        
+            ->setFavoriteCount($tweetTmp->favorite_count);
+
         return $this;
     }
-    
+
     /**
-     * Check that tweet can be deleted
+     * Check that tweet can be deleted.
      * 
-     * @param integer $tweetId
+     * @param int $tweetId
      * 
-     * @return boolean
+     * @return bool
      */
     public function mustBeKept($tweetId)
     {
         if (count($this->getRetweetingStatuses()) == 0) {
             // This tweet has not been retweeted
-            return(false);
+            return false;
         }
-        
+
         // Check that this tweet has not been retweeted after $tweetId
         foreach ($this->getRetweetingStatuses() as $retweeting_status) {
             // This tweet is retweeted in the timeline, keep it
             if ($retweeting_status->getId() >= $tweetId) {
-                return(true);
+                return true;
             }
         }
-        
-        return(false);
+
+        return false;
     }
 }
