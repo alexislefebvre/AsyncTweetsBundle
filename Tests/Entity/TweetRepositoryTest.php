@@ -2,11 +2,8 @@
 
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Entity;
 
-use Liip\FunctionalTestBundle\Test\WebTestCase;
-
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class TweetRepositoryTest extends WebTestCase
 {
@@ -21,41 +18,37 @@ class TweetRepositoryTest extends WebTestCase
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
-    
+
     public function testTweetRepository()
     {
-        $this->loadFixtures(array(
+        $this->loadFixtures([
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
-        ));
-        
+        ]);
+
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->getWithUsers(1)
-        ;
+            ->getWithUsers(1);
 
         $this->assertCount(3, $tweets);
-        
+
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->getWithUsersAndMedias(null, false)
-        ;
+            ->getWithUsersAndMedias(null, false);
 
         $this->assertCount(3, $tweets);
-        
+
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->getWithUsersAndMedias(null, true)
-        ;
+            ->getWithUsersAndMedias(null, true);
 
         $this->assertCount(3, $tweets);
-        
+
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->countPendingTweets(49664)
-        ;
-        
+            ->countPendingTweets(49664);
+
         $this->assertEquals(3, $tweets);
     }
 }

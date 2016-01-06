@@ -2,16 +2,15 @@
 
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM;
 
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
-
 class LoadMediaData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -21,31 +20,29 @@ class LoadMediaData extends AbstractFixture implements OrderedFixtureInterface
             ->setMediaUrlHttps('http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg')
             ->setUrl('http://t.co/rX1oieH1ug')
             ->setDisplayUrl('pic.twitter.com/rX1oieH1ug')
-            ->setExpandedUrl('http://twitter.com/AsyncTweets/status/567836201210900480/photo/1')
-        ;
-        
+            ->setExpandedUrl('http://twitter.com/AsyncTweets/status/567836201210900480/photo/1');
+
         $manager->persist($media);
         $manager->flush();
-        
+
         $this->addReference('media-1', $media);
-        
+
         $media = new Media();
         $media
             ->setId(42003969)
             ->setMediaUrlHttps('http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg')
             ->setUrl('http://t.co/rX1oieH1ug')
             ->setDisplayUrl('pic.twitter.com/rX1oieH1ug')
-            ->setExpandedUrl('http://twitter.com/AsyncTweets/status/567836201210900480/photo/1')
-        ;
-        
+            ->setExpandedUrl('http://twitter.com/AsyncTweets/status/567836201210900480/photo/1');
+
         $manager->persist($media);
         $manager->flush();
-        
+
         $this->addReference('media-2', $media);
     }
-    
+
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOrder()
     {
