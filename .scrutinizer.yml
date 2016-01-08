@@ -12,6 +12,7 @@ filter:
     - Controller/*
     - Entity/*
     - Utils/*
+    - AsyncTweetsBundle.php
 
 build:
   tests:

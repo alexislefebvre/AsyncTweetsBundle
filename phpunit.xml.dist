@@ -25,6 +25,7 @@
 
     <filter>
         <whitelist>
+            <file>AsyncTweetsBundle.php</file>
             <directory>Command</directory>
             <directory>Controller</directory>
             <directory>Entity</directory>

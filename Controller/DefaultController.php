@@ -15,7 +15,7 @@ class DefaultController extends Controller
      * @param Request $request
      * @param string|null $firstTweetId
      * 
-     * @return \Symfony\Component\HttpFoundation\Response $response $response
+     * @return \Symfony\Component\HttpFoundation\Response $response
      */
     public function indexAction(Request $request, $firstTweetId = null)
     {

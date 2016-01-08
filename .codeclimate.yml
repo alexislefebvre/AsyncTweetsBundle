@@ -7,6 +7,7 @@ ratings:
     - Controller/*
     - Entity/*
     - Utils/*
+    - AsyncTweetsBundle.php
 
 exclude_paths:
   - DataFixtures/ORM/*

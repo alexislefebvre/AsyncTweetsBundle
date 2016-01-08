@@ -73,7 +73,8 @@ This bundle is also used to test several CI (Continuous Integration) services.
  
         framework:
             # ...
-            assets: ~  
+            assets: ~
+
  3. Import the routes in your <kbd>app/config/routing.yml</kbd>:
  
         asynctweets_website:
@@ -82,7 +83,7 @@ This bundle is also used to test several CI (Continuous Integration) services.
 
  4. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
 
- 5. If you have an error `An exception has been thrown during the compilation of a template ("You must add AsyncTweetsBundle to the assetic.bundle config to use the {% image %} tag in AsyncTweetsBundle::layout.html.twig.") in "AsyncTweetsBundle::layout.html.twig".`, added the bundle in assetic bundles:
+ 5. If you have an error `An exception has been thrown during the compilation of a template ("You must add AsyncTweetsBundle to the assetic.bundle config to use the {% image %} tag in AsyncTweetsBundle::layout.html.twig.") in "AsyncTweetsBundle::layout.html.twig".`, add the bundle in assetic bundles:
  
         # Assetic Configuration
         assetic:
