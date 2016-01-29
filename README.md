@@ -8,6 +8,7 @@ A Symfony2 bundle providing a Twitter reader for asynchronous reading
 [![Scrutinizer Code Quality][Scrutinizer image]
 ![Scrutinizer][Scrutinizer Coverage Image]][Scrutinizer]
 [![Code Climate][Code Climate image]][Code Climate]
+[![Coveralls][Coveralls image]][Coveralls]
 [![AppVeyor][AppVeyor image]][AppVeyor]
 [![Dependency Status][Dependency Status Image]][Dependency Status]
 [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
@@ -129,6 +130,8 @@ Or by installing `phpunit` with Composer:
 [Scrutinizer Coverage image]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/badges/coverage.png?b=master
 [Code Climate image]: https://codeclimate.com/github/alexislefebvre/AsyncTweetsBundle/badges/gpa.svg
 [Code Climate]: https://codeclimate.com/github/alexislefebvre/AsyncTweetsBundle
+[Coveralls image]: https://coveralls.io/repos/github/alexislefebvre/AsyncTweetsBundle/badge.svg?branch=master
+[Coveralls]: https://coveralls.io/github/alexislefebvre/AsyncTweetsBundle?branch=master
 [AppVeyor image]: https://ci.appveyor.com/api/projects/status/p3n423qlvnrkabg3/branch/master?svg=true
 [AppVeyor]: https://ci.appveyor.com/project/alexislefebvre/asynctweetsbundle/branch/master
 
