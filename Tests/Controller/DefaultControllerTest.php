@@ -35,9 +35,7 @@ class DefaultControllerTest extends WebTestCase
     public function testTweets($path = null)
     {
         $this->loadFixtures(array(
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
         if (is_null($path))
@@ -145,9 +143,7 @@ class DefaultControllerTest extends WebTestCase
     public function testTweetsPages()
     {
         $this->loadFixtures(array(
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetPagesData',
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
         $path = '/sinceId/15';
@@ -298,9 +294,7 @@ class DefaultControllerTest extends WebTestCase
     public function testCookie()
     {
         $this->loadFixtures(array(
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
         $tweetId = 49664;
@@ -380,9 +374,7 @@ class DefaultControllerTest extends WebTestCase
     public function testDeleteTweets()
     {
         $this->loadFixtures(array(
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetPagesData',
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
         $path = '/sinceId/15';
@@ -605,7 +597,6 @@ class DefaultControllerTest extends WebTestCase
     public function testHideRetweetedTweets()
     {
         $this->loadFixtures(array(
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetAndRetweetData',
         ));
         

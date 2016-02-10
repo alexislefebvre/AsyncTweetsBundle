@@ -4,9 +4,7 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Entity;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 
 class TweetRepositoryTest extends WebTestCase
 {
@@ -25,9 +23,7 @@ class TweetRepositoryTest extends WebTestCase
     public function testTweetRepository()
     {
         $this->loadFixtures(array(
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
         $tweets = $this->em
@@ -39,14 +35,14 @@ class TweetRepositoryTest extends WebTestCase
         
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->getWithUsersAndMedias(null, false)
+            ->getWithUsersAndMedias(null)
         ;
 
         $this->assertCount(3, $tweets);
         
         $tweets = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->getWithUsersAndMedias(null, true)
+            ->getWithUsersAndMedias(null)
         ;
 
         $this->assertCount(3, $tweets);

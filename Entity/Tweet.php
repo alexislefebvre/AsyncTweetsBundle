@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Tweet
 {
     /**
-     * @var bigint
+     * @var int
      */
     private $id;
     
@@ -279,6 +279,8 @@ class Tweet
     /**
      * Add a media
      *
+     * @param Media $media
+     *
      * @return Tweet
      */
     public function addMedia(Media $media)
@@ -291,6 +293,8 @@ class Tweet
     
     /**
      * Remove a media
+     *
+     * @param Media $media
      *
      * @return Tweet
      */
@@ -316,6 +320,8 @@ class Tweet
      * Call setter functions
      * 
      * @param \stdClass $tweetTmp
+     *
+     * @return Tweet
      */
     public function setValues(\stdClass $tweetTmp)
     {

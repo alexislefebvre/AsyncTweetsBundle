@@ -3,12 +3,11 @@
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 
-class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
+class LoadUserData extends AbstractFixture
 {
     /**
      * {@inheritDoc}
@@ -55,13 +54,5 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
         
         $this->addReference('user-githubeng', $user);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function getOrder()
-    {
-        return 1; // the order in which fixtures will be loaded
     }
 }

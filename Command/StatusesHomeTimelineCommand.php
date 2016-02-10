@@ -38,6 +38,8 @@ class StatusesHomeTimelineCommand extends BaseCommand
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     *
+     * @return int|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -84,7 +86,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         $output->writeln('<comment>'.$comment.'</comment>');
     }
-    
+
     /**
      * @param InputInterface $input
      */

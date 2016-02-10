@@ -40,6 +40,8 @@ class TweetRepository extends EntityRepository
     
     /**
      * @param \Doctrine\ORM\QueryBuilder $qb
+     *
+     * @return \Doctrine\ORM\QueryBuilder $query
      */
     private function getWithUsersAndMediasQuery($qb)
     {
@@ -58,7 +60,7 @@ class TweetRepository extends EntityRepository
             ->setFirstResult(0)
             ->setMaxResults($this->nbTweets)
         ;
-        
+
         return $query;
     }
     
@@ -81,6 +83,9 @@ class TweetRepository extends EntityRepository
     /**
      * @param string $condition
      * @param string $order
+     * @param int    $tweetId
+     *
+     * @return int|null
      */
     private function getTweetId($condition, $order, $tweetId)
     {
@@ -115,6 +120,7 @@ class TweetRepository extends EntityRepository
     
     public function countPendingTweets($lastTweetId = null)
     {
+        /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $this->createQueryBuilder('t');
         
         $query = $qb
@@ -149,6 +155,8 @@ class TweetRepository extends EntityRepository
     
     /**
      * @param integer $tweetId
+     *
+     * @return array
      */
     private function getTweetsLessThanId($tweetId)
     {
@@ -169,12 +177,14 @@ class TweetRepository extends EntityRepository
             
             ->orderBy('t.id', 'DESC')
         ;
-        
+
         return($qb->getQuery()->getResult());
     }
     
     /**
      * Remove Media not associated to any Tweet
+     *
+     * @param Media $media
      */
     private function removeOrphanMedias(Media $media)
     {

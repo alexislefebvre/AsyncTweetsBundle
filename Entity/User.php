@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class User
 {
     /**
-     * @var bigint
+     * @var int
      */
     private $id;
     
@@ -51,7 +51,7 @@ class User
     /**
      * Set id
      *
-     * @param bigint $id
+     * @param int $id
      * @return User
      */
     public function setId($id)
@@ -191,6 +191,8 @@ class User
     /**
      * Add a tweet
      *
+     * @param Tweet $tweet
+     *
      * @return User
      */
     public function addTweet(Tweet $tweet)
@@ -204,6 +206,8 @@ class User
      * Call setter functions
      * 
      * @param \stdClass $userTmp
+     *
+     * @return User
      */
     public function setValues(\stdClass $userTmp)
     {

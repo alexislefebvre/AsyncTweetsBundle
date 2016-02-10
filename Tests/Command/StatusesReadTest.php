@@ -2,13 +2,13 @@
 
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Command;
 
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Command\StatusesReadCommand;
 
 class StatusesReadTest extends StatusesBase
 {
+    /** @var CommandTester $commandTester */
     public $commandTester;
     
     public function setUp()
@@ -42,9 +42,7 @@ class StatusesReadTest extends StatusesBase
     public function testStatusesReadWithTweets()
     {
         $this->loadFixtures(array(
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadUserData',
             'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
         // Disable decoration for tests on Windows

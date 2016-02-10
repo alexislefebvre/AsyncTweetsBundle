@@ -40,6 +40,8 @@ class StatusesHomeTimelineTestCommand extends StatusesHomeTimelineCommand
     
     /**
      * @param InputInterface $input
+     *
+     * @return string|null|array
      */
     protected function getContent(InputInterface $input)
     {
