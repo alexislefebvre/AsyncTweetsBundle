@@ -11,6 +11,8 @@ A Symfony2 bundle providing a Twitter reader for asynchronous reading
 [![Coveralls][Coveralls image]][Coveralls]
 [![AppVeyor][AppVeyor image]][AppVeyor]
 [![Circle CI][Circle CI image]][Circle CI]
+[![Codacy][Codacy image]][Codacy]
+
 [![Dependency Status][Dependency Status Image]][Dependency Status]
 [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
 
@@ -137,6 +139,8 @@ Or by installing `phpunit` with Composer:
 [AppVeyor]: https://ci.appveyor.com/project/alexislefebvre/asynctweetsbundle/branch/master
 [Circle CI image]: https://circleci.com/gh/alexislefebvre/AsyncTweetsBundle/tree/master.svg?style=svg
 [Circle CI]: https://circleci.com/gh/alexislefebvre/AsyncTweetsBundle/tree/master
+[Codacy image]: https://api.codacy.com/project/badge/grade/0803f8e9a98c4abca2c9bcfe750e19c4
+[Codacy]: https://www.codacy.com/app/alexislefebvre/AsyncTweetsBundle
 
 [Dependency Status Image]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd/badge.svg?style=flat
 [Dependency Status]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd
