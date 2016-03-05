@@ -5,6 +5,10 @@ language: php
 git:
   depth: 5
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 php:
   - 5.5
   - 5.6
@@ -29,7 +33,7 @@ before_install:
 
 install:
   - composer self-update
-  - composer require --prefer-source symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY
+  - composer require symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY
 
 script: php ./vendor/bin/phpunit $PHPUNIT_FLAGS
 
