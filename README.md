@@ -1,6 +1,6 @@
 # AsyncTweetsBundle
 
-A Symfony2 bundle providing a Twitter reader for asynchronous reading
+A Symfony bundle providing a Twitter reader for asynchronous reading
 
 [Packagist ![Latest Stable Version][Packagist Stable Image] ![Latest Unstable Version][Packagist Unstable Image]][Packagist]
 
@@ -24,7 +24,7 @@ A Symfony2 bundle providing a Twitter reader for asynchronous reading
 
 ## Goal
 
-The goal of this project is to create an online Twitter reader, built with [Symfony2][Symfony2].
+The goal of this project is to create an online Twitter reader, built with [Symfony][Symfony].
 AsyncTweets retrieves and stores your timeline, allowing to read your Twitter timeline even if you're away from your Twitter client for several days.
 
 This bundle is also used to test several CI (Continuous Integration) services.
@@ -42,7 +42,7 @@ This bundle is also used to test several CI (Continuous Integration) services.
  - [Twitter keys][Twitter keys]
  - PHP >= 5.5 (required by abraham/twitteroauth 0.6.0)
  - a database (must be supported by Doctrine2)
- - [Symfony 2][Symfony2 GitHub] (2.7 or higher) with [Composer][Composer]. If you want to install it:
+ - [Symfony][Symfony GitHub] (2.7 or higher) with [Composer][Composer]. If you want to install it:
 
         php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.7.*" -vvv
 
@@ -97,7 +97,7 @@ This bundle is also used to test several CI (Continuous Integration) services.
  6. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ## Dependencies
- - [symfony/symfony][Symfony2 GitHub] (2.7+)
+ - [symfony/symfony][Symfony GitHub] (2.7+)
  - [abraham/twitteroauth][twitteroauth] (^0.6.0)
  - [twitter/bootstrap][Twitter Bootstrap] (use [Bootswatch 3.3.2][Bootstrap CDN])
 
@@ -121,9 +121,9 @@ Or by installing `phpunit` with Composer:
 [Packagist Stable Image]: https://poser.pugx.org/alexislefebvre/async-tweets-bundle/v/stable.svg
 [Packagist Unstable Image]: https://poser.pugx.org/alexislefebvre/async-tweets-bundle/v/unstable.svg
 
-[Symfony2]: http://symfony.com/
+[Symfony]: http://symfony.com/
 [Twitter keys]: https://apps.twitter.com/
-[Symfony2 GitHub]: https://github.com/symfony/symfony
+[Symfony GitHub]: https://github.com/symfony/symfony
 [Composer]: https://getcomposer.org/download/
 
 [Travis Master image]: https://travis-ci.org/alexislefebvre/AsyncTweetsBundle.svg?branch=master
