@@ -5,7 +5,7 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * User
+ * User.
  */
 class User
 {
@@ -13,68 +13,70 @@ class User
      * @var int
      */
     private $id;
-    
+
     /**
      * @var string
      */
     private $name;
-    
+
     /**
      * @var string
      */
     private $screen_name;
-    
+
     /**
      * @var string
      */
     private $profile_image_url;
-    
-     /**
+
+    /**
      * @var string
      */
     private $profile_image_url_https;
-    
+
     /**
      * @var ArrayCollection
      */
     private $tweets;
-    
+
     public function __construct($id = null)
     {
-        if (! is_null($id)) {
+        if (!is_null($id)) {
             $this->setId($id);
         }
-        
+
         $this->tweets = new ArrayCollection();
     }
-    
+
     /**
-     * Set id
+     * Set id.
      *
      * @param int $id
+     *
      * @return User
      */
     public function setId($id)
     {
         $this->id = $id;
-        
+
         return $this;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
-    
+
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return User
      */
     public function setName($name)
@@ -83,21 +85,22 @@ class User
 
         return $this;
     }
-    
+
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
-    
+
     /**
-     * Set screen_name
+     * Set screen_name.
      *
      * @param string $screenName
+     *
      * @return User
      */
     public function setScreenName($screenName)
@@ -106,9 +109,9 @@ class User
 
         return $this;
     }
-    
+
     /**
-     * Get screen_name
+     * Get screen_name.
      *
      * @return string
      */
@@ -116,11 +119,12 @@ class User
     {
         return $this->screen_name;
     }
-    
+
     /**
-     * Set profile_image_url
+     * Set profile_image_url.
      *
      * @param string $profileImageUrl
+     *
      * @return User
      */
     public function setProfileImageUrl($profileImageUrl)
@@ -129,9 +133,9 @@ class User
 
         return $this;
     }
-    
+
     /**
-     * Get profile_image_url
+     * Get profile_image_url.
      *
      * @return string
      */
@@ -139,11 +143,12 @@ class User
     {
         return $this->profile_image_url;
     }
-    
+
     /**
-     * Set profile_image_url_https
+     * Set profile_image_url_https.
      *
      * @param string $profileImageUrlHttps
+     *
      * @return User
      */
     public function setProfileImageUrlHttps($profileImageUrlHttps)
@@ -152,9 +157,9 @@ class User
 
         return $this;
     }
-    
+
     /**
-     * Get profile_image_url_https
+     * Get profile_image_url_https.
      *
      * @return string
      */
@@ -162,24 +167,24 @@ class User
     {
         return $this->profile_image_url_https;
     }
-    
+
     /**
-     * Get profile image, with HTTPS if available
+     * Get profile image, with HTTPS if available.
      *
      * @return string
      */
     public function getProfileImageUrlHttpOrHttps()
     {
-        if (! is_null($this->getProfileImageUrlHttps())) {
+        if (!is_null($this->getProfileImageUrlHttps())) {
             return $this->getProfileImageUrlHttps();
         }
         // else
-        
+
         return $this->getProfileImageUrl();
     }
-    
+
     /**
-     * Get tweets
+     * Get tweets.
      *
      * @return ArrayCollection
      */
@@ -187,9 +192,9 @@ class User
     {
         return $this->tweets;
     }
-    
+
     /**
-     * Add a tweet
+     * Add a tweet.
      *
      * @param Tweet $tweet
      *
@@ -198,13 +203,13 @@ class User
     public function addTweet(Tweet $tweet)
     {
         $this->tweets->add($tweet);
-        
+
         return $this;
     }
-    
+
     /**
-     * Call setter functions
-     * 
+     * Call setter functions.
+     *
      * @param \stdClass $userTmp
      *
      * @return User
@@ -214,9 +219,8 @@ class User
         $this
             ->setName($userTmp->name)
             ->setScreenName($userTmp->screen_name)
-            ->setProfileImageUrlHttps($userTmp->profile_image_url_https)
-        ;
-        
+            ->setProfileImageUrlHttps($userTmp->profile_image_url_https);
+
         return $this;
     }
 }
