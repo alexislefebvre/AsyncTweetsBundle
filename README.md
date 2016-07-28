@@ -24,6 +24,7 @@ Code analysis:
  - Demo: http://asynctweets.alexislefebvre.com/demo/
  - Code coverage: http://asynctweets.alexislefebvre.com/codecoverage/
  - Doxygen: http://asynctweets.alexislefebvre.com/doxygen/
+ - ApiGen: http://asynctweets.alexislefebvre.com/apigen/
 
 ## Goal
 
