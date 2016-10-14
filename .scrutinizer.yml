@@ -29,3 +29,5 @@ build:
         coverage:
           file: 'coverage-clover'
           format: 'php-clover'
+      -
+        command: './vendor/bin/behat'
