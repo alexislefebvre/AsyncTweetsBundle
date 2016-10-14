@@ -1,11 +1,11 @@
 <?php
 
-namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\bootstrap;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\Context;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
-use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Behat\Context\Context;
 
-class FeatureContext implements SnippetAcceptingContext
+class FeatureContext implements Context
 {
     /** @var $now \Datetime */
     private $now;
