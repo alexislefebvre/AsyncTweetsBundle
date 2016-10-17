@@ -6,18 +6,20 @@ A Symfony bundle providing a Twitter reader for asynchronous reading
 
 Builds: 
 [![Build status][Travis Master image]][Travis Master]
-[![Scrutinizer Code Quality][Scrutinizer image]
-![Scrutinizer][Scrutinizer Coverage Image]][Scrutinizer]
-[![Coveralls][Coveralls image]][Coveralls]
 [![AppVeyor][AppVeyor image]][AppVeyor]
 [![Circle CI][Circle CI image]][Circle CI]
 
 Code analysis:
+[![Scrutinizer Code Quality][Scrutinizer image]
+![Scrutinizer][Scrutinizer Coverage Image]][Scrutinizer]
+[![Coveralls][Coveralls image]][Coveralls]
 [![Code Climate][Code Climate image]][Code Climate]
 [![Codacy][Codacy image]][Codacy]
 [![StyleCI][StyleCI image]][StyleCI]
-[![Dependency Status][Dependency Status Image]][Dependency Status]
 [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
+
+Other:
+[![Dependency Status][Dependency Status Image]][Dependency Status]
 
 ## Links
 
@@ -132,26 +134,27 @@ Or by installing `phpunit` with Composer:
 
 [Travis Master image]: https://travis-ci.org/alexislefebvre/AsyncTweetsBundle.svg?branch=master
 [Travis Master]: https://travis-ci.org/alexislefebvre/AsyncTweetsBundle
-[Scrutinizer image]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/badges/quality-score.png?b=master
-[Scrutinizer]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/?branch=master
-[Scrutinizer Coverage image]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/badges/coverage.png?b=master
-[Coveralls image]: https://coveralls.io/repos/github/alexislefebvre/AsyncTweetsBundle/badge.svg?branch=master
-[Coveralls]: https://coveralls.io/github/alexislefebvre/AsyncTweetsBundle?branch=master
 [AppVeyor image]: https://ci.appveyor.com/api/projects/status/p3n423qlvnrkabg3/branch/master?svg=true
 [AppVeyor]: https://ci.appveyor.com/project/alexislefebvre/asynctweetsbundle/branch/master
 [Circle CI image]: https://circleci.com/gh/alexislefebvre/AsyncTweetsBundle/tree/master.svg?style=svg
 [Circle CI]: https://circleci.com/gh/alexislefebvre/AsyncTweetsBundle/tree/master
 
+[Scrutinizer image]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/badges/quality-score.png?b=master
+[Scrutinizer]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/?branch=master
+[Scrutinizer Coverage image]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/badges/coverage.png?b=master
+[Coveralls image]: https://coveralls.io/repos/github/alexislefebvre/AsyncTweetsBundle/badge.svg?branch=master
+[Coveralls]: https://coveralls.io/github/alexislefebvre/AsyncTweetsBundle?branch=master
 [Code Climate image]: https://codeclimate.com/github/alexislefebvre/AsyncTweetsBundle/badges/gpa.svg
 [Code Climate]: https://codeclimate.com/github/alexislefebvre/AsyncTweetsBundle
 [Codacy image]: https://api.codacy.com/project/badge/grade/0803f8e9a98c4abca2c9bcfe750e19c4
 [Codacy]: https://www.codacy.com/app/alexislefebvre/AsyncTweetsBundle
 [StyleCI image]: https://styleci.io/repos/33274240/shield
 [StyleCI]: https://styleci.io/repos/33274240
-[Dependency Status Image]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd/badge.svg?style=flat
-[Dependency Status]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd
 [SensioLabsInsight Image]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d/mini.png
 [SensioLabsInsight]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d
+
+[Dependency Status Image]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd/badge.svg?style=flat
+[Dependency Status]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd
 
 [twitteroauth]: https://github.com/abraham/twitteroauth
 [Twitter Bootstrap]: https://github.com/twbs/bootstrap
