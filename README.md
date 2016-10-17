@@ -136,7 +136,7 @@ Or by installing `phpunit` with Composer:
 [Travis Master]: https://travis-ci.org/alexislefebvre/AsyncTweetsBundle
 [AppVeyor image]: https://ci.appveyor.com/api/projects/status/p3n423qlvnrkabg3/branch/master?svg=true
 [AppVeyor]: https://ci.appveyor.com/project/alexislefebvre/asynctweetsbundle/branch/master
-[Circle CI image]: https://circleci.com/gh/alexislefebvre/AsyncTweetsBundle/tree/master.svg?style=svg
+[Circle CI image]: https://circleci.com/gh/alexislefebvre/AsyncTweetsBundle/tree/master.svg?style=shield&circle-token=c02b18cc286ccd9420065675d92a2574524c5939
 [Circle CI]: https://circleci.com/gh/alexislefebvre/AsyncTweetsBundle/tree/master
 
 [Scrutinizer image]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweetsBundle/badges/quality-score.png?b=master
