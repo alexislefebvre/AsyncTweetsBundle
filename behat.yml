@@ -5,7 +5,7 @@ default:
                 features: Tests/Features
             contexts:
                 - 'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\Context\FeatureContext'
-                - 'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\Context\FeatureContextMink'
+                - Knp\FriendlyContexts\Context\MinkContext
     extensions:
         Behat\Symfony2Extension:
             # http://zalas.eu/run-behat-scenarios-and-functional-tests-from-symfony-bundle-in-isolation-of-project/
@@ -18,3 +18,10 @@ default:
             sessions:
                 default:
                     symfony2: ~
+        Knp\FriendlyContexts\Extension:
+            symfony_kernel:
+                bootstrap: Tests/App/bootstrap.php
+                path: Tests/App/AppKernel.php
+                class: AppKernel
+                env: test
+                debug: true
