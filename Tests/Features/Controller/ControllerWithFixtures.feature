@@ -1,3 +1,4 @@
+@reset-schema
 @alice(*)
 Feature: Test DefaultController with Fixtures
 

@@ -6,6 +6,7 @@ default:
             contexts:
                 - 'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\Context\FeatureContext'
                 - Knp\FriendlyContexts\Context\AliceContext
+                - Knp\FriendlyContexts\Context\EntityContext
                 - Knp\FriendlyContexts\Context\MinkContext
     extensions:
         Behat\Symfony2Extension:
