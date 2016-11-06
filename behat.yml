@@ -5,7 +5,6 @@ default:
                 features: Tests/Features
             contexts:
                 - 'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\Context\FeatureContext'
-                - 'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\Context\FeatureContextMink'
                 - Knp\FriendlyContexts\Context\MinkContext
     extensions:
         Behat\Symfony2Extension:
