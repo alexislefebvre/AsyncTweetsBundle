@@ -8,10 +8,24 @@ Feature: Test DefaultController with Fixtures
     And I should see "Home timeline" in the "html > head > title" element
     And I should see a "main.container > div.tweets" element
     And I should see 3 "main.container > div.tweets > div.media > blockquote.media-body" elements
+    # Tweets
+    And I should see "Tweet 1" in the "main.container > div.tweets > div.media:nth-child(1) > blockquote.media-body > p" element
+    And I should see "Tianna Ziemann" in the "main.container > div.tweets > div.media:nth-child(1) > blockquote.media-body > small > a:first-child" element
+    # Retweet count
+    And I should see "42" in the "main.container > div.tweets > div.media:nth-child(1) > blockquote.media-body > small > span.badge:nth-child(3)" element
+    # Favorite count
+    And I should see "13" in the "main.container > div.tweets > div.media:nth-child(1) > blockquote.media-body > small > span.badge:nth-child(4)" element
+    # Other tweets
+    And I should see "Tweet 2" in the "main.container > div.tweets > div.media:nth-child(2) > blockquote.media-body > p" element
+    And I should see "Suzanne Moen" in the "main.container > div.tweets > div.media:nth-child(2) > blockquote.media-body > small > a" element
+    And I should see "Tweet 3" in the "main.container > div.tweets > div.media:nth-child(3) > blockquote.media-body > p" element
+    And I should see "Dr. Tremaine Kohler" in the "main.container > div.tweets > div.media:nth-child(3) > blockquote.media-body > small > a" element
     And I should see "3 pending tweets" in the "body > main.container > div.navigation.row > div.count.alert.alert-info" element
-    Then I should not see a "div.alert.alert-success" element
+    # There is no message about deleted tweets
+    And I should not see a "div.alert.alert-success" element
     When I press the 2nd "Mark as read" link
     Then I should not see a "div.alert.alert-success" element
+    # Delete old tweets
     When I press the "Delete old tweets" link
     Then I should see a "div.alert.alert-success" element
     And I should see "1 tweets deleted." in the "div.alert.alert-success" element
