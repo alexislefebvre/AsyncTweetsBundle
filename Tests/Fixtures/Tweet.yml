@@ -1,0 +1,9 @@
+AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet:
+    tweet{1..3}:
+        id: <current()>
+        created_at: <date()>
+        text: "Tweet 1"
+        user: '@user<current()>'
+        retweet_count: 42
+        favorite_count: 13
+        in_timeline: true
