@@ -39,4 +39,6 @@ install:
 test_script:
     - cd c:\projects\asynctweetsbundle
     - vendor/bin/phpunit --colors=never
+    - Tests/App/console doctrine:database:drop --env=test --force
+    - Tests/App/console doctrine:schema:update --env=test --force
     - vendor/bin/behat

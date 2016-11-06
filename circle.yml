@@ -11,4 +11,4 @@ test:
   override:
     - mkdir -p $CIRCLE_TEST_REPORTS/phpunit
     - php ./vendor/bin/phpunit --log-junit $CIRCLE_TEST_REPORTS/phpunit/junit.xml
-    - php ./vendor/bin/behat
+    - ./behat.sh

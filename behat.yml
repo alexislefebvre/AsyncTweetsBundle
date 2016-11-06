@@ -28,7 +28,7 @@ default:
                 debug: true
             alice:
                 fixtures:
-                    Tweet: Tests/Fixtures/Tweet.yml
                     User: Tests/Fixtures/User.yml
+                    Tweet: Tests/Fixtures/Tweet.yml
                 dependencies:
                     Tweet: [ User ]

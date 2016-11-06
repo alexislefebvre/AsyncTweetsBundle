@@ -35,7 +35,7 @@ install:
   - composer self-update
   - composer require symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY
 
-script: php ./vendor/bin/phpunit $PHPUNIT_FLAGS && ./vendor/bin/behat
+script: php ./vendor/bin/phpunit $PHPUNIT_FLAGS && ./behat.sh
 
 # Only send code coverage if it has been generated
 after_success:
