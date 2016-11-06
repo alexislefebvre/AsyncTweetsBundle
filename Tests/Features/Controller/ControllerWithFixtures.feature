@@ -9,17 +9,19 @@ Feature: Test DefaultController with Fixtures
     And I should see a "main.container > div.tweets" element
     And I should see 3 "main.container > div.tweets > div.media > blockquote.media-body" elements
     # Tweets
+    # First tweet
     And I should see "Tweet 1" in the "main.container > div.tweets > div.media:nth-child(1) > blockquote.media-body > p" element
-    And I should see "Tianna Ziemann" in the "main.container > div.tweets > div.media:nth-child(1) > blockquote.media-body > small > a:first-child" element
+    And I should see "User 1" in the "main.container > div.tweets > div.media:nth-child(1) > blockquote.media-body > small > a:first-child" element
     # Retweet count
     And I should see "42" in the "main.container > div.tweets > div.media:nth-child(1) > blockquote.media-body > small > span.badge:nth-child(3)" element
     # Favorite count
     And I should see "13" in the "main.container > div.tweets > div.media:nth-child(1) > blockquote.media-body > small > span.badge:nth-child(4)" element
-    # Other tweets
+    # Second tweet
     And I should see "Tweet 2" in the "main.container > div.tweets > div.media:nth-child(2) > blockquote.media-body > p" element
-    And I should see "Suzanne Moen" in the "main.container > div.tweets > div.media:nth-child(2) > blockquote.media-body > small > a" element
+    And I should see "User 2" in the "main.container > div.tweets > div.media:nth-child(2) > blockquote.media-body > small > a" element
+    # Third tweet
     And I should see "Tweet 3" in the "main.container > div.tweets > div.media:nth-child(3) > blockquote.media-body > p" element
-    And I should see "Dr. Tremaine Kohler" in the "main.container > div.tweets > div.media:nth-child(3) > blockquote.media-body > small > a" element
+    And I should see "User 3" in the "main.container > div.tweets > div.media:nth-child(3) > blockquote.media-body > small > a" element
     And I should see "3 pending tweets" in the "body > main.container > div.navigation.row > div.count.alert.alert-info" element
     # There is no message about deleted tweets
     And I should not see a "div.alert.alert-success" element
