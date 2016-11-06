@@ -1,0 +1,9 @@
+AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User:
+    user1:
+        id: 1
+        name: <name()>
+        screen_name: <name()>
+    user2:
+        id: 1
+        name: <name()>
+        screen_name: <name()>
