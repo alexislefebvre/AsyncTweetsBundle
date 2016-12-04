@@ -62,7 +62,6 @@ class LoadTweetPagesData extends AbstractFixture implements DependentFixtureInte
 
         $manager->flush();
 
-
         // Set tweet as retweet
         $retweet = $manager
             ->getRepository('AsyncTweetsBundle:Tweet')

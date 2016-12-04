@@ -210,7 +210,6 @@ class DefaultControllerTest extends WebTestCase
             )->count()
             );
 
-
         // Next page
         $crawler = $this->client->request('GET', $nextPage);
 
