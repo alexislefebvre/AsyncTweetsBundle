@@ -15,7 +15,7 @@
         "php": ">=5.5",
         "symfony/symfony": "~2.7 || ~3.0",
         "abraham/twitteroauth": "^0.6.0",
-        "knplabs/friendly-contexts": "dev-master"
+        "knplabs/friendly-contexts": "~0.8"
     },
     "require-dev": {
         "doctrine/orm": "^2.4.8",
