@@ -30,10 +30,14 @@ matrix:
 before_install:
  - if [[ $TRAVIS_PHP_VERSION = '7.0' && $SYMFONY_VERSION = '2.8.*' ]]; then DEPENDENCY="codeclimate/php-test-reporter:~0.3 satooshi/php-coveralls:~1.0"; PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; else DEPENDENCY=""; PHPUNIT_FLAGS=""; fi
  - if [[ $TRAVIS_PHP_VERSION != '7.0' && $TRAVIS_PHP_VERSION != 'hhvm' && $PHPUNIT_FLAGS = "" ]]; then phpenv config-rm xdebug.ini; fi
+ - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ - php -r "if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+ - php composer-setup.php
+ - php -r "unlink('composer-setup.php');"
 
 install:
-  - composer self-update
-  - composer require symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY
+  - php composer.phar require --dev symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY --no-update
+  - php -d memory_limit=1536M composer.phar install --no-interaction -vv --profile --no-progress
 
 script: php ./vendor/bin/phpunit $PHPUNIT_FLAGS && php ./vendor/bin/behat
 
