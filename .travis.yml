@@ -16,24 +16,23 @@ php:
 
 env:
   - SYMFONY_VERSION="2.8.*"
-  - SYMFONY_VERSION="3.1.*"
+  - SYMFONY_VERSION="3.2.*"
 
 matrix:
   include:
     - php: 5.6
       env: SYMFONY_VERSION="2.7.*"
     - php: 7.0
-      env: SYMFONY_VERSION="3.0.*"
-    - php: 7.0
-      env: SYMFONY_VERSION="3.2.*"
+      env: SYMFONY_VERSION="3.1.*"
 
 # Only send code coverage to Code Climate for the current versions of PHP and Symfony LTS
 # https://github.com/doctrine/doctrine2/blob/3570f4a49afc7e98fed71e0596dded6a39d4fd7b/.travis.yml#L16
 before_install:
+ - if echo "$TRAVIS_COMMIT_MESSAGE" | grep -F -q "[skip travis]" ; then echo "[skip travis] has been found, exiting" && exit 0 ; else echo "[skip travis] has not been found, continuing" ; fi
  - if [[ $TRAVIS_PHP_VERSION = '7.0' && $SYMFONY_VERSION = '2.8.*' ]]; then DEPENDENCY="codeclimate/php-test-reporter:~0.3 satooshi/php-coveralls:~1.0"; PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; else DEPENDENCY=""; PHPUNIT_FLAGS=""; fi
  - if [[ $TRAVIS_PHP_VERSION != '7.0' && $TRAVIS_PHP_VERSION != 'hhvm' && $PHPUNIT_FLAGS = "" ]]; then phpenv config-rm xdebug.ini; fi
  - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
- - php -r "if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+ - php -r "if (hash_file('SHA384', 'composer-setup.php') === '55d6ead61b29c7bdee5cccfb50076874187bd9f21f65d8991d46ec5cc90518f447387fb9f76ebae1fbbacf329e583e30') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
  - php composer-setup.php
  - php -r "unlink('composer-setup.php');"
 
