@@ -17,14 +17,14 @@ php:
 
 env:
   - SYMFONY_VERSION="2.8.*"
-  - SYMFONY_VERSION="3.2.*"
+  - SYMFONY_VERSION="3.3.*"
 
 matrix:
   include:
     - php: 5.6
       env: SYMFONY_VERSION="2.7.*"
     - php: 7.0
-      env: SYMFONY_VERSION="3.1.*"
+      env: SYMFONY_VERSION="3.2.*"
 
 # Only send code coverage to Code Climate for the current versions of PHP and Symfony LTS
 # https://github.com/doctrine/doctrine2/blob/3570f4a49afc7e98fed71e0596dded6a39d4fd7b/.travis.yml#L16
@@ -35,7 +35,7 @@ before_install:
 
 install:
   - composer require --dev symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY --no-update
-  - composer install --no-interaction -vv --profile --no-progress
+  - composer install --no-interaction --profile --no-progress
 
 script: php ./vendor/bin/phpunit $PHPUNIT_FLAGS && php ./vendor/bin/behat
 

@@ -4,7 +4,7 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Entity;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends \PHPUnit\Framework\TestCase
 {
     public function testUser()
     {

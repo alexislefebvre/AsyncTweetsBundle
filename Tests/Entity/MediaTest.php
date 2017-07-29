@@ -4,7 +4,7 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Entity;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 
-class MediaTest extends \PHPUnit_Framework_TestCase
+class MediaTest extends \PHPUnit\Framework\TestCase
 {
     public function testTweet()
     {

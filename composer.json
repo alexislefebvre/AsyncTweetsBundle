@@ -14,8 +14,7 @@
     "require" : {
         "php": ">=5.5",
         "symfony/symfony": "~2.7 || ~3.0",
-        "abraham/twitteroauth": "^0.6.0",
-        "knplabs/friendly-contexts": "~0.8"
+        "abraham/twitteroauth": "^0.6.0"
     },
     "require-dev": {
         "doctrine/orm": "^2.4.8",
@@ -23,7 +22,8 @@
         "symfony/monolog-bundle": "~2.4",
         "doctrine/doctrine-fixtures-bundle": "~2.3",
         "liip/functional-test-bundle": "~1.4",
-        "phpunit/phpunit": "4.8.* || ~5.1",
+        "phpunit/phpunit": "~5.7.21||~6.2",
+        "knplabs/friendly-contexts": "~0.8",
         "behat/behat": "^3.2",
         "behat/symfony2-extension": "^2.1",
         "behat/mink": "^1.7",
