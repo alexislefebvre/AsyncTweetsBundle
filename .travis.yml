@@ -1,3 +1,4 @@
+dist: trusty
 sudo: false
 
 language: php
@@ -31,14 +32,10 @@ before_install:
  - if echo "$TRAVIS_COMMIT_MESSAGE" | grep -F -q "[skip travis]" ; then echo "[skip travis] has been found, exiting" && exit 0 ; else echo "[skip travis] has not been found, continuing" ; fi
  - if [[ $TRAVIS_PHP_VERSION = '7.0' && $SYMFONY_VERSION = '2.8.*' ]]; then DEPENDENCY="codeclimate/php-test-reporter:~0.3 satooshi/php-coveralls:~1.0"; PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; else DEPENDENCY=""; PHPUNIT_FLAGS=""; fi
  - if [[ $TRAVIS_PHP_VERSION != '7.0' && $TRAVIS_PHP_VERSION != 'hhvm' && $PHPUNIT_FLAGS = "" ]]; then phpenv config-rm xdebug.ini; fi
- - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
- - php -r "if (hash_file('SHA384', 'composer-setup.php') === '55d6ead61b29c7bdee5cccfb50076874187bd9f21f65d8991d46ec5cc90518f447387fb9f76ebae1fbbacf329e583e30') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
- - php composer-setup.php
- - php -r "unlink('composer-setup.php');"
 
 install:
-  - php composer.phar require --dev symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY --no-update
-  - php -d memory_limit=1536M composer.phar install --no-interaction -vv --profile --no-progress
+  - composer require --dev symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY --no-update
+  - composer install --no-interaction -vv --profile --no-progress
 
 script: php ./vendor/bin/phpunit $PHPUNIT_FLAGS && php ./vendor/bin/behat
 
