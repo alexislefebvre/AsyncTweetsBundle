@@ -6,7 +6,7 @@ use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 
-class TweetTest extends \PHPUnit_Framework_TestCase
+class TweetTest extends \PHPUnit\Framework\TestCase
 {
     public function testTweet()
     {

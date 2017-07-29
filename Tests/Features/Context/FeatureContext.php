@@ -40,7 +40,7 @@ class FeatureContext implements Context
      */
     public function theTweetMustHaveCorrectId()
     {
-        \PHPUnit_Framework_Assert::assertSame(
+        \PHPUnit\Framework\Assert::assertSame(
             152120320,
             $this->tweet->getId()
         );
@@ -51,7 +51,7 @@ class FeatureContext implements Context
      */
     public function theTweetMustHaveCorrectCreatedAtDate()
     {
-        \PHPUnit_Framework_Assert::assertSame(
+        \PHPUnit\Framework\Assert::assertSame(
             $this->now,
             $this->tweet->getCreatedAt()
         );
@@ -62,7 +62,7 @@ class FeatureContext implements Context
      */
     public function theTweetMustHaveCorrectText()
     {
-        \PHPUnit_Framework_Assert::assertSame(
+        \PHPUnit\Framework\Assert::assertSame(
             'Hello World!',
             $this->tweet->getText()
         );
@@ -73,7 +73,7 @@ class FeatureContext implements Context
      */
     public function theTweetMustHaveCorrectRetweetCount()
     {
-        \PHPUnit_Framework_Assert::assertSame(
+        \PHPUnit\Framework\Assert::assertSame(
             1999,
             $this->tweet->getRetweetCount()
         );
@@ -84,7 +84,7 @@ class FeatureContext implements Context
      */
     public function theTweetMustHaveCorrectFavoriteCount()
     {
-        \PHPUnit_Framework_Assert::assertSame(
+        \PHPUnit\Framework\Assert::assertSame(
             42,
             $this->tweet->getFavoriteCount()
         );
@@ -95,7 +95,7 @@ class FeatureContext implements Context
      */
     public function theTweetMustBeInTimeline()
     {
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $this->tweet->isInTimeline()
         );
     }
