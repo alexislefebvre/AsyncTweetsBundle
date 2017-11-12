@@ -10,6 +10,8 @@ class TweetSpec extends ObjectBehavior
 {
     public function let(Tweet $tweet)
     {
+        date_default_timezone_set('UTC');
+
         $this->beConstructedWith($tweet);
 
         $fakeTweet = new \stdClass();
