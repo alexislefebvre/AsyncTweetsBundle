@@ -253,11 +253,11 @@ class Tweet
      * "This attribute contains a representation of the original Tweet
      *  that was retweeted.".
      *
-     * @param Tweet $retweetedStatus
+     * @param self $retweetedStatus
      *
      * @return Tweet
      */
-    public function setRetweetedStatus(Tweet $retweetedStatus)
+    public function setRetweetedStatus(self $retweetedStatus)
     {
         $this->retweeted_status = $retweetedStatus;
 
