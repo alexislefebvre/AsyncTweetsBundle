@@ -38,7 +38,7 @@ class LoadUserData extends AbstractFixture
 
         $this->addReference('user-github', $user);
 
-        // Use whose tweet is retweeted
+        // User whose tweet is retweeted
         $user = new User();
         $user
             ->setId(131295561)

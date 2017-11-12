@@ -19,7 +19,7 @@ AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet:
             length: null
         text:
             type: string
-            length: '255'
+            length: '280'
         retweet_count:
             type: integer
             length: null
