@@ -1,6 +1,5 @@
-machine:
-  php:
-    version: 7.0.4
+docker:
+  image: circleci/php:7.1
 
 dependencies:
   pre:
