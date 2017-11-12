@@ -49,4 +49,20 @@ class TweetRepositoryTest extends WebTestCase
 
         $this->assertEquals(3, $tweets);
     }
+
+    public function testTweetRepositoryWithLongTweet()
+    {
+        $this->loadFixtures([
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+        ]);
+
+        /** @var Tweet $tweet */
+        $tweet = $this->em
+            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->findOneBy(['id' => 928032273747795968]);
+
+        $this->assertNotNull($tweet);
+
+        $this->assertSame(275, strlen($tweet->getText()));
+    }
 }

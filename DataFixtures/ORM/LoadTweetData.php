@@ -83,6 +83,21 @@ class LoadTweetData extends AbstractFixture implements DependentFixtureInterface
 
         $manager->persist($tweet);
         $manager->flush();
+
+        // 280 characters
+        $tweet = new Tweet();
+        $tweet
+            ->setId(928032273747795968)
+            ->setUser($this->getReference('user'))
+            ->setCreatedAt(new \Datetime('2017-11-08 21:20:00'))
+            ->setText('In the criminal justice system, sexually based offenses are considered especially heinous. '.
+                'In New York City, the dedicated detectives who investigate these vicious felonies are members of '.
+                'an elite squad known as the Special Victims Unit. These are their stories. *DUN DUN*️')
+            ->setRetweetCount(144416)
+            ->setFavoriteCount(256453);
+
+        $manager->persist($tweet);
+        $manager->flush();
     }
 
     /**
