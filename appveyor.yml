@@ -39,7 +39,7 @@ install:
     - cd c:\projects\asynctweetsbundle
     - IF NOT EXIST composer.phar (appveyor DownloadFile https://getcomposer.org/download/1.3.2/composer.phar)
     - php composer.phar self-update -vvv
-    - php composer.phar require "symfony/symfony:2.8.*" --no-progress --ansi
+    - php composer.phar require "symfony/symfony:3.4.*" --no-progress --ansi
 
 test_script:
     - cd c:\projects\asynctweetsbundle
