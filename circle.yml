@@ -1,5 +1,8 @@
-docker:
-  image: circleci/php:7.1
+machine:
+  timezone:
+    Europe/Paris
+  php:
+    version: 7.1.9
 
 dependencies:
   pre:
@@ -8,6 +11,8 @@ dependencies:
   override:
     - composer require --dev "symfony/symfony:3.4.*" --no-update
     - composer install --no-interaction --profile --no-progress
+  cache_directories:
+    - ~/.composer/cache
 
 test:
   override:
