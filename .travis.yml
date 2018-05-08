@@ -26,7 +26,7 @@ before_install:
  - if [[ $PHPUNIT_FLAGS = "" ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - composer require --dev symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY --no-update
+  - composer require symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY --no-update
   - composer install --no-interaction --profile --no-progress
 
 script:
