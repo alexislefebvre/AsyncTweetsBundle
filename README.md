@@ -46,7 +46,7 @@ This bundle is also used to test several CI (Continuous Integration) services.
 ### Requirements:
 
  - [Twitter keys][Twitter keys]
- - PHP >= 5.5 (required by abraham/twitteroauth 0.6.0)
+ - PHP >= 5.6
  - a database (must be supported by Doctrine2)
  - [Symfony][Symfony GitHub] (2.7 or higher) with [Composer][Composer]. If you want to install it:
 

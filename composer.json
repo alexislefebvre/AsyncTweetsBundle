@@ -14,7 +14,7 @@
     "require" : {
         "php": ">=7.0",
         "ext-mbstring": "*",
-        "symfony/symfony": "~3.4",
+        "symfony/symfony": "~3.4|~4.0",
         "abraham/twitteroauth": "~0.6"
     },
     "require-dev": {
