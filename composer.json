@@ -34,7 +34,12 @@
     },
     "autoload" : {
         "psr-4" : {
-            "AlexisLefebvre\\Bundle\\AsyncTweetsBundle\\" : ""
+            "AlexisLefebvre\\Bundle\\AsyncTweetsBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AlexisLefebvre\\Bundle\\AsyncTweetsBundle\\Tests\\": "tests/"
         }
     }
 }

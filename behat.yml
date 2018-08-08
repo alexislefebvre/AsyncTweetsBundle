@@ -2,7 +2,7 @@ default:
     suites:
         default:
             paths:
-                features: Tests/Features
+                features: tests/Features
             contexts:
                 - 'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\Context\FeatureContext'
                 - Knp\FriendlyContexts\Context\AliceContext
@@ -14,22 +14,22 @@ default:
             kernel:
                 env: test
                 debug: true
-                path: Tests/App/AppKernel.php
-                bootstrap: Tests/App/bootstrap.php
+                path: tests/App/AppKernel.php
+                bootstrap: tests/App/bootstrap.php
         Behat\MinkExtension:
             sessions:
                 default:
                     symfony2: ~
         Knp\FriendlyContexts\Extension:
             symfony_kernel:
-                bootstrap: Tests/App/bootstrap.php
-                path: Tests/App/AppKernel.php
+                bootstrap: tests/App/bootstrap.php
+                path: tests/App/AppKernel.php
                 class: AppKernel
                 env: test
                 debug: true
             alice:
                 fixtures:
-                    User: Tests/Fixtures/User.yml
-                    Tweet: Tests/Fixtures/Tweet.yml
+                    User: tests/Fixtures/User.yml
+                    Tweet: tests/Fixtures/Tweet.yml
                 dependencies:
                     Tweet: [ User ]

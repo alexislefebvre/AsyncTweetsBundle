@@ -10,12 +10,12 @@
     convertWarningsToExceptions="true"
 >
     <php>
-        <server name="KERNEL_DIR" value="Tests/App" />
+        <server name="KERNEL_DIR" value="tests/App" />
     </php>
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>Tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
@@ -27,7 +27,7 @@
             <directory>Utils</directory>
             <file>AsyncTweetsBundle.php</file>
             <exclude>
-                <directory>Tests</directory>
+                <directory>tests</directory>
                 <directory>vendor/</directory>
                 <file>Command/StatusesShowCommand.php</file>
             </exclude>
