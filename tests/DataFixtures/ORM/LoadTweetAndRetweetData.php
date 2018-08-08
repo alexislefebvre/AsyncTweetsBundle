@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -83,7 +83,7 @@ class LoadTweetAndRetweetData extends AbstractFixture implements DependentFixtur
     public function getDependencies()
     {
         return [
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadMediaData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadMediaData',
         ];
     }
 }

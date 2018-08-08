@@ -73,7 +73,7 @@ RECURSIVE              = YES
 # exclude all test directories for example use the pattern */test/*
 
 EXCLUDE_PATTERNS       = */vendor/* \
-                         */Tests/App/*
+                         */tests/App/*
 
 #---------------------------------------------------------------------------
 # Configuration options related to the LaTeX output

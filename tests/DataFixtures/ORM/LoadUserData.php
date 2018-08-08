@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM;
+namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 use Doctrine\Common\DataFixtures\AbstractFixture;
