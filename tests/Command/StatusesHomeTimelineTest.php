@@ -264,7 +264,7 @@ class StatusesHomeTimelineTest extends StatusesBase
     public function testStatusesHomeTimelineWithSinceIdParameter()
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetData',
         ]);
 
         // Disable decoration for tests on Windows

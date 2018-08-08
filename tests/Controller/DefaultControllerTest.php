@@ -35,7 +35,7 @@ class DefaultControllerTest extends WebTestCase
     public function testTweets($path = null)
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetData',
         ]);
 
         if (is_null($path)) {
@@ -142,7 +142,7 @@ class DefaultControllerTest extends WebTestCase
     public function testTweetsPages()
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetPagesData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetPagesData',
         ]);
 
         $path = '/sinceId/15';
@@ -292,7 +292,7 @@ class DefaultControllerTest extends WebTestCase
     public function testCookie()
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetData',
         ]);
 
         $tweetId = 49664;
@@ -372,7 +372,7 @@ class DefaultControllerTest extends WebTestCase
     public function testDeleteTweets()
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetPagesData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetPagesData',
         ]);
 
         $path = '/sinceId/15';
@@ -591,7 +591,7 @@ class DefaultControllerTest extends WebTestCase
     public function testHideRetweetedTweets()
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetAndRetweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetAndRetweetData',
         ]);
 
         ////////// Homepage //////////

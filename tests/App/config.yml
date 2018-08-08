@@ -51,6 +51,6 @@ parameters:
     twitter_token_secret: null
 
 services:
-  AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\:
+  AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\:
         resource: '../DataFixtures'
         tags: ['doctrine.fixture.orm']

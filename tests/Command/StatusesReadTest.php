@@ -41,7 +41,7 @@ class StatusesReadTest extends StatusesBase
     public function testStatusesReadWithTweets()
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\ORM\LoadTweetData',
+            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetData',
         ]);
 
         // Disable decoration for tests on Windows
