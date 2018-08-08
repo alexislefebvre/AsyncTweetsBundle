@@ -3,7 +3,6 @@
 namespace spec\AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
-use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
 
 class TweetSpec extends ObjectBehavior
@@ -55,11 +54,6 @@ class TweetSpec extends ObjectBehavior
 
     public function it_should_not_allow_invalid_medias()
     {
-        /* @see https://github.com/phpspec/phpspec/issues/119#issuecomment-43436579 */
-        if (version_compare(PHP_VERSION, '7', '<')) {
-            throw new SkippingException('Unsupported type hinting with PHP < 7');
-        }
-
         $this->shouldThrow('\TypeError')->during('addMedia', [null]);
         $this->shouldThrow('\TypeError')->during('removeMedia', [null]);
     }
