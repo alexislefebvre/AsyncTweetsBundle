@@ -30,11 +30,8 @@ class StatusesHomeTimelineTestCommand extends StatusesHomeTimelineCommand
      */
     protected function getTestContent($filename)
     {
-        /* @see https://insight.sensiolabs.com/what-we-analyse/symfony.dependency_injection.use_dir_file_constant */
         return json_decode(file_get_contents(
-            $this->container->get('kernel')->locateResource(
-                '@AsyncTweetsBundle/Tests/Command/data/'.$filename
-            )
+            sprintf(__DIR__.'/../../tests/Command/data/%s', $filename)
         ));
     }
 
