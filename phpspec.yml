@@ -1,0 +1,3 @@
+suites:
+    tests:
+        spec_path: tests/
