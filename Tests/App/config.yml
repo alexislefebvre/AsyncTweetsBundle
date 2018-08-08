@@ -30,7 +30,8 @@ monolog:
             level: debug
 
 liip_functional_test:
-    cache_sqlite_db: true
+    cache_db:
+        sqlite: liip_functional_test.services_database_backup.sqlite
 
 doctrine:
     dbal:
@@ -48,3 +49,8 @@ parameters:
     twitter_consumer_secret: null
     twitter_token: null
     twitter_token_secret: null
+
+services:
+  AlexisLefebvre\Bundle\AsyncTweetsBundle\DataFixtures\:
+        resource: '../../DataFixtures'
+        tags: ['doctrine.fixture.orm']
