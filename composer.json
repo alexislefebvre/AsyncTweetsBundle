@@ -12,15 +12,15 @@
         "role": "Developer"
     }],
     "require" : {
-        "php": ">=5.6",
+        "php": ">=7.0",
         "ext-mbstring": "*",
-        "symfony/symfony": "~2.7||~3.2",
+        "symfony/symfony": "~3.4",
         "abraham/twitteroauth": "~0.6"
     },
     "require-dev": {
         "doctrine/orm": "^2.4.8",
         "symfony/assetic-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4||~3.1",
+        "symfony/monolog-bundle": "~3.1",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "liip/functional-test-bundle": "~2.0@alpha",
         "phpunit/phpunit": "~6.5.6|~7.0",
