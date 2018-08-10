@@ -8,6 +8,7 @@ default:
                 - 'Acme\Features\Context\DoctrineContext':
                     doctrine: '@doctrine'
                 - 'Behat\MinkExtension\Context\MinkContext'
+                - behatch:context:browser
     extensions:
         Behat\Symfony2Extension:
             # http://zalas.eu/run-behat-scenarios-and-functional-tests-from-symfony-bundle-in-isolation-of-project/
@@ -20,3 +21,4 @@ default:
             sessions:
                 default:
                     symfony2: ~
+        Behatch\Extension: ~

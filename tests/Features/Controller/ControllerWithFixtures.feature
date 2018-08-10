@@ -29,7 +29,7 @@ Feature: Test DefaultController with Fixtures
     And I should see "3 pending tweets" in the "body > main.container > div.navigation.row > div.count.alert.alert-info" element
     # There is no message about deleted tweets
     And I should not see a "div.alert.alert-success" element
-    When I press the 2nd "Mark as read" link
+    When I follow the 2nd "Mark as read" link
     Then I should not see a "div.alert.alert-success" element
     # Delete old tweets
     When I follow "Delete old tweets"
