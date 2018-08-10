@@ -46,11 +46,11 @@ This bundle is also used to test several CI (Continuous Integration) services.
 ### Requirements:
 
  - [Twitter keys][Twitter keys]
- - PHP >= 5.5 (required by abraham/twitteroauth 0.6.0)
+ - PHP >= 7.1
  - a database (must be supported by Doctrine2)
- - [Symfony][Symfony GitHub] (2.7 or higher) with [Composer][Composer]. If you want to install it:
+ - [Symfony][Symfony GitHub] (3.4+) with [Composer][Composer]. If you want to install it:
 
-        php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "2.7.*" -vvv
+        php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "3.4.*" -vvv
 
 ### Steps:
  
@@ -79,49 +79,24 @@ This bundle is also used to test several CI (Continuous Integration) services.
 ### Usage:
 
  1. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table --env=prod`, with the ` --table` option the imported tweets will be shown
- 2. Update <kbd>app/config/config.yml</kbd> to enable Assetic if it's not activated yet:
- 
-        framework:
-            # ...
-            assets: ~
-
- 3. Import the routes in your <kbd>app/config/routing.yml</kbd>:
+ 2. Import the routes in your <kbd>app/config/routing.yml</kbd>:
  
         asynctweets_website:
             resource: "@AsyncTweetsBundle/Resources/config/routing.yml"
             prefix:   /asynctweets # Use only "/" if you want AsyncTweets at the root of the website
 
- 4. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
-
- 5. If you have an error `An exception has been thrown during the compilation of a template ("You must add AsyncTweetsBundle to the assetic.bundle config to use the {% image %} tag in AsyncTweetsBundle::layout.html.twig.") in "AsyncTweetsBundle::layout.html.twig".`, add the bundle in assetic bundles:
- 
-        # Assetic Configuration
-        assetic:
-            # ...
-            bundles: [ AsyncTweetsBundle ]
-
- 6. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
+ 3. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
+ 4. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ## Dependencies
- - [symfony/symfony][Symfony GitHub] (2.7+)
+ - [symfony/symfony][Symfony GitHub] (3.4+)
  - [abraham/twitteroauth][twitteroauth] (^0.6.0)
  - [twitter/bootstrap][Twitter Bootstrap] (use [Bootswatch 3.3.2][Bootstrap CDN])
 
 
 ### Tests:
 
-If `phpunit` is installed:
-
-    phpunit
-
-Or by installing `phpunit` with Composer:
-
-    php composer.phar require --dev phpunit/phpunit "4.8.* || 5.1.*" -vvv ; php vendor/bin/phpunit
-
-### Development environment
-
- - [doctrine/doctrine-fixtures-bundle][doctrine-fixtures-bundle] (~2.3)
- - [liip/functional-test-bundle][functional-test-bundle] (~1.0)
+    php vendor/bin/phpunit 
 
 [Packagist]: https://packagist.org/packages/alexislefebvre/async-tweets-bundle
 [Packagist Stable Image]: https://poser.pugx.org/alexislefebvre/async-tweets-bundle/v/stable.svg
@@ -159,5 +134,3 @@ Or by installing `phpunit` with Composer:
 [twitteroauth]: https://github.com/abraham/twitteroauth
 [Twitter Bootstrap]: https://github.com/twbs/bootstrap
 [Bootstrap CDN]: http://www.bootstrapcdn.com/#bootswatch_tab
-[doctrine-fixtures-bundle]: https://github.com/doctrine/DoctrineFixturesBundle
-[functional-test-bundle]: https://github.com/liip/LiipFunctionalTestBundle

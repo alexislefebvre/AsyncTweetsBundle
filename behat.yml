@@ -5,9 +5,10 @@ default:
                 features: tests/Features
             contexts:
                 - 'Acme\Features\Context\FeatureContext'
-                - Knp\FriendlyContexts\Context\AliceContext
-                - Knp\FriendlyContexts\Context\EntityContext
-                - Knp\FriendlyContexts\Context\MinkContext
+                - 'Acme\Features\Context\DoctrineContext':
+                    doctrine: '@doctrine'
+                - 'Behat\MinkExtension\Context\MinkContext'
+                - behatch:context:browser
     extensions:
         Behat\Symfony2Extension:
             # http://zalas.eu/run-behat-scenarios-and-functional-tests-from-symfony-bundle-in-isolation-of-project/
@@ -20,16 +21,4 @@ default:
             sessions:
                 default:
                     symfony2: ~
-        Knp\FriendlyContexts\Extension:
-            symfony_kernel:
-                bootstrap: tests/App/bootstrap.php
-                path: tests/App/AppKernel.php
-                class: AppKernel
-                env: test
-                debug: true
-            alice:
-                fixtures:
-                    User: tests/Fixtures/User.yml
-                    Tweet: tests/Fixtures/Tweet.yml
-                dependencies:
-                    Tweet: [ User ]
+        Behatch\Extension: ~

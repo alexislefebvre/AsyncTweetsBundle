@@ -1,8 +1,7 @@
-@reset-schema
 Feature: Test DefaultController
 
   Scenario: Index
-    When I am on the homepage
+    When I am on "/"
     Then I should see a "html > body" element
     And I should see a "html > head > title" element
     And I should see "Home timeline" in the "html > head > title" element
