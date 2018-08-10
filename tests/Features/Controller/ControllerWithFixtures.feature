@@ -1,6 +1,9 @@
-@reset-schema
-@alice(*)
 Feature: Test DefaultController with Fixtures
+
+  Background:
+    Given I load the following fixtures:
+      | User  |
+      | Tweet |
 
   Scenario: Index
     When I am on "/"
@@ -29,7 +32,7 @@ Feature: Test DefaultController with Fixtures
     When I press the 2nd "Mark as read" link
     Then I should not see a "div.alert.alert-success" element
     # Delete old tweets
-    When I press the "Delete old tweets" link
+    When I follow "Delete old tweets"
     Then I should see a "div.alert.alert-success" element
     And I should see "1 tweets deleted." in the "div.alert.alert-success" element
     And I should see a "main.container > div.tweets" element

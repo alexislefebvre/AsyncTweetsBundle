@@ -5,6 +5,8 @@ default:
                 features: tests/Features
             contexts:
                 - 'Acme\Features\Context\FeatureContext'
+                - 'Acme\Features\Context\DoctrineContext':
+                    doctrine: '@doctrine'
                 - 'Behat\MinkExtension\Context\MinkContext'
     extensions:
         Behat\Symfony2Extension:

@@ -1,4 +1,3 @@
-@reset-schema
 Feature: Test DefaultController
 
   Scenario: Index
