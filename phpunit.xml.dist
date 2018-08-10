@@ -21,15 +21,10 @@
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true" >
-            <directory>Command</directory>
-            <directory>Controller</directory>
-            <directory>Entity</directory>
-            <directory>Utils</directory>
-            <file>AsyncTweetsBundle.php</file>
+            <directory>src/</directory>
             <exclude>
-                <directory>tests</directory>
+                <directory>tests/</directory>
                 <directory>vendor/</directory>
-                <file>Command/StatusesShowCommand.php</file>
             </exclude>
         </whitelist>
     </filter>
