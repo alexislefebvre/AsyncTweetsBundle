@@ -79,28 +79,14 @@ This bundle is also used to test several CI (Continuous Integration) services.
 ### Usage:
 
  1. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table --env=prod`, with the ` --table` option the imported tweets will be shown
- 2. Update <kbd>app/config/config.yml</kbd> to enable Assetic if it's not activated yet:
- 
-        framework:
-            # ...
-            assets: ~
-
- 3. Import the routes in your <kbd>app/config/routing.yml</kbd>:
+ 2. Import the routes in your <kbd>app/config/routing.yml</kbd>:
  
         asynctweets_website:
             resource: "@AsyncTweetsBundle/Resources/config/routing.yml"
             prefix:   /asynctweets # Use only "/" if you want AsyncTweets at the root of the website
 
- 4. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
-
- 5. If you have an error `An exception has been thrown during the compilation of a template ("You must add AsyncTweetsBundle to the assetic.bundle config to use the {% image %} tag in AsyncTweetsBundle::layout.html.twig.") in "AsyncTweetsBundle::layout.html.twig".`, add the bundle in assetic bundles:
- 
-        # Assetic Configuration
-        assetic:
-            # ...
-            bundles: [ AsyncTweetsBundle ]
-
- 6. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
+ 3. Open the page with your browser `.../YOUR_DIRECTORY/web/asynctweets/` or use the following command `php app/console statuses:read --env=prod` to see tweets
+ 4. Add `php app/console statuses:hometimeline --env=prod` in your crontab (e.g. every hour) to retrieve tweets automatically
 
 ## Dependencies
  - [symfony/symfony][Symfony GitHub] (3.4+)

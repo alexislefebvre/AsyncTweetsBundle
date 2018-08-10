@@ -19,7 +19,6 @@
     },
     "require-dev": {
         "doctrine/orm": "^2.4.8",
-        "symfony/assetic-bundle": "~2.3",
         "symfony/monolog-bundle": "~3.1",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "liip/functional-test-bundle": "~2.0@alpha",
