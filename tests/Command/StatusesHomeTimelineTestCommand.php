@@ -1,7 +1,8 @@
 <?php
 
-namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Command;
+namespace Acme\Command;
 
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Command\StatusesHomeTimelineCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 

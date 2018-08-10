@@ -1,8 +1,7 @@
 <?php
 
-namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Command;
+namespace Acme\Command;
 
-use AlexisLefebvre\Bundle\AsyncTweetsBundle\Command\StatusesHomeTimelineTestCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class StatusesHomeTimelineTest extends StatusesBase
@@ -264,7 +263,7 @@ class StatusesHomeTimelineTest extends StatusesBase
     public function testStatusesHomeTimelineWithSinceIdParameter()
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetData',
+            'Acme\DataFixtures\ORM\LoadTweetData',
         ]);
 
         // Disable decoration for tests on Windows
