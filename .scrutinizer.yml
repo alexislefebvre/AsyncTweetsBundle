@@ -5,14 +5,9 @@ checks:
 
 filter:
   excluded_paths:
-    - tests/*
-    - Command/StatusesHomeTimelineTestCommand.php
+    - tests/
   paths:
-    - Command/*
-    - Controller/*
-    - Entity/*
-    - Utils/*
-    - AsyncTweetsBundle.php
+    - src/
 
 build:
   environment:
