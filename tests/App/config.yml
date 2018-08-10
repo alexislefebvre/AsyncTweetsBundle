@@ -23,7 +23,7 @@ monolog:
             handler:      nested
         nested:
             type:  stream
-            path:  %kernel.logs_dir%/%kernel.environment%.log
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
 
 liip_functional_test:
@@ -36,7 +36,7 @@ doctrine:
         connections:
             default:
                 driver: pdo_sqlite
-                path: %kernel.cache_dir%/test.db
+                path: "%kernel.cache_dir%/test.db"
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true            
