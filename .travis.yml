@@ -26,7 +26,8 @@ before_install:
  - if [[ $PHPUNIT_FLAGS = "" ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - composer require symfony/symfony:${SYMFONY_VERSION} $DEPENDENCY --no-update
+  - if [[ $SYMFONY_VERSION = '3.4.*' ]]; then composer require symfony/lts:v3 --no-update; fi
+  - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} $DEPENDENCY --no-update
   - composer install --no-interaction --profile --no-progress
 
 script:
