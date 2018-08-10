@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Entity;
+namespace Acme\Entity;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;

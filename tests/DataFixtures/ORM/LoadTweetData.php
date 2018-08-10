@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM;
+namespace Acme\DataFixtures\ORM;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -105,8 +105,6 @@ class LoadTweetData extends AbstractFixture implements DependentFixtureInterface
      */
     public function getDependencies()
     {
-        return [
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadMediaData',
-        ];
+        return ['Acme\DataFixtures\ORM\LoadMediaData'];
     }
 }

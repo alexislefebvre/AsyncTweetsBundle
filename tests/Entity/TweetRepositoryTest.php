@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Entity;
+namespace Acme\Entity;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
@@ -22,7 +22,7 @@ class TweetRepositoryTest extends WebTestCase
     public function testTweetRepository()
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetData',
+            'Acme\DataFixtures\ORM\LoadTweetData',
         ]);
 
         $tweets = $this->em
@@ -53,7 +53,7 @@ class TweetRepositoryTest extends WebTestCase
     public function testTweetRepositoryWithLongTweet()
     {
         $this->loadFixtures([
-            'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\DataFixtures\ORM\LoadTweetData',
+            'Acme\DataFixtures\ORM\LoadTweetData',
         ]);
 
         /** @var Tweet $tweet */

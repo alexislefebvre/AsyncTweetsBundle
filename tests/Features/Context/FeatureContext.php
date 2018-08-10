@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\Context;
+namespace Acme\Features\Context;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use Behat\Behat\Context\Context;

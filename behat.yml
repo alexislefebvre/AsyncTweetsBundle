@@ -4,7 +4,7 @@ default:
             paths:
                 features: tests/Features
             contexts:
-                - 'AlexisLefebvre\Bundle\AsyncTweetsBundle\Tests\Features\Context\FeatureContext'
+                - 'Acme\Features\Context\FeatureContext'
                 - Knp\FriendlyContexts\Context\AliceContext
                 - Knp\FriendlyContexts\Context\EntityContext
                 - Knp\FriendlyContexts\Context\MinkContext
@@ -14,7 +14,7 @@ default:
             kernel:
                 env: test
                 debug: true
-                path: tests/App/AppKernel.php
+                class: Acme\App\AppKernel
                 bootstrap: tests/App/bootstrap.php
         Behat\MinkExtension:
             sessions:

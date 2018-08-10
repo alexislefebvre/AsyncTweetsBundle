@@ -39,7 +39,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "AlexisLefebvre\\Bundle\\AsyncTweetsBundle\\Tests\\": "tests/"
+            "Acme\\": "tests/"
         }
     }
 }
