@@ -1,0 +1,27 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.1-fpm-node-browsers
+    steps:
+      - checkout
+      - run: composer require "symfony/symfony:3.4.*" --no-update
+      - restore_cache:
+          keys:
+          - composer-v1-{{ .Branch }}
+          # fallback to using the latest cache if no exact match is found
+          - composer-v1-
+      - run: composer install --no-interaction --profile --no-progress
+      - run: php ./vendor/bin/phpspec run --format=pretty
+      - run: mkdir -p ~/phpunit
+      - run: php ./vendor/bin/phpunit --log-junit ~/phpunit/junit.xml tests
+      - run: php ./vendor/bin/behat
+      - store_test_results:
+          path: ~/phpunit
+      - store_artifacts:
+          path: ~/phpunit
+      - save_cache:
+          key: composer-v1-{{ .Branch }}
+          paths:
+              - ~/.composer/cache
