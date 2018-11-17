@@ -98,9 +98,11 @@ class PersistTweet
      *
      * @return Tweet
      */
-    protected function persistTweet(\stdClass $tweetTmp, User $user,
-        $inTimeline)
-    {
+    protected function persistTweet(
+        \stdClass $tweetTmp,
+        User $user,
+        $inTimeline
+    ) {
         $tweet = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findOneById($tweetTmp->id);

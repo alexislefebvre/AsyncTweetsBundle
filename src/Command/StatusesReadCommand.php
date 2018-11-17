@@ -55,18 +55,26 @@ class StatusesReadCommand extends BaseCommand
      * @param OutputInterface $output
      * @param array           $tweets
      */
-    protected function displayTweets(OutputInterface $output,
-        $tweets)
-    {
+    protected function displayTweets(
+        OutputInterface $output,
+        $tweets
+    ) {
         $this->setTable($output);
 
         foreach ($tweets as $tweet) {
-            $this->table->addRows([
+            $this->table->addRows(
                 [
-                    $this->formatCell('info',
-                        $tweet->getUser()->getName(), 13),
-                    $this->formatCell('comment',
-                        $tweet->getText(), 40),
+                [
+                    $this->formatCell(
+                        'info',
+                        $tweet->getUser()->getName(),
+                        13
+                    ),
+                    $this->formatCell(
+                        'comment',
+                        $tweet->getText(),
+                        40
+                    ),
                     $tweet->getCreatedAt()->format('Y-m-d H:i'),
                 ],
                 // empty row between tweets
@@ -101,7 +109,9 @@ class StatusesReadCommand extends BaseCommand
     {
         return '<'.$tag.'>'.
             // Close and reopen the tag before each new line
-            str_replace("\n", '</'.$tag.">\n<".$tag.'>',
+            str_replace(
+                "\n",
+                '</'.$tag.">\n<".$tag.'>',
                 wordwrap($content, $length, "\n")
             ).
             '</'.$tag.'>';

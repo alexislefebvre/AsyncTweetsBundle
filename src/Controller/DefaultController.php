@@ -124,8 +124,11 @@ class DefaultController extends Controller
         $nextYear->add(new \DateInterval('P1Y'));
 
         // Set last Tweet Id
-        $cookie = new Cookie('lastTweetId', $firstTweetId,
-            $nextYear->format('U'));
+        $cookie = new Cookie(
+            'lastTweetId',
+            $firstTweetId,
+            $nextYear->format('U')
+        );
 
         return $cookie;
     }
@@ -161,7 +164,8 @@ class DefaultController extends Controller
                 ->getRepository('AsyncTweetsBundle:Tweet')
                 ->deleteAndHideTweetsLessThanId($lastTweetId);
 
-            $this->get('session')->getFlashBag()->add('message',
+            $this->get('session')->getFlashBag()->add(
+                'message',
                 sprintf('%s tweets deleted.', $count)
             );
         }
