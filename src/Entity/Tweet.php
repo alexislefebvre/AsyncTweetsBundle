@@ -59,12 +59,8 @@ class Tweet
      */
     private $medias;
 
-    public function __construct($id = null)
+    public function __construct()
     {
-        if (!is_null($id)) {
-            $this->setId($id);
-        }
-
         $this->medias = new ArrayCollection();
         $this->retweeting_statuses = new ArrayCollection();
     }

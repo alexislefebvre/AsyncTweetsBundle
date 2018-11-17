@@ -79,9 +79,10 @@ class PersistTweet
      */
     protected function createTweet(\stdClass $tweetTmp, $user, $inTimeline)
     {
-        $tweet = new Tweet($tweetTmp->id);
+        $tweet = new Tweet();
 
         $tweet
+            ->setId($tweetTmp->id)
             ->setValues($tweetTmp)
             ->setUser($user)
             ->setInTimeline($inTimeline);
