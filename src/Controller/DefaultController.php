@@ -2,13 +2,17 @@
 
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Controller;
 
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\TweetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class DefaultController extends Controller
 {
+    /** @var TweetRepository */
     private $tweetRepository;
 
     /**
@@ -19,8 +23,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request, $firstTweetId = null)
     {
-        $this->tweetRepository = $this->getDoctrine()
+        /** @var TweetRepository $tweetRepository */
+        $tweetRepository = $this->getDoctrine()
             ->getRepository('AsyncTweetsBundle:Tweet');
+
+        $this->tweetRepository = $tweetRepository;
 
         $tweets = $this->tweetRepository
             ->getWithUsersAndMedias($firstTweetId);
@@ -43,9 +50,9 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param Request  $request
-     * @param Tweets[] $tweets
-     * @param int      $firstTweetId
+     * @param Request $request
+     * @param Tweet[] $tweets
+     * @param string  $firstTweetId
      *
      * @return array $vars
      */
@@ -71,13 +78,14 @@ class DefaultController extends Controller
     /**
      * If a Tweet is displayed, fetch data from repository.
      *
-     * @param Tweets[] $tweets
-     * @param array    $vars
+     * @param Tweet[] $tweets
+     * @param array   $vars
      *
      * @return array $vars
      */
     private function getTweetsVars($tweets, $vars)
     {
+        /** @var string $firstTweetId */
         $firstTweetId = $tweets[0]->getId();
 
         $vars['previous'] = $this->tweetRepository
@@ -120,7 +128,7 @@ class DefaultController extends Controller
      */
     private function createCookie($firstTweetId)
     {
-        $nextYear = new \Datetime('now');
+        $nextYear = new \DateTime('now');
         $nextYear->add(new \DateInterval('P1Y'));
 
         // Set last Tweet Id
@@ -160,11 +168,17 @@ class DefaultController extends Controller
         $lastTweetId = $this->getLastTweetIdFromCookie($request);
 
         if (!is_null($lastTweetId)) {
-            $count = $this->getDoctrine()
-                ->getRepository('AsyncTweetsBundle:Tweet')
+            /** @var TweetRepository $tweetRepository */
+            $tweetRepository = $this->getDoctrine()
+                ->getRepository('AsyncTweetsBundle:Tweet');
+
+            $count = $tweetRepository
                 ->deleteAndHideTweetsLessThanId($lastTweetId);
 
-            $this->get('session')->getFlashBag()->add(
+            /** @var Session $session */
+            $session = $this->get('session');
+
+            $session->getFlashBag()->add(
                 'message',
                 sprintf('%s tweets deleted.', $count)
             );

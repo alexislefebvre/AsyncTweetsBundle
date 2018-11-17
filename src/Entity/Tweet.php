@@ -72,11 +72,9 @@ class Tweet
     /**
      * Set id.
      *
-     * @param bigint $id
-     *
      * @return Tweet
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -100,7 +98,7 @@ class Tweet
      *
      * @return Tweet
      */
-    public function setCreatedAt(\Datetime $createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->created_at = $createdAt;
 
@@ -334,7 +332,7 @@ class Tweet
     public function setValues(\stdClass $tweetTmp)
     {
         $this
-            ->setCreatedAt(new \Datetime($tweetTmp->created_at))
+            ->setCreatedAt(new \DateTime($tweetTmp->created_at))
             ->setText($tweetTmp->text)
             ->setRetweetCount($tweetTmp->retweet_count)
             ->setFavoriteCount($tweetTmp->favorite_count);

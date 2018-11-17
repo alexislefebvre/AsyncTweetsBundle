@@ -29,13 +29,17 @@ class StatusesReadCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var int|null $page */
         $page = $input->getArgument('page');
 
         if ($page < 1) {
             $page = 1;
         }
 
-        $output->writeln('Current page: <comment>'.$page.'</comment>');
+        $output->writeln(sprintf(
+            'Current page: <comment>%d</comment>',
+            $page
+        ));
 
         // Get the tweets
         $tweets = $this->em

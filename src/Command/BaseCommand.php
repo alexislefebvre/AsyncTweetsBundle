@@ -2,6 +2,7 @@
 
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Command;
 
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,7 +28,8 @@ class BaseCommand extends ContainerAwareCommand
         $this->container = $this->getContainer();
 
         // This loads Doctrine, you can load your own services as well
-        $this->em = $this->container->get('doctrine')
-            ->getManager();
+        /** @var ManagerRegistry $doctrine */
+        $doctrine = $this->container->get('doctrine');
+        $this->em = $doctrine->getManager();
     }
 }

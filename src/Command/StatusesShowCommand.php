@@ -25,6 +25,7 @@ class StatusesShowCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var int|null $tweet_id */
         $tweet_id = $input->getArgument('tweet_id');
 
         $connection = new TwitterOAuth(
@@ -34,8 +35,12 @@ class StatusesShowCommand extends BaseCommand
             $this->container->getParameter('twitter_token_secret')
         );
 
-        $output->writeln(
-            json_encode($connection->get('statuses/show/'.$tweet_id))
-        );
+        /** @var string $json */
+        $json = json_encode($connection->get(sprintf(
+            'statuses/show/%d',
+            $tweet_id
+        )));
+
+        $output->writeln($json);
     }
 }

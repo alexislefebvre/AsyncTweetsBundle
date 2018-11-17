@@ -30,6 +30,8 @@ jobs:
       script:
         - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:alpine php-cs-fixer fix src/ --dry-run
     - name: "phpstan"
+      install:
+        - composer install --no-interaction --profile --no-progress
       script:
         - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:alpine phpstan analyse --level 6 src/ --no-progress
 
