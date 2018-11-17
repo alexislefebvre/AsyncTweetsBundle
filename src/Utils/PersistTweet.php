@@ -79,9 +79,10 @@ class PersistTweet
      */
     protected function createTweet(\stdClass $tweetTmp, $user, $inTimeline)
     {
-        $tweet = new Tweet($tweetTmp->id);
+        $tweet = new Tweet();
 
         $tweet
+            ->setId($tweetTmp->id)
             ->setValues($tweetTmp)
             ->setUser($user)
             ->setInTimeline($inTimeline);
@@ -98,9 +99,11 @@ class PersistTweet
      *
      * @return Tweet
      */
-    protected function persistTweet(\stdClass $tweetTmp, User $user,
-        $inTimeline)
-    {
+    protected function persistTweet(
+        \stdClass $tweetTmp,
+        User $user,
+        $inTimeline
+    ) {
         $tweet = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findOneById($tweetTmp->id);

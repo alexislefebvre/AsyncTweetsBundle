@@ -30,7 +30,7 @@ class User
     private $profile_image_url;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $profile_image_url_https;
 
@@ -160,10 +160,8 @@ class User
 
     /**
      * Get profile_image_url_https.
-     *
-     * @return string
      */
-    public function getProfileImageUrlHttps()
+    public function getProfileImageUrlHttps(): ?string
     {
         return $this->profile_image_url_https;
     }

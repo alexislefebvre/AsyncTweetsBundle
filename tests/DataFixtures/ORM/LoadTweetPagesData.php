@@ -17,8 +17,9 @@ class LoadTweetPagesData extends AbstractFixture implements DependentFixtureInte
         $tweetId = 1;
 
         // Add retweeted Tweet
-        $retweeted = new Tweet($tweetId);
+        $retweeted = new Tweet();
         $retweeted
+            ->setId($tweetId)
             ->setUser($this->getReference('user-githubeng'))
             ->setCreatedAt(new \Datetime(
                 '2015-02-10 21:18:'.sprintf('%02d', $tweetId)))
@@ -30,8 +31,9 @@ class LoadTweetPagesData extends AbstractFixture implements DependentFixtureInte
 
         // not retweet tweets
         foreach (range(2, 40) as $tweetId) {
-            $tweet = new Tweet($tweetId);
+            $tweet = new Tweet();
             $tweet
+                ->setId($tweetId)
                 ->setUser($this->getReference('user'))
                 ->setCreatedAt(
                     new \Datetime('2015-02-10 21:19:'.sprintf('%02d', $tweetId)))

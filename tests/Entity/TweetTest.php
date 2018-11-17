@@ -21,8 +21,9 @@ class TweetTest extends \PHPUnit\Framework\TestCase
             ->setExpandedUrl('http://twitter.com/AsyncTweets/status/567836201210900480/photo/1');
 
         // Tweet
-        $tweet = new Tweet(152120320);
+        $tweet = new Tweet();
         $tweet
+            ->setId(152120320)
             ->setCreatedAt($now)
             ->setText('Hello World!')
             ->setRetweetCount(1999)

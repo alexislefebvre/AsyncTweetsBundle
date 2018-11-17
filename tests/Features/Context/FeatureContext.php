@@ -26,8 +26,9 @@ class FeatureContext implements Context
     {
         $this->now = new \Datetime('now');
 
-        $this->tweet = new Tweet(152120320);
+        $this->tweet = new Tweet();
         $this->tweet
+            ->setId(152120320)
             ->setCreatedAt($this->now)
             ->setText('Hello World!')
             ->setRetweetCount(1999)

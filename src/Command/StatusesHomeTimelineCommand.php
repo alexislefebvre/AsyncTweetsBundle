@@ -30,8 +30,12 @@ class StatusesHomeTimelineCommand extends BaseCommand
             ->setName('statuses:hometimeline')
             ->setDescription('Fetch home timeline')
             // http://symfony.com/doc/2.3/cookbook/console/console_command.html#automatically-registering-commands
-            ->addOption('table', null, InputOption::VALUE_NONE,
-                'Display a table with tweets');
+            ->addOption(
+                'table',
+                null,
+                InputOption::VALUE_NONE,
+                'Display a table with tweets'
+            );
     }
 
     /**
@@ -107,9 +111,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
      * @param OutputInterface $output
      * @param null|object     $content
      */
-    protected function displayContentNotArrayError(OutputInterface $output,
-        $content)
-    {
+    protected function displayContentNotArrayError(
+        OutputInterface $output,
+        $content
+    ) {
         $formatter = $this->getHelper('formatter');
 
         $errorMessages = ['Error!', 'Something went wrong, $content is not an array.'];
@@ -124,9 +129,12 @@ class StatusesHomeTimelineCommand extends BaseCommand
      * @param array           $content
      * @param int             $numberOfTweets
      */
-    protected function addAndDisplayTweets(InputInterface $input,
-        OutputInterface $output, $content, $numberOfTweets)
-    {
+    protected function addAndDisplayTweets(
+        InputInterface $input,
+        OutputInterface $output,
+        $content,
+        $numberOfTweets
+    ) {
         $output->writeln('<comment>Number of tweets: '.$numberOfTweets.'</comment>');
 
         // Iterate through $content in order to add the oldest tweet first,
@@ -150,9 +158,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
      * @param OutputInterface $output
      * @param int             $numberOfTweets
      */
-    protected function setProgressBar(OutputInterface $output,
-        $numberOfTweets)
-    {
+    protected function setProgressBar(
+        OutputInterface $output,
+        $numberOfTweets
+    ) {
         $this->progress = new ProgressBar($output, $numberOfTweets);
         $this->progress->setBarCharacter('<comment>=</comment>');
         $this->progress->start();
@@ -162,9 +171,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      */
-    protected function setTable(InputInterface $input,
-        OutputInterface $output)
-    {
+    protected function setTable(
+        InputInterface $input,
+        OutputInterface $output
+    ) {
         $this->displayTable = $input->getOption('table');
 
         // Display
@@ -180,8 +190,11 @@ class StatusesHomeTimelineCommand extends BaseCommand
      */
     protected function iterateTweets($tweets)
     {
-        $persistTweet = new PersistTweet($this->em, $this->displayTable,
-            $this->table);
+        $persistTweet = new PersistTweet(
+            $this->em,
+            $this->displayTable,
+            $this->table
+        );
 
         foreach ($tweets as $tweetTmp) {
             $persistTweet->addTweet($tweetTmp, true);

@@ -14,8 +14,9 @@ class LoadTweetAndRetweetData extends AbstractFixture implements DependentFixtur
      */
     public function load(ObjectManager $manager)
     {
-        $tweet = new Tweet(10);
+        $tweet = new Tweet();
         $tweet
+            ->setId(10)
             ->setUser($this->getReference('user'))
             ->setCreatedAt(new \Datetime('2015-02-10 21:19:20'))
             ->setText('Hello Twitter! #myfirstTweet')
