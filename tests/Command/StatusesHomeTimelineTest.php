@@ -2,8 +2,12 @@
 
 namespace Acme\Command;
 
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Symfony\Component\Console\Tester\CommandTester;
 
+/**
+ * @IgnoreAnnotation("requires")
+ */
 class StatusesHomeTimelineTest extends StatusesBase
 {
     /** @var CommandTester $commandTester */
