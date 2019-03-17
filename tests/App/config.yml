@@ -26,7 +26,7 @@ monolog:
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
 
-liip_functional_test:
+alexis_lefebvre_fixtures:
     cache_db:
         sqlite: liip_functional_test.services_database_backup.sqlite
 
