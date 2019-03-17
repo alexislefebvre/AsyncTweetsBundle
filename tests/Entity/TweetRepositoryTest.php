@@ -3,10 +3,13 @@
 namespace Acme\Entity;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
+use AlexisLefebvre\FixturesBundle\Test\FixturesTrait;
 use AlexisLefebvre\TestBundle\Test\WebTestCase;
 
 class TweetRepositoryTest extends WebTestCase
 {
+    use FixturesTrait;
+
     /**
      * @var \Doctrine\ORM\EntityManager
      */

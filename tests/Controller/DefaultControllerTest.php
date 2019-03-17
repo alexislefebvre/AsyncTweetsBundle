@@ -2,10 +2,13 @@
 
 namespace Acme\Controller;
 
+use AlexisLefebvre\FixturesBundle\Test\FixturesTrait;
 use AlexisLefebvre\TestBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
+    use FixturesTrait;
+
     private $client = null;
 
     public function setUp()

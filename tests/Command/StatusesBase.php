@@ -2,6 +2,7 @@
 
 namespace Acme\Command;
 
+use AlexisLefebvre\FixturesBundle\Test\FixturesTrait;
 use AlexisLefebvre\TestBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
@@ -10,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  */
 class StatusesBase extends WebTestCase
 {
+    use FixturesTrait;
+
     public $application;
 
     public function setUp()
