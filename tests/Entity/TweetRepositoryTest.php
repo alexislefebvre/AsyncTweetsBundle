@@ -3,7 +3,7 @@
 namespace Acme\Entity;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AlexisLefebvre\TestBundle\Test\WebTestCase;
 
 class TweetRepositoryTest extends WebTestCase
 {

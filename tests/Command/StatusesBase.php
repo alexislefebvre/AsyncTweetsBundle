@@ -2,7 +2,7 @@
 
 namespace Acme\Command;
 
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AlexisLefebvre\TestBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace Acme\Controller;
 
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AlexisLefebvre\TestBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
