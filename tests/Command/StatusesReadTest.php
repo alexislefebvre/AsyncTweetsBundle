@@ -3,10 +3,13 @@
 namespace Acme\Command;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Command\StatusesReadCommand;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class StatusesReadTest extends StatusesBase
 {
+    use FixturesTrait;
+
     /** @var CommandTester $commandTester */
     public $commandTester;
 
