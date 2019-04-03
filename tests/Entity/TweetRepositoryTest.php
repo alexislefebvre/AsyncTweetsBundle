@@ -4,9 +4,12 @@ namespace Acme\Entity;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 
 class TweetRepositoryTest extends WebTestCase
 {
+    use FixturesTrait;
+
     /**
      * @var \Doctrine\ORM\EntityManager
      */

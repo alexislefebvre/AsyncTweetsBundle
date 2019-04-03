@@ -3,6 +3,7 @@
 namespace Acme\Command;
 
 use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
@@ -10,6 +11,8 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class StatusesHomeTimelineTest extends StatusesBase
 {
+    use FixturesTrait;
+
     /** @var CommandTester $commandTester */
     public $commandTester;
 

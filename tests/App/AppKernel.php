@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new \AlexisLefebvre\Bundle\AsyncTweetsBundle\AsyncTweetsBundle(),
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new \Liip\FunctionalTestBundle\LiipFunctionalTestBundle(),
+            new \Liip\TestFixturesBundle\LiipTestFixturesBundle(),
         ];
 
         return $bundles;
