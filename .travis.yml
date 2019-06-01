@@ -26,7 +26,7 @@ jobs:
     - stage: analysis
       name: "php-cs-fixer"
       before_install:
-        - docker pull jakzal/phpqa
+        - docker pull jakzal/phpqa:alpine
       script:
         - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:alpine php-cs-fixer fix src/ --dry-run
     - name: "phpstan"
