@@ -9,11 +9,11 @@ class DefaultControllerTest extends WebTestCase
 {
     use FixturesTrait;
 
-    private $client = null;
+    private $testClient = null;
 
     public function setUp()
     {
-        $this->client = static::makeClient();
+        $this->testClient = static::makeClient();
     }
 
     public function testNoTweets()
@@ -22,7 +22,7 @@ class DefaultControllerTest extends WebTestCase
 
         $path = '/';
 
-        $crawler = $this->client->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
 
         // <body>
         $this->assertSame(1,
@@ -45,13 +45,13 @@ class DefaultControllerTest extends WebTestCase
             $path = '/';
         }
 
-        $this->client->enableProfiler();
+        $this->testClient->enableProfiler();
 
-        $crawler = $this->client->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
 
-        $this->assertStatusCode(200, $this->client);
+        $this->assertStatusCode(200, $this->testClient);
 
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->testClient->getProfile()) {
             $this->assertEquals(5,
                 $profile->getCollector('db')->getQueryCount());
         } else {
@@ -150,13 +150,13 @@ class DefaultControllerTest extends WebTestCase
 
         $path = '/sinceId/15';
 
-        $this->client->enableProfiler();
+        $this->testClient->enableProfiler();
 
-        $crawler = $this->client->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
 
-        $this->assertStatusCode(200, $this->client);
+        $this->assertStatusCode(200, $this->testClient);
 
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->testClient->getProfile()) {
             $this->assertEquals(4,
                 $profile->getCollector('db')->getQueryCount());
         } else {
@@ -203,7 +203,7 @@ class DefaultControllerTest extends WebTestCase
             ->attr('href');
 
         // Previous page
-        $crawler = $this->client->request('GET', $previousPage);
+        $crawler = $this->testClient->request('GET', $previousPage);
 
         // Tweet
         $this->assertSame(
@@ -214,7 +214,7 @@ class DefaultControllerTest extends WebTestCase
             );
 
         // Next page
-        $crawler = $this->client->request('GET', $nextPage);
+        $crawler = $this->testClient->request('GET', $nextPage);
 
         // Tweet
         $this->assertSame(
@@ -241,7 +241,7 @@ class DefaultControllerTest extends WebTestCase
             )
             ->eq(4)->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         // Tweet
         $this->assertSame(
@@ -254,7 +254,7 @@ class DefaultControllerTest extends WebTestCase
         // Go to last page
         $path = '/sinceId/38';
 
-        $crawler = $this->client->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
 
         // Tweet
         $this->assertSame(
@@ -274,7 +274,7 @@ class DefaultControllerTest extends WebTestCase
         // Go to first page
         $path = '/';
 
-        $crawler = $this->client->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
 
         // Tweet
         $this->assertSame(
@@ -302,13 +302,13 @@ class DefaultControllerTest extends WebTestCase
 
         $path = '/sinceId/'.$tweetId;
 
-        $this->client->enableProfiler();
+        $this->testClient->enableProfiler();
 
-        $this->client->request('GET', $path);
+        $this->testClient->request('GET', $path);
 
-        $this->assertStatusCode(200, $this->client);
+        $this->assertStatusCode(200, $this->testClient);
 
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->testClient->getProfile()) {
             $this->assertEquals(5,
                 $profile->getCollector('db')->getQueryCount());
         } else {
@@ -318,7 +318,7 @@ class DefaultControllerTest extends WebTestCase
         }
 
         // Test the cookie
-        $cookieJar = $this->client->getCookieJar();
+        $cookieJar = $this->testClient->getCookieJar();
 
         $this->assertNotNull(
             $cookieJar
@@ -338,11 +338,11 @@ class DefaultControllerTest extends WebTestCase
 
         $path = '/sinceId/'.$nextTweetId;
 
-        $this->client->request('GET', $path);
+        $this->testClient->request('GET', $path);
 
         // Test that the cookie has been updated to the second tweet in
         //  the database (but first on this page)
-        $cookieJar = $this->client->getCookieJar();
+        $cookieJar = $this->testClient->getCookieJar();
 
         $this->assertEquals(
             49664,
@@ -352,11 +352,11 @@ class DefaultControllerTest extends WebTestCase
         // Reset the cookie
         $path = '/resetCookie';
 
-        $this->client->followRedirects();
+        $this->testClient->followRedirects();
 
-        $this->client->request('GET', $path);
+        $this->testClient->request('GET', $path);
 
-        $cookieJar = $this->client->getCookieJar();
+        $cookieJar = $this->testClient->getCookieJar();
 
         // Test that the cookie is now the first tweet
         $this->assertEquals(
@@ -365,11 +365,11 @@ class DefaultControllerTest extends WebTestCase
         );
 
         // Test the redirection
-        $this->client->followRedirects(false);
+        $this->testClient->followRedirects(false);
 
-        $this->client->request('GET', $path);
+        $this->testClient->request('GET', $path);
 
-        $this->assertTrue($this->client->getResponse()->isRedirect());
+        $this->assertTrue($this->testClient->getResponse()->isRedirect());
     }
 
     public function testDeleteTweets()
@@ -402,13 +402,13 @@ class DefaultControllerTest extends WebTestCase
             count($medias)
         );
 
-        $this->client->enableProfiler();
+        $this->testClient->enableProfiler();
 
-        $crawler = $this->client->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
 
-        $this->assertStatusCode(200, $this->client);
+        $this->assertStatusCode(200, $this->testClient);
 
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->testClient->getProfile()) {
             $this->assertEquals(4,
                 $profile->getCollector('db')->getQueryCount());
         } else {
@@ -435,9 +435,9 @@ class DefaultControllerTest extends WebTestCase
 
         $link = $crawler->filter('a#tweets-delete')->link();
 
-        $this->client->followRedirects(true);
+        $this->testClient->followRedirects(true);
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         // Count deleted tweets
         $this->assertContains(
@@ -480,14 +480,14 @@ class DefaultControllerTest extends WebTestCase
             count($medias)
         );
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         $link = $crawler
             ->filter('ul.pagination > li > a:contains("Next")')
             ->eq(0)
             ->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         // Image
         $this->assertSame(1,
@@ -520,18 +520,18 @@ class DefaultControllerTest extends WebTestCase
             count($medias)
         );
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         $link = $crawler
             ->filter('ul.pagination > li > a:contains("Next")')
             ->eq(0)
             ->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         $link = $crawler->filter('a#tweets-delete')->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         // Count deleted tweets
         $this->assertContains(
@@ -560,11 +560,11 @@ class DefaultControllerTest extends WebTestCase
         // Delete all the tweets except the last
         $path = '/sinceId/40';
 
-        $crawler = $this->client->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
 
         $link = $crawler->filter('a#tweets-delete')->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         // Count deleted tweets
         $this->assertContains(
@@ -619,13 +619,13 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertTrue($retweeted_tweet->isInTimeline());
 
-        $this->client->enableProfiler();
+        $this->testClient->enableProfiler();
 
-        $crawler = $this->client->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
 
-        $this->assertStatusCode(200, $this->client);
+        $this->assertStatusCode(200, $this->testClient);
 
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->testClient->getProfile()) {
             $this->assertEquals(4,
                 $profile->getCollector('db')->getQueryCount());
         } else {
@@ -647,13 +647,13 @@ class DefaultControllerTest extends WebTestCase
         $link = $crawler->filter('a:contains("Mark as read")')
             ->eq(1)->link();
 
-        $this->client->followRedirects(true);
+        $this->testClient->followRedirects(true);
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         $this->assertStringEndsWith(
             '/sinceId/20',
-            $this->client->getRequest()->getUri()
+            $this->testClient->getRequest()->getUri()
         );
 
         // Number of displayed Tweets
@@ -667,7 +667,7 @@ class DefaultControllerTest extends WebTestCase
         // Delete old tweets
         $link = $crawler->filter('a#tweets-delete')->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         // Count deleted tweets
         $this->assertEquals(
@@ -710,11 +710,11 @@ class DefaultControllerTest extends WebTestCase
         $link = $crawler->filter('a:contains("Mark as read")')
             ->eq(1)->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         $this->assertStringEndsWith(
             '/sinceId/30',
-            $this->client->getRequest()->getUri()
+            $this->testClient->getRequest()->getUri()
         );
 
         // Number of displayed Tweets
@@ -737,7 +737,7 @@ class DefaultControllerTest extends WebTestCase
         // Delete old tweets
         $link = $crawler->filter('a#tweets-delete')->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         // Tweet has been hidden
         $retweeted_tweet = $em
@@ -774,17 +774,17 @@ class DefaultControllerTest extends WebTestCase
         $link = $crawler->filter('a:contains("Mark as read")')
             ->eq(1)->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         $this->assertStringEndsWith(
             '/sinceId/40',
-            $this->client->getRequest()->getUri()
+            $this->testClient->getRequest()->getUri()
         );
 
         // Delete old tweets
         $link = $crawler->filter('a#tweets-delete')->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         // Number of displayed Tweets
         $this->assertSame(
@@ -812,17 +812,17 @@ class DefaultControllerTest extends WebTestCase
         $link = $crawler->filter('a:contains("Mark as read")')
             ->eq(1)->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         $this->assertStringEndsWith(
             '/sinceId/50',
-            $this->client->getRequest()->getUri()
+            $this->testClient->getRequest()->getUri()
         );
 
         // Delete old tweets
         $link = $crawler->filter('a#tweets-delete')->link();
 
-        $crawler = $this->client->click($link);
+        $crawler = $this->testClient->click($link);
 
         // Number of displayed Tweets
         $this->assertSame(
