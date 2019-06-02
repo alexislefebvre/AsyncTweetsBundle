@@ -16,7 +16,7 @@ jobs:
       - run: php ./vendor/bin/phpspec run --format=pretty
       - run: mkdir -p ~/phpunit
       - run: php ./vendor/bin/phpunit --log-junit ~/phpunit/junit.xml tests
-      - run: php ./vendor/bin/behat
+      - run: php ./vendor/bin/behat --colors --strict --format=progress -vv
       - store_test_results:
           path: ~/phpunit
       - store_artifacts:
