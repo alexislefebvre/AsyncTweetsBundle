@@ -298,13 +298,13 @@ class DefaultControllerTest extends WebTestCase
             'Acme\DataFixtures\ORM\LoadTweetData',
         ]);
 
-        $tweetId = 49664;
+        $firstTweetId = 49664;
 
-        $path = '/sinceId/'.$tweetId;
+        $path = '/sinceId/'.$firstTweetId;
 
         $this->testClient->enableProfiler();
 
-        $this->testClient->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
 
         $this->assertStatusCode(200, $this->testClient);
 
@@ -316,6 +316,13 @@ class DefaultControllerTest extends WebTestCase
                 'Profiler is disabled.'
             );
         }
+
+        // Number of pending tweets
+        $this->assertStringContainsString(
+            '3 pending tweets',
+            $crawler->filter('main.container > div.navigation')
+                ->first()->filter('div.alert-info')->text()
+        );
 
         // Test the cookie
         $cookieJar = $this->testClient->getCookieJar();
@@ -330,16 +337,23 @@ class DefaultControllerTest extends WebTestCase
 
         // Cookie jar stores string
         $this->assertSame(
-            (string) $tweetId,
+            (string) $firstTweetId,
             $cookieJar->get('lastTweetId')->getValue()
         );
 
         // Display next tweet
-        $nextTweetId = 1210900500;
+        $nextTweetId = 210900500;
 
         $path = '/sinceId/'.$nextTweetId;
 
-        $this->testClient->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
+
+        // Number of pending tweets
+        $this->assertStringContainsString(
+            '2 pending tweets',
+            $crawler->filter('main.container > div.navigation')
+                ->first()->filter('div.alert-info')->text()
+        );
 
         // Test that the cookie has been updated to the second tweet in
         //  the database (but first on this page)
@@ -347,7 +361,7 @@ class DefaultControllerTest extends WebTestCase
 
         // Cookie jar stores string
         $this->assertSame(
-            (string) $tweetId,
+            (string) $nextTweetId,
             $cookieJar->get('lastTweetId')->getValue()
         );
 
@@ -356,14 +370,21 @@ class DefaultControllerTest extends WebTestCase
 
         $this->testClient->followRedirects();
 
-        $this->testClient->request('GET', $path);
+        $crawler = $this->testClient->request('GET', $path);
+
+        // Number of pending tweets
+        $this->assertStringContainsString(
+            '3 pending tweets',
+            $crawler->filter('main.container > div.navigation')
+                ->first()->filter('div.alert-info')->text()
+        );
 
         $cookieJar = $this->testClient->getCookieJar();
 
         // Test that the cookie is now the first tweet
         // Cookie jar stores string
         $this->assertSame(
-            (string) $tweetId,
+            (string) $firstTweetId,
             $cookieJar->get('lastTweetId')->getValue()
         );
 
