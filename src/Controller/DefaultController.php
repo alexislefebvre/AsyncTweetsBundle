@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
+// Compatibility layer for Symfony 3.4
+if (class_exists('Symfony\Bundle\FrameworkBundle\Controller\AbstractController')) {
+    class_alias('Symfony\Bundle\FrameworkBundle\Controller\AbstractController', 'Symfony\Bundle\FrameworkBundle\Controller\Controller');
+}
+
 class DefaultController extends Controller
 {
     /** @var TweetRepository */
