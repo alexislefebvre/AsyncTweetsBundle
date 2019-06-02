@@ -144,7 +144,7 @@ class StatusesHomeTimelineTest extends StatusesBase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             5,
             count($tweets)
         );
@@ -201,7 +201,7 @@ class StatusesHomeTimelineTest extends StatusesBase
                 'id' => 999080449,
             ]);
 
-        $this->assertEquals(
+        $this->assertSame(
             999080449,
             $tweet->getId()
         );
@@ -223,30 +223,30 @@ class StatusesHomeTimelineTest extends StatusesBase
         );
 
         // The number of retweet is the same for both tweets
-        $this->assertEquals(
+        $this->assertSame(
             89,
             $tweet->getRetweetCount()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             42,
             $tweet->getFavoriteCount()
         );
 
         $retweet = $tweet->getRetweetedStatus();
 
-        $this->assertEquals(
+        $this->assertSame(
             79172609,
             $retweet->getId()
         );
 
         // The number of retweet is the same for both tweets
-        $this->assertEquals(
+        $this->assertSame(
             89,
             $retweet->getRetweetCount()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             61,
             $retweet->getFavoriteCount()
         );
@@ -255,7 +255,7 @@ class StatusesHomeTimelineTest extends StatusesBase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             2,
             count($tweets)
         );

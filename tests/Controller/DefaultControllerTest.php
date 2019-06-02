@@ -52,7 +52,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertEquals(5,
+            $this->assertSame(5,
                 $profile->getCollector('db')->getQueryCount());
         } else {
             $this->markTestIncomplete(
@@ -157,7 +157,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertEquals(4,
+            $this->assertSame(4,
                 $profile->getCollector('db')->getQueryCount());
         } else {
             $this->markTestIncomplete(
@@ -309,7 +309,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertEquals(5,
+            $this->assertSame(5,
                 $profile->getCollector('db')->getQueryCount());
         } else {
             $this->markTestIncomplete(
@@ -328,8 +328,9 @@ class DefaultControllerTest extends WebTestCase
             $cookieJar->get('lastTweetId')
         );
 
-        $this->assertEquals(
-            $tweetId,
+        // Cookie jar stores string
+        $this->assertSame(
+            (string) $tweetId,
             $cookieJar->get('lastTweetId')->getValue()
         );
 
@@ -344,8 +345,9 @@ class DefaultControllerTest extends WebTestCase
         //  the database (but first on this page)
         $cookieJar = $this->testClient->getCookieJar();
 
-        $this->assertEquals(
-            49664,
+        // Cookie jar stores string
+        $this->assertSame(
+            (string) $tweetId,
             $cookieJar->get('lastTweetId')->getValue()
         );
 
@@ -359,8 +361,9 @@ class DefaultControllerTest extends WebTestCase
         $cookieJar = $this->testClient->getCookieJar();
 
         // Test that the cookie is now the first tweet
-        $this->assertEquals(
-            $tweetId,
+        // Cookie jar stores string
+        $this->assertSame(
+            (string) $tweetId,
             $cookieJar->get('lastTweetId')->getValue()
         );
 
@@ -388,7 +391,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             40,
             count($tweets)
         );
@@ -397,7 +400,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Media')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             2,
             count($medias)
         );
@@ -409,7 +412,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertEquals(4,
+            $this->assertSame(4,
                 $profile->getCollector('db')->getQueryCount());
         } else {
             $this->markTestIncomplete(
@@ -466,7 +469,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             26,
             count($tweets)
         );
@@ -475,7 +478,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Media')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             1,
             count($medias)
         );
@@ -506,7 +509,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             26,
             count($tweets)
         );
@@ -515,7 +518,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Media')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             1,
             count($medias)
         );
@@ -543,7 +546,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             6,
             count($tweets)
         );
@@ -552,7 +555,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Media')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             0,
             count($medias)
         );
@@ -576,7 +579,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             1,
             count($tweets)
         );
@@ -585,7 +588,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Media')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             0,
             count($medias)
         );
@@ -608,7 +611,7 @@ class DefaultControllerTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->findAll();
 
-        $this->assertEquals(
+        $this->assertSame(
             5,
             count($tweets)
         );
@@ -626,7 +629,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertEquals(4,
+            $this->assertSame(4,
                 $profile->getCollector('db')->getQueryCount());
         } else {
             $this->markTestIncomplete(
@@ -670,7 +673,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->testClient->click($link);
 
         // Count deleted tweets
-        $this->assertEquals(
+        $this->assertSame(
             1,
             $crawler->filter('div.alert.alert-success')->count(),
             $crawler->text()
@@ -690,7 +693,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         // Number of tweets
-        $this->assertEquals(
+        $this->assertSame(
             4,
             count($em
                 ->getRepository('AsyncTweetsBundle:Tweet')
@@ -763,7 +766,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         // The tweet has not been deleted
-        $this->assertEquals(
+        $this->assertSame(
             4,
             count($em
                 ->getRepository('AsyncTweetsBundle:Tweet')
@@ -801,7 +804,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         // The tweet has been deleted
-        $this->assertEquals(
+        $this->assertSame(
             2,
             count($em
                 ->getRepository('AsyncTweetsBundle:Tweet')
@@ -838,7 +841,7 @@ class DefaultControllerTest extends WebTestCase
             $crawler->filter('div.alert.alert-success')->text()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             1,
             count($em
                 ->getRepository('AsyncTweetsBundle:Tweet')

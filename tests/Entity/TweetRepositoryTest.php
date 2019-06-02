@@ -50,7 +50,7 @@ class TweetRepositoryTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->countPendingTweets(49664);
 
-        $this->assertEquals(3, $tweets);
+        $this->assertSame(3, $tweets);
     }
 
     public function testTweetRepositoryWithLongTweet()
