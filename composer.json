@@ -27,8 +27,8 @@
     "require-dev": {
         "symfony/monolog-bundle": "~3.1",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
-        "liip/functional-test-bundle": "~3.0@alpha",
-        "liip/test-fixtures-bundle": "~0.1@alpha",
+        "liip/functional-test-bundle": "~3.0@rc",
+        "liip/test-fixtures-bundle": "~1.0@rc",
         "phpunit/phpunit": "~7.5.12|~8.1.6",
         "behat/behat": "~3.2",
         "behat/symfony2-extension": "^2.1",
