@@ -114,7 +114,7 @@ class TweetRepository extends EntityRepository
         return $this->getTweetId('>', 'ASC', $tweetId);
     }
 
-    public function countPendingTweets($lastTweetId = null)
+    public function countPendingTweets($lastTweetId = null): int
     {
         /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $this->createQueryBuilder('t');
@@ -136,7 +136,7 @@ class TweetRepository extends EntityRepository
         return $query->getQuery()->getSingleScalarResult();
     }
 
-    public function getLastTweet()
+    public function getLastTweet(): ?Tweet
     {
         $qb = $this->createQueryBuilder('t')
             ->addOrderBy('t.id', 'DESC')

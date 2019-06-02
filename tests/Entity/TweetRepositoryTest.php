@@ -15,7 +15,7 @@ class TweetRepositoryTest extends WebTestCase
      */
     private $em;
 
-    public function setUp()
+    public function setUp(): void
     {
         static::$kernel = static::createKernel();
         static::$kernel->boot();
@@ -50,7 +50,7 @@ class TweetRepositoryTest extends WebTestCase
             ->getRepository('AsyncTweetsBundle:Tweet')
             ->countPendingTweets(49664);
 
-        $this->assertEquals(3, $tweets);
+        $this->assertSame(3, $tweets);
     }
 
     public function testTweetRepositoryWithLongTweet()

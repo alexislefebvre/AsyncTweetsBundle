@@ -89,10 +89,10 @@ jobs:
         - php ./vendor/bin/phpspec run --format=pretty
         - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
         - php ./vendor/bin/behat
-    - name: "PHP 7.2 / Symfony 4"
+    - name: "PHP 7.2 / Symfony 4.2"
       php: 7.2
       env:
-        - SYMFONY_VERSION="^4.1"
+        - SYMFONY_VERSION="^4.2"
       before_install:
         - phpenv config-rm xdebug.ini
 
@@ -105,10 +105,10 @@ jobs:
         - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
         - php ./vendor/bin/behat
 
-    - name: "PHP 7.3 / Symfony 4"
+    - name: "PHP 7.3 / Symfony 4.3"
       php: 7.3
       env:
-        - SYMFONY_VERSION="^4.2"
+        - SYMFONY_VERSION="^4.3"
       before_install:
         - ''
 

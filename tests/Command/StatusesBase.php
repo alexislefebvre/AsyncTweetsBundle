@@ -12,7 +12,7 @@ class StatusesBase extends WebTestCase
 {
     public $application;
 
-    public function setUp()
+    public function setUp(): void
     {
         $kernel = $this->createKernel();
         $kernel->boot();
