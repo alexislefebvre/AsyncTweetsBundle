@@ -30,4 +30,4 @@ build:
           file: 'coverage-clover'
           format: 'php-clover'
       -
-        command: './vendor/bin/behat'
+        command: './vendor/bin/behat --colors --strict --format=progress -vv'
