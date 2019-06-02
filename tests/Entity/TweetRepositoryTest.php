@@ -15,7 +15,7 @@ class TweetRepositoryTest extends WebTestCase
      */
     private $em;
 
-    public function setUp()
+    public function setUp(): void
     {
         static::$kernel = static::createKernel();
         static::$kernel->boot();

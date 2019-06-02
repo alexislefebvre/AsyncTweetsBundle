@@ -16,7 +16,7 @@ class StatusesHomeTimelineTest extends StatusesBase
     /** @var CommandTester $commandTester */
     public $commandTester;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -36,8 +36,8 @@ class StatusesHomeTimelineTest extends StatusesBase
 
         $display = $this->commandTester->getDisplay();
 
-        $this->assertContains('[code] => 215', $display);
-        $this->assertContains('[message] => Bad Authentication data.', $display);
+        $this->assertStringContainsString('[code] => 215', $display);
+        $this->assertStringContainsString('[message] => Bad Authentication data.', $display);
     }
 
     public function testStatusesHomeTimelineEmpty()
@@ -48,7 +48,7 @@ class StatusesHomeTimelineTest extends StatusesBase
             'test' => 'json',
         ]);
 
-        $this->assertContains('Number of tweets: 4', $this->commandTester->getDisplay());
+        $this->assertStringContainsString('Number of tweets: 4', $this->commandTester->getDisplay());
     }
 
     public function testStatusesHomeTimelineNotArray()
@@ -59,7 +59,7 @@ class StatusesHomeTimelineTest extends StatusesBase
             'test' => 'not_array',
         ]);
 
-        $this->assertContains('Something went wrong, $content is not an array.', $this->commandTester->getDisplay());
+        $this->assertStringContainsString('Something went wrong, $content is not an array.', $this->commandTester->getDisplay());
     }
 
     public function testStatusesHomeTimelineEmptyArray()
@@ -72,7 +72,7 @@ class StatusesHomeTimelineTest extends StatusesBase
 
         $display = $this->commandTester->getDisplay();
 
-        $this->assertContains('No new tweet.', $display);
+        $this->assertStringContainsString('No new tweet.', $display);
     }
 
     public function testStatusesHomeTimelineWithTweets()
@@ -98,10 +98,10 @@ class StatusesHomeTimelineTest extends StatusesBase
 
         $display = $this->commandTester->getDisplay();
 
-        $this->assertContains('Number of tweets: 4', $display);
+        $this->assertStringContainsString('Number of tweets: 4', $display);
 
         // Test the headers of the table
-        $this->assertContains(
+        $this->assertStringContainsString(
             '| Datetime            | '.
                 'Text excerpt                        | '.
                 'Name                |',
@@ -109,19 +109,19 @@ class StatusesHomeTimelineTest extends StatusesBase
         );
 
         // Test the lines of the table
-        $this->assertContains(
+        $this->assertStringContainsString(
             '| 2015-02-10 21:18:00 | '.
                 'Bonjour Twitter ! #monpremierTweet  | '.
                 'Asynchronous tweets |',
             $display
         );
-        $this->assertContains(
+        $this->assertStringContainsString(
             '| 2015-02-10 21:19:20 | '.
                 'Hello Twitter! #myfirstTweet        | '.
                 'Asynchronous tweets |',
             $display
         );
-        $this->assertContains(
+        $this->assertStringContainsString(
             '| 2015-02-18 00:01:14 | '.
                 '#image #test http://t.co/rX1oieH1ug | '.
                 'Asynchronous tweets |',
@@ -129,7 +129,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         );
 
         // Test the retweet
-        $this->assertContains(
+        $this->assertStringContainsString(
             '| 2015-03-03 21:18:00 | '.
                 'RT This is a retweet.               | '.
                 'Asynchronous tweets |',
@@ -173,10 +173,10 @@ class StatusesHomeTimelineTest extends StatusesBase
 
         $display = $this->commandTester->getDisplay();
 
-        $this->assertContains('Number of tweets: 1', $display);
+        $this->assertStringContainsString('Number of tweets: 1', $display);
 
         // Test the headers of the table
-        $this->assertContains(
+        $this->assertStringContainsString(
             '| Datetime            | '.
                 'Text excerpt                             | '.
                 'Name                |',
@@ -184,7 +184,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         );
 
         // Test the retweet
-        $this->assertContains(
+        $this->assertStringContainsString(
             '| 2015-08-22 20:20:27 | '.
                 'RT @travisci: Good morning! We shipped o | '.
                 'Asynchronous tweets |',
@@ -283,7 +283,7 @@ class StatusesHomeTimelineTest extends StatusesBase
 
         $display = $this->commandTester->getDisplay();
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'last tweet = 928032273747795968',
             $display
         );

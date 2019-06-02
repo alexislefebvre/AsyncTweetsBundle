@@ -13,7 +13,7 @@ class StatusesReadTest extends StatusesBase
     /** @var CommandTester $commandTester */
     public $commandTester;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -38,7 +38,7 @@ class StatusesReadTest extends StatusesBase
 
         $this->commandTester->execute([], $options);
 
-        $this->assertContains('Current page: 1', $this->commandTester->getDisplay());
+        $this->assertStringContainsString('Current page: 1', $this->commandTester->getDisplay());
     }
 
     public function testStatusesReadWithTweets()
@@ -60,10 +60,10 @@ class StatusesReadTest extends StatusesBase
 
         $display = $this->commandTester->getDisplay();
 
-        $this->assertContains('Current page: 1', $display);
+        $this->assertStringContainsString('Current page: 1', $display);
 
         // Test the first line of the table
-        $this->assertContains(
+        $this->assertStringContainsString(
             '| Asynchronous  | '.
                 'Hello Twitter! #myfirstTweet             | '.
                 '2015-02-10 21:19 |',
@@ -71,7 +71,7 @@ class StatusesReadTest extends StatusesBase
         );
 
         // Test the retweet
-        $this->assertContains(
+        $this->assertStringContainsString(
             '| GitHub        | '.
                 'RT @GitHubEng: Cross-platform UI in      | '.
                 '2015-08-20 17:00 |',

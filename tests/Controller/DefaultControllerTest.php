@@ -11,7 +11,7 @@ class DefaultControllerTest extends WebTestCase
 
     private $testClient = null;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->testClient = static::makeClient();
     }
@@ -67,7 +67,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         // <title>
-        $this->assertContains(
+        $this->assertStringContainsString(
             'Home timeline - since 49664 - AsyncTweets',
             $crawler->filter('title')->text(),
             $crawler->filter('html')->text()
@@ -166,7 +166,7 @@ class DefaultControllerTest extends WebTestCase
         }
 
         // <title>
-        $this->assertContains(
+        $this->assertStringContainsString(
             'Home timeline - since 15 - AsyncTweets',
             $crawler->filter('title')->text()
         );
@@ -265,7 +265,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         // Number of pending tweets
-        $this->assertContains(
+        $this->assertStringContainsString(
             '3 pending tweets',
             $crawler->filter('main.container > div.navigation')
                 ->first()->filter('div.alert-info')->text()
@@ -285,7 +285,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         // Number of pending tweets
-        $this->assertContains(
+        $this->assertStringContainsString(
             '3 pending tweets',
             $crawler->filter('main.container > div.navigation')
                 ->first()->filter('div.alert-info')->text()
@@ -440,7 +440,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->testClient->click($link);
 
         // Count deleted tweets
-        $this->assertContains(
+        $this->assertStringContainsString(
             '13 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
         );
@@ -534,7 +534,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->testClient->click($link);
 
         // Count deleted tweets
-        $this->assertContains(
+        $this->assertStringContainsString(
             '20 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
         );
@@ -567,7 +567,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->testClient->click($link);
 
         // Count deleted tweets
-        $this->assertContains(
+        $this->assertStringContainsString(
             '5 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
         );
@@ -676,7 +676,7 @@ class DefaultControllerTest extends WebTestCase
             $crawler->text()
         );
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             '1 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
         );
@@ -749,7 +749,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertFalse($retweeted_tweet->isInTimeline());
 
         // Count deleted tweets
-        $this->assertContains(
+        $this->assertStringContainsString(
             '0 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
         );
@@ -795,7 +795,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         // Count deleted tweets
-        $this->assertContains(
+        $this->assertStringContainsString(
             '1 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
         );
@@ -833,7 +833,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         // Count deleted tweets
-        $this->assertContains(
+        $this->assertStringContainsString(
             '1 tweets deleted.',
             $crawler->filter('div.alert.alert-success')->text()
         );
