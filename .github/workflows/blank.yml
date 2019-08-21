@@ -1,0 +1,18 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: alexislefebvre/docker-images:7.2-alpine-composer
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install
+      run: composer install --no-interaction --no-progress
+    - name: Run a multi-line script
+      run: |
+        php ./vendor/bin/phpspec run --format=pretty
+        php ./vendor/bin/phpunit $PHPUNIT_FLAGS
+        php ./vendor/bin/behat --colors --strict --format=progress -vv
