@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   build:
 
-    runs-on: alexislefebvre/docker-images:7.2-alpine-composer
+    runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v1
