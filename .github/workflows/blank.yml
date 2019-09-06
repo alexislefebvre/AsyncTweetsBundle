@@ -9,8 +9,14 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Install
-      run: composer install --no-interaction --no-progress
+
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
     - name: Run a multi-line script
       run: |
         php ./vendor/bin/phpspec run --format=pretty
