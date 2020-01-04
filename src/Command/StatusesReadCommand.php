@@ -68,21 +68,22 @@ class StatusesReadCommand extends BaseCommand
         foreach ($tweets as $tweet) {
             $this->table->addRows(
                 [
-                [
-                    $this->formatCell(
-                        'info',
-                        $tweet->getUser()->getName(),
-                        13
-                    ),
-                    $this->formatCell(
-                        'comment',
-                        $tweet->getText(),
-                        40
-                    ),
-                    $tweet->getCreatedAt()->format('Y-m-d H:i'),
-                ],
-                // empty row between tweets
-                ['', '', ''], ]
+                    [
+                        $this->formatCell(
+                            'info',
+                            $tweet->getUser()->getName(),
+                            13
+                        ),
+                        $this->formatCell(
+                            'comment',
+                            $tweet->getText(),
+                            40
+                        ),
+                        $tweet->getCreatedAt()->format('Y-m-d H:i'),
+                    ],
+                    // empty row between tweets
+                    ['', '', ''],
+                ]
             );
         }
 
