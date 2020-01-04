@@ -26,14 +26,14 @@ jobs:
     - stage: analysis
       name: "php-cs-fixer"
       before_install:
-        - docker pull jakzal/phpqa:alpine
+        - docker pull jakzal/phpqa:1.25-php7.2-alpine
       script:
-        - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:alpine php-cs-fixer fix src/ --dry-run
+        - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:1.25-php7.2-alpine php-cs-fixer fix src/ --dry-run
     - name: "phpstan"
       install:
         - composer install --no-interaction --profile --no-progress
       script:
-        - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:alpine phpstan analyse --level 6 src/ --no-progress
+        - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:1.25-php7.2-alpine phpstan analyse --level 6 src/ --no-progress
 
     - stage: test
       name: "PHP 7.1 / Symfony 3.4"
