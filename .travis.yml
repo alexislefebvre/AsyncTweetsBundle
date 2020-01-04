@@ -15,7 +15,7 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 7.1
+  - 7.2
 
 stages:
   - analysis
@@ -26,18 +26,18 @@ jobs:
     - stage: analysis
       name: "php-cs-fixer"
       before_install:
-        - docker pull jakzal/phpqa:alpine
+        - docker pull jakzal/phpqa:1.25-php7.2-alpine
       script:
-        - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:alpine php-cs-fixer fix src/ --dry-run
+        - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:1.25-php7.2-alpine php-cs-fixer fix src/ --dry-run
     - name: "phpstan"
       install:
         - composer install --no-interaction --profile --no-progress
       script:
-        - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:alpine phpstan analyse --level 6 src/ --no-progress
+        - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:1.25-php7.2-alpine phpstan analyse --level 6 src/ --no-progress
 
     - stage: test
-      name: "PHP 7.1 / Symfony 3.4"
-      php: 7.1
+      name: "PHP 7.3 / Symfony 3.4"
+      php: 7.3
       env:
         - SYMFONY_VERSION="3.4.*"
       before_install:
@@ -74,41 +74,41 @@ jobs:
       after_success:
        - php ./vendor/bin/test-reporter
        - travis_retry php vendor/bin/coveralls -v --config .coveralls.yml
-    - name: "PHP 7.1 / Symfony 4.2"
-      php: 7.1
-      env:
-        - SYMFONY_VERSION="^4.2"
-      before_install:
-        - phpenv config-rm xdebug.ini
-
-      install:
-        - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} --no-update
-        - composer install --no-interaction --profile --no-progress
-
-      script:
-        - php ./vendor/bin/phpspec run --format=pretty
-        - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
-        - php ./vendor/bin/behat --colors --strict --format=progress -vv
-    - name: "PHP 7.2 / Symfony 4.2"
-      php: 7.2
-      env:
-        - SYMFONY_VERSION="^4.2"
-      before_install:
-        - phpenv config-rm xdebug.ini
-
-      install:
-        - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} --no-update
-        - composer install --no-interaction --profile --no-progress
-
-      script:
-        - php ./vendor/bin/phpspec run --format=pretty
-        - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
-        - php ./vendor/bin/behat --colors --strict --format=progress -vv
-
-    - name: "PHP 7.3 / Symfony 4.3"
+    - name: "PHP 7.3 / Symfony 4.4"
       php: 7.3
       env:
-        - SYMFONY_VERSION="^4.3"
+        - SYMFONY_VERSION="^4.4"
+      before_install:
+        - phpenv config-rm xdebug.ini
+
+      install:
+        - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} --no-update
+        - composer install --no-interaction --profile --no-progress
+
+      script:
+        - php ./vendor/bin/phpspec run --format=pretty
+        - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
+        - php ./vendor/bin/behat --colors --strict --format=progress -vv
+    - name: "PHP 7.2 / Symfony 4.4"
+      php: 7.2
+      env:
+        - SYMFONY_VERSION="^4.4"
+      before_install:
+        - phpenv config-rm xdebug.ini
+
+      install:
+        - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} --no-update
+        - composer install --no-interaction --profile --no-progress
+
+      script:
+        - php ./vendor/bin/phpspec run --format=pretty
+        - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
+        - php ./vendor/bin/behat --colors --strict --format=progress -vv
+
+    - name: "PHP 7.3 / Symfony 4.4"
+      php: 7.3
+      env:
+        - SYMFONY_VERSION="^4.4"
       before_install:
         - ''
 
