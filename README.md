@@ -18,9 +18,6 @@ Code analysis:
 [![StyleCI][StyleCI image]][StyleCI]
 [![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
 
-Other:
-[![Dependency Status][Dependency Status Image]][Dependency Status]
-
 ## Links
 
  - Demo: http://asynctweets.alexislefebvre.com/demo/
@@ -127,9 +124,6 @@ This bundle is also used to test several CI (Continuous Integration) services.
 [StyleCI]: https://styleci.io/repos/33274240
 [SensioLabsInsight Image]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d/mini.png
 [SensioLabsInsight]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d
-
-[Dependency Status Image]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd/badge.svg?style=flat
-[Dependency Status]: https://www.versioneye.com/user/projects/5523d4ac971f7847ca0006cd
 
 [twitteroauth]: https://github.com/abraham/twitteroauth
 [Twitter Bootstrap]: https://github.com/twbs/bootstrap
