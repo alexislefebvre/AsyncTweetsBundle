@@ -30,6 +30,8 @@ jobs:
       script:
         - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:1.25-php7.2-alpine php-cs-fixer fix src/ --dry-run
     - name: "phpstan"
+      before_install:
+        - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
       install:
         - composer install --no-interaction --profile --no-progress
       script:
