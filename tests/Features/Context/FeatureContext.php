@@ -7,9 +7,9 @@ use Behat\Behat\Context\Context;
 
 class FeatureContext implements Context
 {
-    /** @var $now \Datetime */
+    /** @var \Datetime */
     private $now;
-    /** @var $tweet \AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet */
+    /** @var \AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet */
     private $tweet;
 
     /**

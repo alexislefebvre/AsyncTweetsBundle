@@ -13,7 +13,7 @@ class StatusesHomeTimelineTest extends StatusesBase
 {
     use FixturesTrait;
 
-    /** @var CommandTester $commandTester */
+    /** @var CommandTester */
     public $commandTester;
 
     public function setUp(): void
