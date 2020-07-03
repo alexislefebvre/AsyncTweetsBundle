@@ -22,7 +22,8 @@ class LoadTweetPagesData extends AbstractFixture implements DependentFixtureInte
             ->setId($tweetId)
             ->setUser($this->getReference('user-githubeng'))
             ->setCreatedAt(new \Datetime(
-                '2015-02-10 21:18:'.sprintf('%02d', $tweetId)))
+                '2015-02-10 21:18:'.sprintf('%02d', $tweetId)
+            ))
             ->setText($tweetId)
             ->setRetweetCount($tweetId)
             ->setFavoriteCount($tweetId);
@@ -36,7 +37,8 @@ class LoadTweetPagesData extends AbstractFixture implements DependentFixtureInte
                 ->setId($tweetId)
                 ->setUser($this->getReference('user'))
                 ->setCreatedAt(
-                    new \Datetime('2015-02-10 21:19:'.sprintf('%02d', $tweetId)))
+                    new \Datetime('2015-02-10 21:19:'.sprintf('%02d', $tweetId))
+                )
                 ->setText($tweetId)
                 ->setRetweetCount($tweetId)
                 ->setFavoriteCount($tweetId)

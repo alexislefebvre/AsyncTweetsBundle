@@ -46,10 +46,12 @@ class StatusesHomeTimelineTestCommand extends StatusesHomeTimelineCommand
         switch ($input->getArgument('test')) {
             case 'json':
                 return $this->getTestContent(
-                    'tweets_32_bits.json');
+                    'tweets_32_bits.json'
+                );
             case 'json_with_retweet':
                 return $this->getTestContent(
-                    'tweet_with_retweet.json');
+                    'tweet_with_retweet.json'
+                );
             case 'not_array':
                 // Return null instead of JSON
                 return;
