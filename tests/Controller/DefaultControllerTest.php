@@ -25,14 +25,18 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->testClient->request('GET', $path);
 
         // <body>
-        $this->assertSame(1,
-            $crawler->filter('html > body')->count());
+        $this->assertSame(
+            1,
+            $crawler->filter('html > body')->count()
+        );
 
         // Tweet
-        $this->assertSame(0,
+        $this->assertSame(
+            0,
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
-            )->count());
+            )->count()
+        );
     }
 
     public function testTweets($path = null)
@@ -52,8 +56,10 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(5,
-                $profile->getCollector('db')->getQueryCount());
+            $this->assertSame(
+                5,
+                $profile->getCollector('db')->getQueryCount()
+            );
         } else {
             $this->markTestIncomplete(
                 'Profiler is disabled.'
@@ -106,7 +112,8 @@ class DefaultControllerTest extends WebTestCase
         $this->assertSame(
             4,
             $crawler->filter(
-                'blockquote.media-body > p')->count()
+                'blockquote.media-body > p'
+            )->count()
         );
 
         // User
@@ -157,8 +164,10 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(4,
-                $profile->getCollector('db')->getQueryCount());
+            $this->assertSame(
+                4,
+                $profile->getCollector('db')->getQueryCount()
+            );
         } else {
             $this->markTestIncomplete(
                 'Profiler is disabled.'
@@ -182,7 +191,8 @@ class DefaultControllerTest extends WebTestCase
         $this->assertSame(
             5,
             $crawler->filter(
-                'blockquote.media-body > p')->count()
+                'blockquote.media-body > p'
+            )->count()
         );
 
         // User
@@ -211,7 +221,7 @@ class DefaultControllerTest extends WebTestCase
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body'
             )->count()
-            );
+        );
 
         // Next page
         $crawler = $this->testClient->request('GET', $nextPage);
@@ -238,7 +248,7 @@ class DefaultControllerTest extends WebTestCase
         $link = $crawler->filter(
             'main.container > div.tweets > div.media > '.
                 'blockquote.media-body > small > a:last-child'
-            )
+        )
             ->eq(4)->link();
 
         $crawler = $this->testClient->click($link);
@@ -309,8 +319,10 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(5,
-                $profile->getCollector('db')->getQueryCount());
+            $this->assertSame(
+                5,
+                $profile->getCollector('db')->getQueryCount()
+            );
         } else {
             $this->markTestIncomplete(
                 'Profiler is disabled.'
@@ -433,8 +445,10 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(4,
-                $profile->getCollector('db')->getQueryCount());
+            $this->assertSame(
+                4,
+                $profile->getCollector('db')->getQueryCount()
+            );
         } else {
             $this->markTestIncomplete(
                 'Profiler is disabled.'
@@ -514,9 +528,11 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $this->testClient->click($link);
 
         // Image
-        $this->assertSame(1,
+        $this->assertSame(
+            1,
             $crawler->filter('main.container > div.tweets blockquote.media-body > '.
-                'p > a > img')->count());
+                'p > a > img')->count()
+        );
 
         // Delete the second Tweet in order to remove all the Media
 
@@ -650,8 +666,10 @@ class DefaultControllerTest extends WebTestCase
         $this->assertStatusCode(200, $this->testClient);
 
         if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(4,
-                $profile->getCollector('db')->getQueryCount());
+            $this->assertSame(
+                4,
+                $profile->getCollector('db')->getQueryCount()
+            );
         } else {
             $this->markTestIncomplete(
                 'Profiler is disabled.'
