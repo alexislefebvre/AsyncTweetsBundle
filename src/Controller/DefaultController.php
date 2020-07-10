@@ -4,29 +4,24 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Controller;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\TweetRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 // Compatibility layer for Symfony 3.4
-if (class_exists('Symfony\Bundle\FrameworkBundle\Controller\AbstractController')) {
-    class_alias('Symfony\Bundle\FrameworkBundle\Controller\AbstractController', 'Symfony\Bundle\FrameworkBundle\Controller\Controller');
+if (!class_exists('Symfony\Bundle\FrameworkBundle\Controller\Controller')) {
+    class_alias('Symfony\Bundle\FrameworkBundle\Controller\Controller', 'Symfony\Bundle\FrameworkBundle\Controller\AbstractController');
 }
 
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     /** @var TweetRepository */
     private $tweetRepository;
 
-    /**
-     * @param Request     $request
-     * @param string|null $firstTweetId
-     *
-     * @return \Symfony\Component\HttpFoundation\Response $response
-     */
-    public function indexAction(Request $request, $firstTweetId = null)
+    public function indexAction(Request $request, ?string $firstTweetId): Response
     {
         /** @var TweetRepository $tweetRepository */
         $tweetRepository = $this->getDoctrine()
@@ -61,7 +56,7 @@ class DefaultController extends Controller
      *
      * @return array $vars
      */
-    private function getVariables(Request $request, $tweets, $firstTweetId)
+    private function getVariables(Request $request, $tweets, string $firstTweetId): array
     {
         $vars = [
             'first'    => $firstTweetId,
@@ -85,10 +80,8 @@ class DefaultController extends Controller
      *
      * @param Tweet[] $tweets
      * @param array   $vars
-     *
-     * @return array $vars
      */
-    private function getTweetsVars($tweets, $vars)
+    private function getTweetsVars($tweets, array $vars): array
     {
         /** @var string $firstTweetId */
         $firstTweetId = $tweets[0]->getId();
@@ -113,11 +106,6 @@ class DefaultController extends Controller
         return $vars;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return int|null
-     */
     private function getLastTweetIdFromCookie(Request $request)
     {
         if ($request->cookies->has('lastTweetId')) {
@@ -126,12 +114,7 @@ class DefaultController extends Controller
         // else
     }
 
-    /**
-     * @param string $firstTweetId
-     *
-     * @return Cookie $cookie
-     */
-    private function createCookie($firstTweetId)
+    private function createCookie(string $firstTweetId): Cookie
     {
         $nextYear = new \DateTime('now');
         $nextYear->add(new \DateInterval('P1Y'));
@@ -146,10 +129,7 @@ class DefaultController extends Controller
         return $cookie;
     }
 
-    /**
-     * @return RedirectResponse $response
-     */
-    public function resetCookieAction()
+    public function resetCookieAction(): RedirectResponse
     {
         /* @see http://www.craftitonline.com/2011/07/symfony2-how-to-set-a-cookie/ */
         $response = new RedirectResponse(
@@ -163,12 +143,7 @@ class DefaultController extends Controller
         return $response;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return RedirectResponse $response
-     */
-    public function deleteLessThanAction(Request $request)
+    public function deleteLessThanAction(Request $request): RedirectResponse
     {
         $lastTweetId = $this->getLastTweetIdFromCookie($request);
 
