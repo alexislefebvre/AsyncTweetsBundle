@@ -9,8 +9,8 @@
 /composer.lock
 
 # Ignore files created during tests
-/tests/App/cache/
-/tests/App/logs/
+/tests/App/var/cache/
+/tests/App/var/log/
 /cov/
 
 # Ignore Doxygen directory
