@@ -56,7 +56,7 @@ class DefaultController extends BaseController
      *
      * @return array $vars
      */
-    private function getVariables(Request $request, $tweets, string $firstTweetId): array
+    private function getVariables(Request $request, $tweets, ?string $firstTweetId): array
     {
         $vars = [
             'first'    => $firstTweetId,
