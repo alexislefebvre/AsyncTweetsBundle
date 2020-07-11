@@ -7,17 +7,17 @@ jobs:
     steps:
       - checkout
       - run: echo 'memory_limit = -1' | sudo tee -a /usr/local/etc/php/conf.d/docker-php-memlimit.ini
-      - run: composer require symfony/config:^4.4 symfony/form:^4.4 symfony/framework-bundle:^4.4 symfony/templating:^4.4 symfony/security-csrf:^4.4 symfony/var-dumper:^4.4 --no-update
+      - run: SYMFONY_VERSION="^4.4" make composer-require-symfony-version
       - restore_cache:
           keys:
           - composer-v1-{{ .Branch }}
           # fallback to using the latest cache if no exact match is found
           - composer-v1-
-      - run: composer install --no-interaction --profile --no-progress
-      - run: php ./vendor/bin/phpspec run --format=pretty
+      - run: make composer-install
+      - run: make phpspec
       - run: mkdir -p ~/phpunit
       - run: php ./vendor/bin/phpunit --log-junit ~/phpunit/junit.xml tests
-      - run: php ./vendor/bin/behat --colors --strict --format=progress -vv
+      - run: make behat
       - store_test_results:
           path: ~/phpunit
       - store_artifacts:

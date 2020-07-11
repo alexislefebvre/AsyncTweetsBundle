@@ -90,10 +90,13 @@ This bundle is also used to test several CI (Continuous Integration) services.
  - [abraham/twitteroauth][twitteroauth] (^0.6.0)
  - [twitter/bootstrap][Twitter Bootstrap] (use [Bootswatch 3.3.2][Bootstrap CDN])
 
-
 ### Tests:
 
-    php vendor/bin/phpunit 
+    make tests
+
+### Quality Assurance:
+
+    make qa
 
 [Packagist]: https://packagist.org/packages/alexislefebvre/async-tweets-bundle
 [Packagist Stable Image]: https://poser.pugx.org/alexislefebvre/async-tweets-bundle/v/stable.svg
