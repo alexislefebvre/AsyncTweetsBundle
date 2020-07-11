@@ -75,3 +75,19 @@ jobs:
       after_success:
         - php ./vendor/bin/test-reporter
         - travis_retry php vendor/bin/coveralls -v --config .coveralls.yml
+
+    - name: "PHP 7.4 / Symfony 5.1"
+      php: 7.4
+      env:
+        - SYMFONY_VERSION="^5.1"
+      before_install:
+        - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+      install:
+        - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} --no-update
+        - composer install --no-interaction --profile --no-progress
+
+      script:
+        - php ./vendor/bin/phpspec run --format=pretty
+        - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
+        - php ./vendor/bin/behat --colors --strict --format=progress -vv
