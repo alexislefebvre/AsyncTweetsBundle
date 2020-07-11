@@ -29,25 +29,25 @@ class TweetRepositoryTest extends WebTestCase
         ]);
 
         $tweets = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->getWithUsers(1);
 
         $this->assertCount(3, $tweets);
 
         $tweets = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->getWithUsersAndMedias(null);
 
         $this->assertCount(3, $tweets);
 
         $tweets = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->getWithUsersAndMedias(null);
 
         $this->assertCount(3, $tweets);
 
         $tweets = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->countPendingTweets(49664);
 
         $this->assertSame(3, $tweets);
@@ -61,7 +61,7 @@ class TweetRepositoryTest extends WebTestCase
 
         /** @var Tweet $tweet */
         $tweet = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findOneBy(['id' => 928032273747795968]);
 
         $this->assertNotNull($tweet);

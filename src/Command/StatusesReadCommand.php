@@ -2,6 +2,8 @@
 
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Command;
 
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\TweetRepository;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -9,9 +11,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class StatusesReadCommand extends BaseCommand
 {
+    /** @var Table */
     private $table;
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -21,15 +24,9 @@ class StatusesReadCommand extends BaseCommand
             ->addArgument('page', InputArgument::OPTIONAL, 'Page');
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return int|void
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var int|null $page */
+        /** @var int $page */
         $page = $input->getArgument('page');
 
         if ($page < 1) {
@@ -41,10 +38,11 @@ class StatusesReadCommand extends BaseCommand
             $page
         ));
 
+        /** @var TweetRepository $tweetRepository */
+        $tweetRepository = $this->em
+            ->getRepository(Tweet::class);
         // Get the tweets
-        $tweets = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
-            ->getWithUsers($page);
+        $tweets = $tweetRepository->getWithUsers($page);
 
         if (!$tweets) {
             $output->writeln('<info>No tweet to display.</info>');
@@ -53,16 +51,17 @@ class StatusesReadCommand extends BaseCommand
         }
 
         $this->displayTweets($output, $tweets);
+
+        return 0;
     }
 
     /**
-     * @param OutputInterface $output
-     * @param array           $tweets
+     * @param array<Tweet> $tweets
      */
     protected function displayTweets(
         OutputInterface $output,
-        $tweets
-    ) {
+        array $tweets
+    ): void {
         $this->setTable($output);
 
         foreach ($tweets as $tweet) {
@@ -90,7 +89,7 @@ class StatusesReadCommand extends BaseCommand
         $this->table->render();
     }
 
-    protected function setTable(OutputInterface $output)
+    protected function setTable(OutputInterface $output): void
     {
         $this->table = new Table($output);
         $this->table
@@ -103,14 +102,7 @@ class StatusesReadCommand extends BaseCommand
             ]);
     }
 
-    /**
-     * @param string $tag
-     * @param string $content
-     * @param int    $length
-     *
-     * @return string
-     */
-    protected function formatCell($tag, $content, $length)
+    protected function formatCell(string $tag, string $content, int $length): string
     {
         return '<'.$tag.'>'.
             // Close and reopen the tag before each new line

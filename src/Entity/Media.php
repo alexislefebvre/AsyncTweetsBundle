@@ -3,6 +3,7 @@
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Media.
@@ -35,11 +36,11 @@ class Media
     private $expanded_url;
 
     /**
-     * @var ArrayCollection
+     * @var Collection<int, Tweet>
      */
     private $tweets;
 
-    public function __construct($id = null)
+    public function __construct(?int $id = null)
     {
         if (!is_null($id)) {
             $this->setId($id);
@@ -50,12 +51,8 @@ class Media
 
     /**
      * Set id.
-     *
-     * @param int $id
-     *
-     * @return Media
      */
-    public function setId($id)
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -64,22 +61,16 @@ class Media
 
     /**
      * Get id.
-     *
-     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
      * Set media_url_https.
-     *
-     * @param string $mediaUrlHttps
-     *
-     * @return Media
      */
-    public function setMediaUrlHttps($mediaUrlHttps)
+    public function setMediaUrlHttps(string $mediaUrlHttps): self
     {
         $this->media_url_https = $mediaUrlHttps;
 
@@ -88,22 +79,16 @@ class Media
 
     /**
      * Get media_url_https.
-     *
-     * @return string
      */
-    public function getMediaUrlHttps()
+    public function getMediaUrlHttps(): string
     {
         return $this->media_url_https;
     }
 
     /**
      * Set url.
-     *
-     * @param string $url
-     *
-     * @return Media
      */
-    public function setUrl($url)
+    public function setUrl(string $url): self
     {
         $this->url = $url;
 
@@ -112,22 +97,16 @@ class Media
 
     /**
      * Get url.
-     *
-     * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
     /**
      * Set display_url.
-     *
-     * @param string $displayUrl
-     *
-     * @return Media
      */
-    public function setDisplayUrl($displayUrl)
+    public function setDisplayUrl(string $displayUrl): self
     {
         $this->display_url = $displayUrl;
 
@@ -136,22 +115,16 @@ class Media
 
     /**
      * Get display_url.
-     *
-     * @return string
      */
-    public function getDisplayUrl()
+    public function getDisplayUrl(): string
     {
         return $this->display_url;
     }
 
     /**
      * Set expanded_url.
-     *
-     * @param string $expandedUrl
-     *
-     * @return Media
      */
-    public function setExpandedUrl($expandedUrl)
+    public function setExpandedUrl(string $expandedUrl): self
     {
         $this->expanded_url = $expandedUrl;
 
@@ -160,22 +133,16 @@ class Media
 
     /**
      * Get expanded_url.
-     *
-     * @return string
      */
-    public function getExpandedUrl()
+    public function getExpandedUrl(): ?string
     {
         return $this->expanded_url;
     }
 
     /**
      * Add a tweet.
-     *
-     * @param Tweet $tweet
-     *
-     * @return Media
      */
-    public function addTweet(Tweet $tweet)
+    public function addTweet(Tweet $tweet): self
     {
         $this->tweets->add($tweet);
 
@@ -184,12 +151,8 @@ class Media
 
     /**
      * Remove a tweet.
-     *
-     * @param Tweet $tweet
-     *
-     * @return Media
      */
-    public function removeTweet(Tweet $tweet)
+    public function removeTweet(Tweet $tweet): self
     {
         $this->tweets->removeElement($tweet);
 
@@ -199,21 +162,17 @@ class Media
     /**
      * Get tweets.
      *
-     * @return ArrayCollection
+     * @return Collection<int, Tweet>
      */
-    public function getTweets()
+    public function getTweets(): Collection
     {
         return $this->tweets;
     }
 
     /**
      * Call setter functions.
-     *
-     * @param \stdClass $mediaTmp
-     *
-     * @return Media
      */
-    public function setValues(\stdClass $mediaTmp)
+    public function setValues(\stdClass $mediaTmp): self
     {
         $this
             ->setMediaUrlHttps($mediaTmp->media_url_https)

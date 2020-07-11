@@ -51,14 +51,14 @@ class LoadTweetPagesData extends AbstractFixture implements DependentFixtureInte
 
         // Attach the same Media to 2 Tweet
         $tweet = $manager
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->find(5);
         $tweet->addMedia($this->getReference('media-1'));
 
         $manager->persist($tweet);
 
         $tweet = $manager
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->find(25);
         $tweet->addMedia($this->getReference('media-2'));
 
@@ -68,7 +68,7 @@ class LoadTweetPagesData extends AbstractFixture implements DependentFixtureInte
 
         // Set tweet as retweet
         $retweet = $manager
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->find(15);
 
         $retweet->setRetweetedStatus($retweeted);

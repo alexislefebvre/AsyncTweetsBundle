@@ -1,0 +1,11 @@
+parameters:
+  level: 8
+  paths:
+    - src
+#    - tests
+  excludes_analyse:
+    - tests/App/var/
+#    - tests/spec/
+
+includes:
+  - vendor/phpstan/phpstan-doctrine/extension.neon

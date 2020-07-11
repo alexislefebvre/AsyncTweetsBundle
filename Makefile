@@ -1,6 +1,6 @@
 PHP = php
 
-DOCKER_RUN = docker run --volume $(PWD):/app --workdir /app jakzal/phpqa:1.25-php7.2-alpine
+DOCKER_RUN = docker run --rm --interactive --tty --volume $(PWD):/app --workdir /app jakzal/phpqa:php7.3-alpine
 
 ##
 ## Dependencies
@@ -38,10 +38,13 @@ tests: phpspec phpunit behat ## Run all tests
 ##
 
 php-cs-fixer: ## PHP-CS-Fixer
+	$(DOCKER_RUN) php-cs-fixer fix src/
+
+php-cs-fixer-dry-run: ## PHP-CS-Fixer
 	$(DOCKER_RUN) php-cs-fixer fix src/ --dry-run
 
 phpstan: ## PHPStan
-	$(DOCKER_RUN) phpstan analyse --level 6 src/ --no-progress
+	$(DOCKER_RUN) phpstan analyse --no-progress
 
 qa: php-cs-fixer phpstan ## Run all QA tasks
 

@@ -2,6 +2,7 @@
 
 namespace Acme\Command;
 
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -141,7 +142,7 @@ class StatusesHomeTimelineTest extends StatusesBase
             ->getContainer()->get('doctrine.orm.entity_manager');
 
         $tweets = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findAll();
 
         $this->assertSame(
@@ -196,7 +197,7 @@ class StatusesHomeTimelineTest extends StatusesBase
             ->getContainer()->get('doctrine.orm.entity_manager');
 
         $tweet = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findOneBy([
                 'id' => 999080449,
             ]);
@@ -252,7 +253,7 @@ class StatusesHomeTimelineTest extends StatusesBase
         );
 
         $tweets = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findAll();
 
         $this->assertSame(
