@@ -1,6 +1,6 @@
 PHP = php
 
-DOCKER_RUN = docker run --volume $(PWD):/app --workdir /app jakzal/phpqa:1.25-php7.2-alpine
+DOCKER_RUN = docker run --volume $(PWD):/app --workdir /app jakzal/phpqa:php7.3-alpine
 
 ##
 ## Dependencies
