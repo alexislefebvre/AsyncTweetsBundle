@@ -11,12 +11,9 @@ use Symfony\Component\HttpKernel\Kernel;
 class AppKernel extends Kernel
 {
     /**
-     * @param string $environment
-     * @param bool   $debug
-     *
      * @see https://stackoverflow.com/questions/20743060/symfony2-and-date-default-timezone-get-it-is-not-safe-to-rely-on-the-system/20743237#20743237
      */
-    public function __construct($environment, $debug)
+    public function __construct(string $environment, bool $debug)
     {
         date_default_timezone_set('UTC');
 

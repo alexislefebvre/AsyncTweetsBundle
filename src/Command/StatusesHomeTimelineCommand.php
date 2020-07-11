@@ -3,6 +3,8 @@
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Command;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\TweetRepository;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Utils\PersistTweet;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Helper\Table;
@@ -12,17 +14,24 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class StatusesHomeTimelineCommand extends BaseCommand
 {
+    /** @var bool */
     private $displayTable;
+    /** @var Table */
     private $table;
+    /** @var ProgressBar */
     private $progress;
 
-    /** @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline */
+    /**
+     * @var array<bool|int>
+     *
+     * @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline
+     */
     private $parameters = [
         'count'           => 200,
         'exclude_replies' => true,
     ];
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -38,13 +47,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
             );
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return int|void
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->setAndDisplayLastTweet($output);
 
@@ -65,17 +68,18 @@ class StatusesHomeTimelineCommand extends BaseCommand
         }
 
         $this->addAndDisplayTweets($input, $output, $content, $numberOfTweets);
+
+        return 0;
     }
 
-    /**
-     * @param OutputInterface $output
-     */
-    protected function setAndDisplayLastTweet(OutputInterface $output)
+    protected function setAndDisplayLastTweet(OutputInterface $output): void
     {
+        /** @var TweetRepository $tweetRepository */
+        $tweetRepository = $this->em
+            ->getRepository(Tweet::class);
+
         // Get the last tweet
-        $lastTweet = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
-            ->getLastTweet();
+        $lastTweet = $tweetRepository->getLastTweet();
 
         // And use it in the request if it exists
         if ($lastTweet) {
@@ -90,7 +94,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @return array<\stdClass>|object
      */
     protected function getContent(InputInterface $input)
     {
@@ -108,13 +112,12 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
 
     /**
-     * @param OutputInterface $output
-     * @param null|object     $content
+     * @param array<string>|object $content
      */
     protected function displayContentNotArrayError(
         OutputInterface $output,
         $content
-    ) {
+    ): void {
         $formatter = $this->getHelper('formatter');
 
         $errorMessages = ['Error!', 'Something went wrong, $content is not an array.'];
@@ -124,17 +127,14 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     * @param array           $content
-     * @param int             $numberOfTweets
+     * @param array<\stdClass> $content
      */
     protected function addAndDisplayTweets(
         InputInterface $input,
         OutputInterface $output,
-        $content,
-        $numberOfTweets
-    ) {
+        array $content,
+        int $numberOfTweets
+    ): void {
         $output->writeln('<comment>Number of tweets: '.$numberOfTweets.'</comment>');
 
         // Iterate through $content in order to add the oldest tweet first,
@@ -154,28 +154,20 @@ class StatusesHomeTimelineCommand extends BaseCommand
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param int             $numberOfTweets
-     */
     protected function setProgressBar(
         OutputInterface $output,
-        $numberOfTweets
-    ) {
+        int $numberOfTweets
+    ): void {
         $this->progress = new ProgressBar($output, $numberOfTweets);
         $this->progress->setBarCharacter('<comment>=</comment>');
         $this->progress->start();
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     */
     protected function setTable(
         InputInterface $input,
         OutputInterface $output
-    ) {
-        $this->displayTable = $input->getOption('table');
+    ): void {
+        $this->displayTable = (bool) $input->getOption('table');
 
         // Display
         if ($this->displayTable) {
@@ -186,9 +178,9 @@ class StatusesHomeTimelineCommand extends BaseCommand
     }
 
     /**
-     * @param array $tweets
+     * @param array<\stdClass> $tweets
      */
-    protected function iterateTweets($tweets)
+    protected function iterateTweets(array $tweets): void
     {
         $persistTweet = new PersistTweet(
             $this->em,

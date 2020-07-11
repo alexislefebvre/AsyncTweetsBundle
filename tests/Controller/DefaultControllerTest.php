@@ -2,6 +2,8 @@
 
 namespace Acme\Controller;
 
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
+use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 
@@ -421,7 +423,7 @@ class DefaultControllerTest extends WebTestCase
             ->getContainer()->get('doctrine.orm.entity_manager');
 
         $tweets = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findAll();
 
         $this->assertSame(
@@ -430,7 +432,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         $medias = $em
-            ->getRepository('AsyncTweetsBundle:Media')
+            ->getRepository(Media::class)
             ->findAll();
 
         $this->assertSame(
@@ -501,7 +503,7 @@ class DefaultControllerTest extends WebTestCase
             ->link();
 
         $tweets = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findAll();
 
         $this->assertSame(
@@ -510,7 +512,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         $medias = $em
-            ->getRepository('AsyncTweetsBundle:Media')
+            ->getRepository(Media::class)
             ->findAll();
 
         $this->assertSame(
@@ -543,7 +545,7 @@ class DefaultControllerTest extends WebTestCase
             ->link();
 
         $tweets = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findAll();
 
         $this->assertSame(
@@ -552,7 +554,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         $medias = $em
-            ->getRepository('AsyncTweetsBundle:Media')
+            ->getRepository(Media::class)
             ->findAll();
 
         $this->assertSame(
@@ -580,7 +582,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         $tweets = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findAll();
 
         $this->assertSame(
@@ -589,7 +591,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         $medias = $em
-            ->getRepository('AsyncTweetsBundle:Media')
+            ->getRepository(Media::class)
             ->findAll();
 
         $this->assertSame(
@@ -613,7 +615,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         $tweets = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findAll();
 
         $this->assertSame(
@@ -622,7 +624,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         $medias = $em
-            ->getRepository('AsyncTweetsBundle:Media')
+            ->getRepository(Media::class)
             ->findAll();
 
         $this->assertSame(
@@ -645,7 +647,7 @@ class DefaultControllerTest extends WebTestCase
             ->getContainer()->get('doctrine.orm.entity_manager');
 
         $tweets = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findAll();
 
         $this->assertSame(
@@ -654,7 +656,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         $retweeted_tweet = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findOneBy(['id' => 20]);
 
         $this->assertTrue($retweeted_tweet->isInTimeline());
@@ -735,12 +737,12 @@ class DefaultControllerTest extends WebTestCase
         $this->assertSame(
             4,
             count($em
-                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->getRepository(Tweet::class)
                 ->findAll())
         );
 
         $retweeted_tweet = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findOneBy(['id' => 20]);
 
         $em->refresh($retweeted_tweet);
@@ -769,7 +771,7 @@ class DefaultControllerTest extends WebTestCase
 
         // Tweet has not been hidden
         $retweeted_tweet = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findOneBy(['id' => 20]);
 
         $em->refresh($retweeted_tweet);
@@ -783,7 +785,7 @@ class DefaultControllerTest extends WebTestCase
 
         // Tweet has been hidden
         $retweeted_tweet = $em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findOneBy(['id' => 20]);
 
         $em->refresh($retweeted_tweet);
@@ -808,7 +810,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertSame(
             4,
             count($em
-                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->getRepository(Tweet::class)
                 ->findAll())
         );
 
@@ -846,7 +848,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertSame(
             2,
             count($em
-                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->getRepository(Tweet::class)
                 ->findAll())
         );
 
@@ -883,7 +885,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertSame(
             1,
             count($em
-                ->getRepository('AsyncTweetsBundle:Tweet')
+                ->getRepository(Tweet::class)
                 ->findAll())
         );
     }

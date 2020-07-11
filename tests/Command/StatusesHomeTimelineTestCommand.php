@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class StatusesHomeTimelineTestCommand extends StatusesHomeTimelineCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -24,12 +24,8 @@ class StatusesHomeTimelineTestCommand extends StatusesHomeTimelineCommand
 
     /**
      * Read tweet(s) from a JSON file.
-     *
-     * @param string $filename
-     *
-     * @return array
      */
-    protected function getTestContent($filename)
+    protected function getTestContent(string $filename): array
     {
         return json_decode(file_get_contents(
             sprintf(__DIR__.'/../../tests/Command/data/%s', $filename)
@@ -37,8 +33,6 @@ class StatusesHomeTimelineTestCommand extends StatusesHomeTimelineCommand
     }
 
     /**
-     * @param InputInterface $input
-     *
      * @return string|null|array
      */
     protected function getContent(InputInterface $input)

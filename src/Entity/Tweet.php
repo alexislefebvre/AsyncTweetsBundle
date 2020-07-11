@@ -3,6 +3,7 @@
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Tweet.
@@ -41,6 +42,8 @@ class Tweet
 
     /**
      * In timeline: false for retweeted Tweets.
+     *
+     * @var bool
      */
     private $in_timeline = false;
 
@@ -50,12 +53,12 @@ class Tweet
     private $retweeted_status = null;
 
     /**
-     * @var ArrayCollection
+     * @var Collection<int, Tweet>
      */
     private $retweeting_statuses;
 
     /**
-     * @var ArrayCollection
+     * @var Collection<int, Media>
      */
     private $medias;
 
@@ -70,7 +73,7 @@ class Tweet
      *
      * @return Tweet
      */
-    public function setId(int $id)
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -79,8 +82,6 @@ class Tweet
 
     /**
      * Get id.
-     *
-     * @return int
      */
     public function getId(): int
     {
@@ -89,12 +90,8 @@ class Tweet
 
     /**
      * Set created_at.
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Tweet
      */
-    public function setCreatedAt(\DateTime $createdAt)
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->created_at = $createdAt;
 
@@ -103,22 +100,16 @@ class Tweet
 
     /**
      * Get created_at.
-     *
-     * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->created_at;
     }
 
     /**
      * Set text.
-     *
-     * @param string $text
-     *
-     * @return Tweet
      */
-    public function setText($text)
+    public function setText(string $text): self
     {
         $this->text = $text;
 
@@ -127,15 +118,13 @@ class Tweet
 
     /**
      * Get text.
-     *
-     * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
-    public function getTextLinkified()
+    public function getTextLinkified(): ?string
     {
         /* @see http://stackoverflow.com/questions/507436/how-do-i-linkify-urls-in-a-string-with-php/507459#507459 */
         return preg_replace(
@@ -147,12 +136,8 @@ class Tweet
 
     /**
      * Set retweet_count.
-     *
-     * @param int $retweetCount
-     *
-     * @return Tweet
      */
-    public function setRetweetCount($retweetCount)
+    public function setRetweetCount(int $retweetCount): self
     {
         $this->retweet_count = $retweetCount;
 
@@ -161,22 +146,16 @@ class Tweet
 
     /**
      * Get retweet_count.
-     *
-     * @return int
      */
-    public function getRetweetCount()
+    public function getRetweetCount(): int
     {
         return $this->retweet_count;
     }
 
     /**
      * Set favorite_count.
-     *
-     * @param int $favoriteCount
-     *
-     * @return Tweet
      */
-    public function setFavoriteCount($favoriteCount)
+    public function setFavoriteCount(int $favoriteCount): self
     {
         $this->favorite_count = $favoriteCount;
 
@@ -185,22 +164,16 @@ class Tweet
 
     /**
      * Get favorite_count.
-     *
-     * @return int
      */
-    public function getFavoriteCount()
+    public function getFavoriteCount(): int
     {
         return $this->favorite_count;
     }
 
     /**
      * Set user.
-     *
-     * @param User $user
-     *
-     * @return Tweet
      */
-    public function setUser(User $user)
+    public function setUser(User $user): self
     {
         $this->user = $user;
         $this->user->addTweet($this);
@@ -210,22 +183,16 @@ class Tweet
 
     /**
      * Get User.
-     *
-     * @return User
      */
-    public function getUser()
+    public function getUser(): User
     {
         return $this->user;
     }
 
     /**
      * Set in timeline.
-     *
-     * @param bool $inTimeline
-     *
-     * @return Tweet
      */
-    public function setInTimeline($inTimeline)
+    public function setInTimeline(bool $inTimeline): self
     {
         $this->in_timeline = $inTimeline;
 
@@ -234,10 +201,8 @@ class Tweet
 
     /**
      * Get in timeline.
-     *
-     * @return bool
      */
-    public function isInTimeline()
+    public function isInTimeline(): bool
     {
         return $this->in_timeline;
     }
@@ -246,12 +211,8 @@ class Tweet
      * Set retweeted
      * "This attribute contains a representation of the original Tweet
      *  that was retweeted.".
-     *
-     * @param self $retweetedStatus
-     *
-     * @return Tweet
      */
-    public function setRetweetedStatus(self $retweetedStatus)
+    public function setRetweetedStatus(self $retweetedStatus): self
     {
         $this->retweeted_status = $retweetedStatus;
 
@@ -260,10 +221,8 @@ class Tweet
 
     /**
      * Get retweeted status.
-     *
-     * @return Tweet
      */
-    public function getRetweetedStatus()
+    public function getRetweetedStatus(): ?self
     {
         return $this->retweeted_status;
     }
@@ -271,21 +230,14 @@ class Tweet
     /**
      * Get medias.
      *
-     * @return ArrayCollection
+     * @return Collection<int, Media>
      */
-    public function getMedias()
+    public function getMedias(): Collection
     {
         return $this->medias;
     }
 
-    /**
-     * Add a media.
-     *
-     * @param Media $media
-     *
-     * @return Tweet
-     */
-    public function addMedia(Media $media)
+    public function addMedia(Media $media): self
     {
         $this->medias->add($media);
         $media->addTweet($this);
@@ -293,14 +245,7 @@ class Tweet
         return $this;
     }
 
-    /**
-     * Remove a media.
-     *
-     * @param Media $media
-     *
-     * @return Tweet
-     */
-    public function removeMedia(Media $media)
+    public function removeMedia(Media $media): self
     {
         $this->medias->removeElement($media);
         $media->removeTweet($this);
@@ -311,21 +256,17 @@ class Tweet
     /**
      * Get retweeting status.
      *
-     * @return ArrayCollection
+     * @return Collection<int, Tweet>
      */
-    public function getRetweetingStatuses()
+    public function getRetweetingStatuses(): Collection
     {
         return $this->retweeting_statuses;
     }
 
     /**
      * Call setter functions.
-     *
-     * @param \stdClass $tweetTmp
-     *
-     * @return Tweet
      */
-    public function setValues(\stdClass $tweetTmp)
+    public function setValues(\stdClass $tweetTmp): self
     {
         $this
             ->setCreatedAt(new \DateTime($tweetTmp->created_at))
@@ -338,12 +279,8 @@ class Tweet
 
     /**
      * Check that tweet can be deleted.
-     *
-     * @param int $tweetId
-     *
-     * @return bool
      */
-    public function mustBeKept($tweetId)
+    public function mustBeKept(int $tweetId): bool
     {
         if (count($this->getRetweetingStatuses()) == 0) {
             // This tweet has not been retweeted

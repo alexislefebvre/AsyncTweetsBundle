@@ -21,11 +21,11 @@ class DefaultController extends BaseController
     /** @var TweetRepository */
     private $tweetRepository;
 
-    public function indexAction(Request $request, ?string $firstTweetId): Response
+    public function indexAction(Request $request, ?int $firstTweetId): Response
     {
         /** @var TweetRepository $tweetRepository */
         $tweetRepository = $this->getDoctrine()
-            ->getRepository('AsyncTweetsBundle:Tweet');
+            ->getRepository(Tweet::class);
 
         $this->tweetRepository = $tweetRepository;
 
@@ -43,20 +43,20 @@ class DefaultController extends BaseController
         );
 
         if (!is_null($variables['cookie'])) {
-            $response->headers->setCookie($variables['cookie']);
+            /** @var Cookie $cookie */
+            $cookie = $variables['cookie'];
+            $response->headers->setCookie($cookie);
         }
 
         return $response;
     }
 
     /**
-     * @param Request $request
-     * @param Tweet[] $tweets
-     * @param string  $firstTweetId
+     * @param array<Tweet> $tweets
      *
-     * @return array $vars
+     * @return array<Cookie|int|string|null>
      */
-    private function getVariables(Request $request, $tweets, ?string $firstTweetId): array
+    private function getVariables(Request $request, array $tweets, ?int $firstTweetId): array
     {
         $vars = [
             'first'    => $firstTweetId,
@@ -78,12 +78,14 @@ class DefaultController extends BaseController
     /**
      * If a Tweet is displayed, fetch data from repository.
      *
-     * @param Tweet[] $tweets
-     * @param array   $vars
+     * @param array<Tweet>                  $tweets
+     * @param array<Cookie|int|string|null> $vars
+     *
+     * @return array<Cookie|int|string|null>
      */
-    private function getTweetsVars($tweets, array $vars): array
+    private function getTweetsVars(array $tweets, array $vars): array
     {
-        /** @var string $firstTweetId */
+        /** @var int $firstTweetId */
         $firstTweetId = $tweets[0]->getId();
 
         $vars['previous'] = $this->tweetRepository
@@ -98,23 +100,26 @@ class DefaultController extends BaseController
             $vars['cookieId'] = $firstTweetId;
         }
 
+        /** @var int */
+        $cookieId = $vars['cookieId'];
         $vars['number'] = $this->tweetRepository
-            ->countPendingTweets($vars['cookieId']);
+            ->countPendingTweets($cookieId);
 
         $vars['first'] = $firstTweetId;
 
         return $vars;
     }
 
-    private function getLastTweetIdFromCookie(Request $request)
+    private function getLastTweetIdFromCookie(Request $request): ?int
     {
         if ($request->cookies->has('lastTweetId')) {
-            return $request->cookies->get('lastTweetId');
+            return (int) $request->cookies->get('lastTweetId');
         }
-        // else
+
+        return null;
     }
 
-    private function createCookie(string $firstTweetId): Cookie
+    private function createCookie(int $firstTweetId): Cookie
     {
         $nextYear = new \DateTime('now');
         $nextYear->add(new \DateInterval('P1Y'));
@@ -122,7 +127,7 @@ class DefaultController extends BaseController
         // Set last Tweet Id
         $cookie = new Cookie(
             'lastTweetId',
-            $firstTweetId,
+            (string) $firstTweetId,
             $nextYear->format('U')
         );
 
@@ -150,12 +155,12 @@ class DefaultController extends BaseController
         if (!is_null($lastTweetId)) {
             /** @var TweetRepository $tweetRepository */
             $tweetRepository = $this->getDoctrine()
-                ->getRepository('AsyncTweetsBundle:Tweet');
+                ->getRepository(Tweet::class);
 
             $count = $tweetRepository
                 ->deleteAndHideTweetsLessThanId($lastTweetId);
 
-            /** @var Session $session */
+            /** @var Session<int> $session */
             $session = $this->get('session');
 
             $session->getFlashBag()->add(

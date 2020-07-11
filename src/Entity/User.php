@@ -3,6 +3,7 @@
 namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * User.
@@ -25,7 +26,7 @@ class User
     private $screen_name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $profile_image_url;
 
@@ -35,7 +36,7 @@ class User
     private $profile_image_url_https;
 
     /**
-     * @var ArrayCollection
+     * @var Collection<int, Tweet>
      */
     private $tweets;
 
@@ -48,38 +49,22 @@ class User
         $this->tweets = new ArrayCollection();
     }
 
-    /**
-     * Set id.
-     *
-     * @param int $id
-     *
-     * @return User
-     */
-    public function setId($id)
+    public function setId(int $id): self
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
      * Set name.
-     *
-     * @param string $name
-     *
-     * @return User
      */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -88,22 +73,16 @@ class User
 
     /**
      * Get name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * Set screen_name.
-     *
-     * @param string $screenName
-     *
-     * @return User
      */
-    public function setScreenName($screenName)
+    public function setScreenName(string $screenName): self
     {
         $this->screen_name = $screenName;
 
@@ -112,22 +91,16 @@ class User
 
     /**
      * Get screen_name.
-     *
-     * @return string
      */
-    public function getScreenName()
+    public function getScreenName(): string
     {
         return $this->screen_name;
     }
 
     /**
      * Set profile_image_url.
-     *
-     * @param string $profileImageUrl
-     *
-     * @return User
      */
-    public function setProfileImageUrl($profileImageUrl)
+    public function setProfileImageUrl(?string $profileImageUrl): self
     {
         $this->profile_image_url = $profileImageUrl;
 
@@ -136,22 +109,16 @@ class User
 
     /**
      * Get profile_image_url.
-     *
-     * @return string
      */
-    public function getProfileImageUrl()
+    public function getProfileImageUrl(): ?string
     {
         return $this->profile_image_url;
     }
 
     /**
      * Set profile_image_url_https.
-     *
-     * @param string $profileImageUrlHttps
-     *
-     * @return User
      */
-    public function setProfileImageUrlHttps($profileImageUrlHttps)
+    public function setProfileImageUrlHttps(?string $profileImageUrlHttps): self
     {
         $this->profile_image_url_https = $profileImageUrlHttps;
 
@@ -168,10 +135,8 @@ class User
 
     /**
      * Get profile image, with HTTPS if available.
-     *
-     * @return string
      */
-    public function getProfileImageUrlHttpOrHttps()
+    public function getProfileImageUrlHttpOrHttps(): ?string
     {
         if (!is_null($this->getProfileImageUrlHttps())) {
             return $this->getProfileImageUrlHttps();
@@ -184,21 +149,17 @@ class User
     /**
      * Get tweets.
      *
-     * @return ArrayCollection
+     * @return Collection<int, Tweet>
      */
-    public function getTweets()
+    public function getTweets(): Collection
     {
         return $this->tweets;
     }
 
     /**
      * Add a tweet.
-     *
-     * @param Tweet $tweet
-     *
-     * @return User
      */
-    public function addTweet(Tweet $tweet)
+    public function addTweet(Tweet $tweet): self
     {
         $this->tweets->add($tweet);
 
@@ -207,12 +168,8 @@ class User
 
     /**
      * Call setter functions.
-     *
-     * @param \stdClass $userTmp
-     *
-     * @return User
      */
-    public function setValues(\stdClass $userTmp)
+    public function setValues(\stdClass $userTmp): self
     {
         $this
             ->setName($userTmp->name)

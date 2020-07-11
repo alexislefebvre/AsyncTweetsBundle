@@ -5,31 +5,29 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Utils;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Helper\Table;
 
 class PersistTweet
 {
+    /** @var ObjectManager */
     private $em;
+    /** @var bool */
     private $displayTable;
+    /** @var Table|null */
     private $table;
 
-    public function __construct(EntityManagerInterface $em, bool $displayTable, ?Table $table)
+    public function __construct(ObjectManager $em, bool $displayTable, ?Table $table)
     {
         $this->em = $em;
         $this->displayTable = $displayTable;
         $this->table = $table;
     }
 
-    /**
-     * @param \stdClass $userTmp
-     *
-     * @return User
-     */
-    protected function persistUser(\stdClass $userTmp)
+    protected function persistUser(\stdClass $userTmp): User
     {
         $user = $this->em
-            ->getRepository('AsyncTweetsBundle:User')
+            ->getRepository(User::class)
             ->findOneBy(['id' => $userTmp->id]);
 
         if (!$user) {
@@ -47,9 +45,8 @@ class PersistTweet
 
     /**
      * @param array<\stdClass> $medias
-     * @param Tweet $tweet
      */
-    public function iterateMedias($medias, Tweet $tweet): void
+    public function iterateMedias(array $medias, Tweet $tweet): void
     {
         foreach ($medias as $mediaTmp) {
             if ($mediaTmp->type == 'photo') {
@@ -86,8 +83,9 @@ class PersistTweet
         User $user,
         bool $inTimeline
     ): Tweet {
+        /** @var Tweet|null $tweet */
         $tweet = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findOneBy(['id' => $tweetTmp->id]);
 
         if (!$tweet) {
@@ -108,7 +106,7 @@ class PersistTweet
     protected function persistRetweetedTweet(\stdClass $tweetTmp): Tweet
     {
         $retweet = $this->em
-            ->getRepository('AsyncTweetsBundle:Tweet')
+            ->getRepository(Tweet::class)
             ->findOneBy(['id' => $tweetTmp->retweeted_status->id]);
 
         if (!$retweet) {
@@ -123,7 +121,7 @@ class PersistTweet
     protected function persistMedia(Tweet $tweet, \stdClass $mediaTmp): void
     {
         $media = $this->em
-            ->getRepository('AsyncTweetsBundle:Media')
+            ->getRepository(Media::class)
             ->findOneBy(['id' => $mediaTmp->id]);
 
         if (!$media) {
@@ -144,7 +142,7 @@ class PersistTweet
         $tweet = $this->persistTweet($tweetTmp, $user, $inTimeline);
 
         // Ignore retweeted tweets
-        if ($this->displayTable && $inTimeline) {
+        if ($this->displayTable && $inTimeline && $this->table instanceof Table) {
             $this->table->addRow([
                 $tweet->getCreatedAt()->format('Y-m-d H:i:s'),
                 mb_substr($tweet->getText(), 0, 40),

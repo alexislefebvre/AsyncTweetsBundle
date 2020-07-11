@@ -35,7 +35,7 @@ jobs:
       before_install:
         - make pull-docker-image
       script:
-        - make php-cs-fixer
+        - make php-cs-fixer-dry-run
     - name: "phpstan"
       before_install:
         - make pull-docker-image

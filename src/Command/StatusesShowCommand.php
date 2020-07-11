@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class StatusesShowCommand extends BaseCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -19,11 +19,7 @@ class StatusesShowCommand extends BaseCommand
             ->addArgument('tweet_id', InputArgument::REQUIRED, 'Tweet ID');
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var int|null $tweet_id */
         $tweet_id = $input->getArgument('tweet_id');
@@ -42,5 +38,7 @@ class StatusesShowCommand extends BaseCommand
         )));
 
         $output->writeln($json);
+
+        return 0;
     }
 }
