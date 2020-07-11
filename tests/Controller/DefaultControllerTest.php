@@ -57,16 +57,16 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertStatusCode(200, $this->testClient);
 
-//        if ($profile = $this->testClient->getProfile()) {
-//            $this->assertLessThanOrEqual(
-//                5,
-//                $profile->getCollector('db')->getQueryCount()
-//            );
-//        } else {
-//            $this->markTestIncomplete(
-//                'Profiler is disabled.'
-//            );
-//        }
+        if ($profile = $this->testClient->getProfile()) {
+            $this->assertSame(
+                5,
+                $profile->getCollector('db')->getQueryCount()
+            );
+        } else {
+            $this->markTestIncomplete(
+                'Profiler is disabled.'
+            );
+        }
 
         // <body>
         $this->assertSame(
@@ -165,16 +165,16 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertStatusCode(200, $this->testClient);
 
-//        if ($profile = $this->testClient->getProfile()) {
-//            $this->assertLessThanOrEqual(
-//                4,
-//                $profile->getCollector('db')->getQueryCount()
-//            );
-//        } else {
-//            $this->markTestIncomplete(
-//                'Profiler is disabled.'
-//            );
-//        }
+        if ($profile = $this->testClient->getProfile()) {
+            $this->assertSame(
+                4,
+                $profile->getCollector('db')->getQueryCount()
+            );
+        } else {
+            $this->markTestIncomplete(
+                'Profiler is disabled.'
+            );
+        }
 
         // <title>
         $this->assertStringContainsString(
@@ -320,16 +320,16 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertStatusCode(200, $this->testClient);
 
-//        if ($profile = $this->testClient->getProfile()) {
-//            $this->assertLessThanOrEqual(
-//                5,
-//                $profile->getCollector('db')->getQueryCount()
-//            );
-//        } else {
-//            $this->markTestIncomplete(
-//                'Profiler is disabled.'
-//            );
-//        }
+        if ($profile = $this->testClient->getProfile()) {
+            $this->assertSame(
+                5,
+                $profile->getCollector('db')->getQueryCount()
+            );
+        } else {
+            $this->markTestIncomplete(
+                'Profiler is disabled.'
+            );
+        }
 
         // Number of pending tweets
         $this->assertStringContainsString(
@@ -446,16 +446,16 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertStatusCode(200, $this->testClient);
 
-//        if ($profile = $this->testClient->getProfile()) {
-//            $this->assertLessThanOrEqual(
-//                4,
-//                $profile->getCollector('db')->getQueryCount()
-//            );
-//        } else {
-//            $this->markTestIncomplete(
-//                'Profiler is disabled.'
-//            );
-//        }
+        if ($profile = $this->testClient->getProfile()) {
+            $this->assertSame(
+                4,
+                $profile->getCollector('db')->getQueryCount()
+            );
+        } else {
+            $this->markTestIncomplete(
+                'Profiler is disabled.'
+            );
+        }
 
         // Test that there is a previous page
         $this->assertSame(
@@ -667,16 +667,16 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertStatusCode(200, $this->testClient);
 
-//        if ($profile = $this->testClient->getProfile()) {
-//            $this->assertLessThanOrEqual(
-//                4,
-//                $profile->getCollector('db')->getQueryCount()
-//            );
-//        } else {
-//            $this->markTestIncomplete(
-//                'Profiler is disabled.'
-//            );
-//        }
+        if ($profile = $this->testClient->getProfile()) {
+            $this->assertSame(
+                4,
+                $profile->getCollector('db')->getQueryCount()
+            );
+        } else {
+            $this->markTestIncomplete(
+                'Profiler is disabled.'
+            );
+        }
 
         // Number of displayed Tweets
         $this->assertSame(
