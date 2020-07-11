@@ -39,7 +39,7 @@ class User
      */
     private $tweets;
 
-    public function __construct($id = null)
+    public function __construct(?int $id = null)
     {
         if (!is_null($id)) {
             $this->setId($id);

@@ -14,7 +14,7 @@ class TweetRepository extends EntityRepository
 {
     private $nbTweets = 5;
 
-    public function getWithUsers($page = 1)
+    public function getWithUsers(int $page = 1)
     {
         $firstResult = (($page - 1) * $this->nbTweets);
 

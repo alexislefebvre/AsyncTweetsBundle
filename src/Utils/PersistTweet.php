@@ -5,6 +5,8 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Utils;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Media;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Helper\Table;
 
 class PersistTweet
 {
@@ -12,7 +14,7 @@ class PersistTweet
     private $displayTable;
     private $table;
 
-    public function __construct($em, $displayTable, $table)
+    public function __construct(EntityManagerInterface $em, bool $displayTable, ?Table $table)
     {
         $this->em = $em;
         $this->displayTable = $displayTable;
@@ -28,7 +30,7 @@ class PersistTweet
     {
         $user = $this->em
             ->getRepository('AsyncTweetsBundle:User')
-            ->findOneById($userTmp->id);
+            ->findOneBy(['id' => $userTmp->id]);
 
         if (!$user) {
             // Only set the id when adding the User
@@ -44,10 +46,10 @@ class PersistTweet
     }
 
     /**
-     * @param array $medias
+     * @param array<\stdClass> $medias
      * @param Tweet $tweet
      */
-    public function iterateMedias($medias, Tweet $tweet)
+    public function iterateMedias($medias, Tweet $tweet): void
     {
         foreach ($medias as $mediaTmp) {
             if ($mediaTmp->type == 'photo') {
@@ -56,11 +58,7 @@ class PersistTweet
         }
     }
 
-    /**
-     * @param \stdClass $tweetTmp
-     * @param Tweet     $tweet
-     */
-    protected function addMedias(\stdClass $tweetTmp, Tweet $tweet)
+    protected function addMedias(\stdClass $tweetTmp, Tweet $tweet): void
     {
         if ((isset($tweetTmp->entities))
             && (isset($tweetTmp->entities->media))) {
@@ -68,16 +66,7 @@ class PersistTweet
         }
     }
 
-    /**
-     * Create a Tweet object and return it.
-     *
-     * @param \stdClass $tweetTmp
-     * @param User      $user
-     * @param bool      $inTimeline
-     *
-     * @return Tweet
-     */
-    protected function createTweet(\stdClass $tweetTmp, $user, $inTimeline)
+    protected function createTweet(\stdClass $tweetTmp, User $user, bool $inTimeline): Tweet
     {
         $tweet = new Tweet();
 
@@ -92,21 +81,14 @@ class PersistTweet
         return $tweet;
     }
 
-    /**
-     * @param \stdClass $tweetTmp
-     * @param User      $user
-     * @param bool      $inTimeline
-     *
-     * @return Tweet
-     */
     protected function persistTweet(
         \stdClass $tweetTmp,
         User $user,
-        $inTimeline
-    ) {
+        bool $inTimeline
+    ): Tweet {
         $tweet = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->findOneById($tweetTmp->id);
+            ->findOneBy(['id' => $tweetTmp->id]);
 
         if (!$tweet) {
             $tweet = $this->createTweet($tweetTmp, $user, $inTimeline);
@@ -123,16 +105,11 @@ class PersistTweet
         return $tweet;
     }
 
-    /**
-     * @param \stdClass $tweetTmp
-     *
-     * @return Tweet
-     */
-    protected function persistRetweetedTweet(\stdClass $tweetTmp)
+    protected function persistRetweetedTweet(\stdClass $tweetTmp): Tweet
     {
         $retweet = $this->em
             ->getRepository('AsyncTweetsBundle:Tweet')
-            ->findOneById($tweetTmp->retweeted_status->id);
+            ->findOneBy(['id' => $tweetTmp->retweeted_status->id]);
 
         if (!$retweet) {
             $retweet = $this->addTweet(
@@ -143,15 +120,11 @@ class PersistTweet
         return $retweet;
     }
 
-    /**
-     * @param Tweet     $tweet
-     * @param \stdClass $mediaTmp
-     */
-    protected function persistMedia(Tweet $tweet, \stdClass $mediaTmp)
+    protected function persistMedia(Tweet $tweet, \stdClass $mediaTmp): void
     {
         $media = $this->em
             ->getRepository('AsyncTweetsBundle:Media')
-            ->findOneById($mediaTmp->id);
+            ->findOneBy(['id' => $mediaTmp->id]);
 
         if (!$media) {
             // Only set the id and values when adding the Media
@@ -164,13 +137,7 @@ class PersistTweet
         $tweet->addMedia($media);
     }
 
-    /**
-     * @param \stdClass $tweetTmp
-     * @param bool      $inTimeline
-     *
-     * @return Tweet
-     */
-    public function addTweet(\stdClass $tweetTmp, $inTimeline = false)
+    public function addTweet(\stdClass $tweetTmp, bool $inTimeline = false): Tweet
     {
         $user = $this->persistUser($tweetTmp->user);
 
