@@ -12,22 +12,22 @@ filter:
 build:
   environment:
     php:
-      version: 7.1
+      version: 7.2
   dependencies:
     override:
       -
-        command: 'composer require symfony/config:^4.4 symfony/form:^4.4 symfony/framework-bundle:^4.4 symfony/templating:^4.4 symfony/security-csrf:^4.4 symfony/var-dumper:^4.4 --no-update'
+        command: 'SYMFONY_VERSION="^4.4" make composer-require-symfony-version'
       -
-        command: 'composer install --no-interaction -vv --profile --no-progress'
+        command: 'make composer-install'
         idle_timeout: 900
   tests:
     override:
       -
-        command: './vendor/bin/phpspec run --format=pretty'
+        command: 'make phpspec'
       -
         command: './vendor/bin/phpunit --coverage-clover=coverage-clover'
         coverage:
           file: 'coverage-clover'
           format: 'php-clover'
       -
-        command: './vendor/bin/behat --colors --strict --format=progress -vv'
+        command: 'make behat'
