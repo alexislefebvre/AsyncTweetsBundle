@@ -1,7 +1,5 @@
 dist: xenial
 
-sudo: required
-
 language: php
 
 services:
@@ -17,11 +15,18 @@ cache:
 php:
   - 7.2
 
+env:
+  - CAN_FAIL=false
+
 stages:
   - analysis
   - test
 
 jobs:
+  allow_failures:
+    env:
+      - SYMFONY_VERSION="^5.1"
+      - CAN_FAIL=true
   include:
     - stage: analysis
       name: "php-cs-fixer"
@@ -77,10 +82,12 @@ jobs:
         - php ./vendor/bin/test-reporter
         - travis_retry php vendor/bin/coveralls -v --config .coveralls.yml
 
-    - name: "PHP 7.4 / Symfony 5.1"
+    - stage: tests allowed to fail
+      name: "PHP 7.4 / Symfony 5.1"
       php: 7.4
       env:
         - SYMFONY_VERSION="^5.1"
+        - CAN_FAIL=true
       before_install:
         - phpenv config-rm xdebug.ini
         - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -93,7 +100,3 @@ jobs:
         - make phpspec
         - php ./vendor/bin/phpunit --coverage-clover ./build/logs/clover.xml
         - make behat
-
-    allow_failures:
-      - php: 7.4
-        env: SYMFONY_VERSION=^5.1
