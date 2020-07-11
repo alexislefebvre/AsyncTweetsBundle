@@ -38,15 +38,15 @@ jobs:
         - docker run --volume $PWD:/app --workdir /app jakzal/phpqa:1.25-php7.2-alpine phpstan analyse --level 6 src/ --no-progress
 
     - stage: test
-      name: "PHP 7.3 / Symfony 3.4"
-      php: 7.3
+      name: "PHP 7.1 / Symfony 3.4"
+      php: 7.1
       env:
         - SYMFONY_VERSION="3.4.*"
       before_install:
         - phpenv config-rm xdebug.ini
+        - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
       install:
-        - composer require symfony/lts:v3 --no-update
         - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} --no-update
         - composer install --no-interaction --profile --no-progress
 
@@ -54,17 +54,17 @@ jobs:
         - php ./vendor/bin/phpspec run --format=pretty
         - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
         - php ./vendor/bin/behat --colors --strict --format=progress -vv
-    - name: "PHP 7.2 / Symfony 3.4 / Code coverage"
-      php: 7.2
+    - name: "PHP 7.2 / Symfony 4.4 / Code coverage"
+      php: 7.3
       env:
-        - SYMFONY_VERSION="3.4.*"
+        - SYMFONY_VERSION="4.4.*"
       # Only send code coverage to Code Climate for the current versions of PHP and Symfony LTS
       # https://github.com/doctrine/doctrine2/blob/3570f4a49afc7e98fed71e0596dded6a39d4fd7b/.travis.yml#L16
       before_install:
-       - DEPENDENCY="codeclimate/php-test-reporter:~0.3 satooshi/php-coveralls:~1.0"
+        - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+        - DEPENDENCY="codeclimate/php-test-reporter:~0.3 satooshi/php-coveralls:~1.0"
 
       install:
-        - composer require symfony/lts:v3 --no-update
         - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} $DEPENDENCY --no-update
         - composer install --no-interaction --profile --no-progress
 
@@ -74,28 +74,14 @@ jobs:
         - php ./vendor/bin/behat --colors --strict --format=progress -vv
 
       after_success:
-       - php ./vendor/bin/test-reporter
-       - travis_retry php vendor/bin/coveralls -v --config .coveralls.yml
+        - php ./vendor/bin/test-reporter
+        - travis_retry php vendor/bin/coveralls -v --config .coveralls.yml
     - name: "PHP 7.3 / Symfony 4.4"
       php: 7.3
       env:
         - SYMFONY_VERSION="^4.4"
       before_install:
-        - phpenv config-rm xdebug.ini
-
-      install:
-        - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} --no-update
-        - composer install --no-interaction --profile --no-progress
-
-      script:
-        - php ./vendor/bin/phpspec run --format=pretty
-        - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
-        - php ./vendor/bin/behat --colors --strict --format=progress -vv
-    - name: "PHP 7.2 / Symfony 4.4"
-      php: 7.2
-      env:
-        - SYMFONY_VERSION="^4.4"
-      before_install:
+        - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
         - phpenv config-rm xdebug.ini
 
       install:
@@ -107,12 +93,12 @@ jobs:
         - php ./vendor/bin/phpunit $PHPUNIT_FLAGS
         - php ./vendor/bin/behat --colors --strict --format=progress -vv
 
-    - name: "PHP 7.3 / Symfony 4.4"
-      php: 7.3
+    - name: "PHP 7.4 / Symfony 5.1"
+      php: 7.4
       env:
-        - SYMFONY_VERSION="^4.4"
+        - SYMFONY_VERSION="^5.1"
       before_install:
-        - ''
+        - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
       install:
         - composer require symfony/config:${SYMFONY_VERSION} symfony/form:${SYMFONY_VERSION} symfony/framework-bundle:${SYMFONY_VERSION} symfony/templating:${SYMFONY_VERSION} symfony/security-csrf:${SYMFONY_VERSION} symfony/var-dumper:${SYMFONY_VERSION} --no-update
