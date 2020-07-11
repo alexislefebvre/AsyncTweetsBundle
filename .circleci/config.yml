@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: echo 'memory_limit = -1' | sudo tee -a /usr/local/etc/php/conf.d/docker-php-memlimit.ini
-      - run: composer require "symfony/symfony:3.4.*" --no-update
+      - run: composer require symfony/config:^4.4 symfony/form:^4.4 symfony/framework-bundle:^4.4 symfony/templating:^4.4 symfony/security-csrf:^4.4 symfony/var-dumper:^4.4 --no-update
       - restore_cache:
           keys:
           - composer-v1-{{ .Branch }}
