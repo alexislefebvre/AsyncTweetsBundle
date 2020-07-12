@@ -43,15 +43,13 @@ This bundle is also used to test several CI (Continuous Integration) services.
 ### Requirements:
 
  - [Twitter keys][Twitter keys]
- - PHP >= 7.1
+ - PHP >= 7.2
  - a database (must be supported by Doctrine2)
- - [Symfony][Symfony GitHub] (3.4+) with [Composer][Composer]. If you want to install it:
-
-        php composer.phar create-project symfony/framework-standard-edition YOUR_DIRECTORY "3.4.*" -vvv
+ - [Symfony][Symfony GitHub] (3.4+) with [Composer][Composer]
 
 ### Steps:
  
- 1. Install this bundle with Composer: `cd YOUR_DIRECTORY ; php composer.phar require alexislefebvre/async-tweets-bundle dev-master --prefer-dist -vvv`
+ 1. Install this bundle with Composer: `composer require alexislefebvre/async-tweets-bundle`
  2. Add the bundle in <kbd>app/AppKernel.php</kbd>:
 
         <?php
