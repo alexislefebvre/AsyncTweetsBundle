@@ -26,6 +26,13 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $this->testClient->request('GET', $path);
 
+        $this->assertStatusCode(200, $this->testClient);
+
+        $this->assertSame(
+            'Home timeline -  - AsyncTweets',
+            $crawler->filter('html > head > title')->text()
+        );
+
         // <body>
         $this->assertSame(
             1,
