@@ -6,7 +6,7 @@
             title="{{ tweet.user.name }}" />
     </div>
     <blockquote class="media-body">
-        {% include 'AsyncTweetsBundle:Default:tweet_inc.html.twig'
+        {% include '@AsyncTweets/Default/tweet_inc.html.twig'
             with {
                 'tweet': tweet.retweetedStatus,
                 'mark_as_read_link': false
