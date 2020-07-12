@@ -16,7 +16,7 @@ Code analysis:
 [![Code Climate][Code Climate image]][Code Climate]
 [![Codacy][Codacy image]][Codacy]
 [![StyleCI][StyleCI image]][StyleCI]
-[![SensioLabsInsight][SensioLabsInsight Image]][SensioLabsInsight]
+[![SymfonyInsight][SymfonyInsight Image]][SymfonyInsight]
 
 ## Links
 
@@ -125,8 +125,8 @@ This bundle is also used to test several CI (Continuous Integration) services.
 [Codacy]: https://www.codacy.com/app/alexislefebvre/AsyncTweetsBundle
 [StyleCI image]: https://styleci.io/repos/33274240/shield
 [StyleCI]: https://styleci.io/repos/33274240
-[SensioLabsInsight Image]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d/mini.png
-[SensioLabsInsight]: https://insight.sensiolabs.com/projects/00d3eb84-0c1c-471c-9f76-d8abe41a647d
+[SymfonyInsight Image]: https://insight.symfony.com/projects/22448dd4-13ca-49ef-af7d-5f5bff1b3053/mini.svg
+[SymfonyInsight]: https://insight.symfony.com/projects/22448dd4-13ca-49ef-af7d-5f5bff1b3053
 
 [twitteroauth]: https://github.com/abraham/twitteroauth
 [Twitter Bootstrap]: https://github.com/twbs/bootstrap
