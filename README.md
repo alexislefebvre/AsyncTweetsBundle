@@ -20,10 +20,10 @@ Code analysis:
 
 ## Links
 
- - Demo: http://asynctweets.alexislefebvre.com/demo/
- - Code coverage: http://asynctweets.alexislefebvre.com/codecoverage/
- - Doxygen: http://asynctweets.alexislefebvre.com/doxygen/
- - ApiGen: http://asynctweets.alexislefebvre.com/apigen/
+ - Demo: https://asynctweets.alexislefebvre.com/demo/
+ - Code coverage: https://asynctweets.alexislefebvre.com/codecoverage/
+ - Doxygen: https://asynctweets.alexislefebvre.com/doxygen/
+ - ApiGen: https://asynctweets.alexislefebvre.com/apigen/
 
 ## Goal
 
@@ -102,7 +102,7 @@ This bundle is also used to test several CI (Continuous Integration) services.
 [Packagist Stable Image]: https://poser.pugx.org/alexislefebvre/async-tweets-bundle/v/stable.svg
 [Packagist Unstable Image]: https://poser.pugx.org/alexislefebvre/async-tweets-bundle/v/unstable.svg
 
-[Symfony]: http://symfony.com/
+[Symfony]: https://symfony.com/
 [Twitter keys]: https://apps.twitter.com/
 [Symfony GitHub]: https://github.com/symfony/symfony
 [Composer]: https://getcomposer.org/download/
@@ -130,4 +130,4 @@ This bundle is also used to test several CI (Continuous Integration) services.
 
 [twitteroauth]: https://github.com/abraham/twitteroauth
 [Twitter Bootstrap]: https://github.com/twbs/bootstrap
-[Bootstrap CDN]: http://www.bootstrapcdn.com/#bootswatch_tab
+[Bootstrap CDN]: https://www.bootstrapcdn.com/bootswatch/
