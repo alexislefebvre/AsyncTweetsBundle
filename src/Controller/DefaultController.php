@@ -35,7 +35,7 @@ class DefaultController extends BaseController
         $variables = $this->getVariables($request, $tweets, $firstTweetId);
 
         $response = $this->render(
-            'AsyncTweetsBundle:Default:index.html.twig',
+            '@AsyncTweets/Default/index.html.twig',
             [
                 'tweets' => $tweets,
                 'vars'   => $variables,

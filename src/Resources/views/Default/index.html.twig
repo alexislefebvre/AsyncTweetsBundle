@@ -1,4 +1,4 @@
-{% extends 'AsyncTweetsBundle::layout.html.twig' %}
+{% extends '@AsyncTweets/layout.html.twig' %}
 
 {% block title %}Home timeline - {% if (vars.first is not null)
     %}since {{ vars.first }}{%
@@ -62,9 +62,9 @@ endif%}{% endblock %}
     <div class="tweets">
         {% for tweet in tweets %}
             {% if (tweet.retweetedStatus) %}
-                {% include 'AsyncTweetsBundle:Default:retweet_inc.html.twig' %}
+                {% include '@AsyncTweets/Default/retweet_inc.html.twig' %}
             {% else %}
-                {% include 'AsyncTweetsBundle:Default:tweet_inc.html.twig' %}
+                {% include '@AsyncTweets/Default/tweet_inc.html.twig' %}
             {% endif %}
         {% else %}
             <p>No tweet to display.</p>
