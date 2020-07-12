@@ -51,22 +51,9 @@ class DefaultControllerTest extends WebTestCase
             $path = '/';
         }
 
-        $this->testClient->enableProfiler();
-
         $crawler = $this->testClient->request('GET', $path);
 
         $this->assertStatusCode(200, $this->testClient);
-
-        if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(
-                5,
-                $profile->getCollector('db')->getQueryCount()
-            );
-        } else {
-            $this->markTestIncomplete(
-                'Profiler is disabled.'
-            );
-        }
 
         // <body>
         $this->assertSame(
@@ -159,22 +146,9 @@ class DefaultControllerTest extends WebTestCase
 
         $path = '/sinceId/15';
 
-        $this->testClient->enableProfiler();
-
         $crawler = $this->testClient->request('GET', $path);
 
         $this->assertStatusCode(200, $this->testClient);
-
-        if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(
-                4,
-                $profile->getCollector('db')->getQueryCount()
-            );
-        } else {
-            $this->markTestIncomplete(
-                'Profiler is disabled.'
-            );
-        }
 
         // <title>
         $this->assertStringContainsString(
@@ -314,22 +288,9 @@ class DefaultControllerTest extends WebTestCase
 
         $path = '/sinceId/'.$firstTweetId;
 
-        $this->testClient->enableProfiler();
-
         $crawler = $this->testClient->request('GET', $path);
 
         $this->assertStatusCode(200, $this->testClient);
-
-        if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(
-                5,
-                $profile->getCollector('db')->getQueryCount()
-            );
-        } else {
-            $this->markTestIncomplete(
-                'Profiler is disabled.'
-            );
-        }
 
         // Number of pending tweets
         $this->assertStringContainsString(
@@ -440,22 +401,9 @@ class DefaultControllerTest extends WebTestCase
             count($medias)
         );
 
-        $this->testClient->enableProfiler();
-
         $crawler = $this->testClient->request('GET', $path);
 
         $this->assertStatusCode(200, $this->testClient);
-
-        if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(
-                4,
-                $profile->getCollector('db')->getQueryCount()
-            );
-        } else {
-            $this->markTestIncomplete(
-                'Profiler is disabled.'
-            );
-        }
 
         // Test that there is a previous page
         $this->assertSame(
@@ -661,22 +609,9 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertTrue($retweeted_tweet->isInTimeline());
 
-        $this->testClient->enableProfiler();
-
         $crawler = $this->testClient->request('GET', $path);
 
         $this->assertStatusCode(200, $this->testClient);
-
-        if ($profile = $this->testClient->getProfile()) {
-            $this->assertSame(
-                4,
-                $profile->getCollector('db')->getQueryCount()
-            );
-        } else {
-            $this->markTestIncomplete(
-                'Profiler is disabled.'
-            );
-        }
 
         // Number of displayed Tweets
         $this->assertSame(
