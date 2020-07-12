@@ -12,8 +12,8 @@
     resolveDependencies="true"
 >
     <php>
-        <server name="KERNEL_DIR" value="tests/App" />
-        <server name="KERNEL_CLASS" value="Acme\App\AppKernel" />
+        <env name="KERNEL_DIR" value="tests/App" />
+        <env name="KERNEL_CLASS" value="Acme\App\AppKernel" />
     </php>
 
     <testsuites>
@@ -31,4 +31,8 @@
             </exclude>
         </whitelist>
     </filter>
+
+    <extensions>
+        <extension class="Symfony\Component\Panther\ServerExtension" />
+    </extensions>
 </phpunit>

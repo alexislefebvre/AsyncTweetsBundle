@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.3-cli-buster
+      - image: circleci/php:7.3-buster-browsers
     steps:
       - checkout
       - run: echo 'memory_limit = -1' | sudo tee -a /usr/local/etc/php/conf.d/docker-php-memlimit.ini
