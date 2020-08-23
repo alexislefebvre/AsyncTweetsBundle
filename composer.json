@@ -38,7 +38,7 @@
         "nelmio/alice": "^3.4",
         "phpspec/phpspec": "~4.2||~5.0||^6.2",
         "phpstan/phpstan-doctrine": "^0.12.17",
-        "phpunit/phpunit": "~7.5.12|~8.1.6",
+        "phpunit/phpunit": "^7.5.12|^8.5.8|^9.3",
         "symfony/monolog-bundle": "~3.1",
         "symfony/panther": "^0.3.0"
     },
