@@ -44,6 +44,6 @@ install:
 test_script:
     - cd c:\projects\asynctweetsbundle
     - vendor/bin/phpspec run --format=pretty || SET X=!errorlevel!
-    - vendor/bin/phpunit --colors=never || SET X=!errorlevel!
-    - vendor/bin/behat --strict --format=progress -vv || SET X=!errorlevel!
+    - vendor/bin/phpunit --testdox --colors=never || SET X=!errorlevel!
+    - vendor/bin/behat --strict -vv || SET X=!errorlevel!
     - exit %X%

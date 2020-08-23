@@ -11,7 +11,10 @@ composer-require-symfony-version: ## Require specific version of Symfony
 	composer require symfony/config:$(SYMFONY_VERSION) symfony/form:$(SYMFONY_VERSION) symfony/framework-bundle:$(SYMFONY_VERSION) symfony/templating:$(SYMFONY_VERSION) symfony/security-csrf:$(SYMFONY_VERSION) symfony/var-dumper:$(SYMFONY_VERSION) --no-update
 
 composer-install: ## Install Composer dependencies
-	composer install --no-progress --prefer-dist --optimize-autoloader --no-progress --no-suggest
+	composer install --no-progress --prefer-dist --optimize-autoloader --no-suggest
+
+composer-update: ## Install Composer dependencies
+	composer update --no-progress --prefer-dist --optimize-autoloader --no-suggest
 
 pull-docker-image: ## Pull Docker image for QA
 	docker pull jakzal/phpqa:1.25-php7.2-alpine
@@ -25,10 +28,10 @@ phpspec: ## phpspec
 	$(PHP) ./vendor/bin/phpspec run --format=pretty
 
 phpunit: ## PHPUnit
-	$(PHP) ./vendor/bin/phpunit
+	$(PHP) ./vendor/bin/phpunit --testdox
 
 behat: ## Behat
-	$(PHP) ./vendor/bin/behat --colors --strict --format=progress -vv
+	$(PHP) ./vendor/bin/behat --colors --strict -vv
 
 tests: phpspec phpunit behat ## Run all tests
 
