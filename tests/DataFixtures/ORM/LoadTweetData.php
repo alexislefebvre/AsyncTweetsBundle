@@ -5,7 +5,7 @@ namespace Acme\DataFixtures\ORM;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class LoadTweetData extends AbstractFixture implements DependentFixtureInterface
 {

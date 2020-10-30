@@ -4,7 +4,7 @@ namespace Acme\DataFixtures\ORM;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\User;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class LoadUserData extends AbstractFixture
 {
