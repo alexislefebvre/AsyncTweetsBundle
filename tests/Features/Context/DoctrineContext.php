@@ -7,9 +7,9 @@ use Behat\Gherkin\Node\TableNode;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Nelmio\Alice\Loader\NativeLoader;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 class DoctrineContext implements Context
 {

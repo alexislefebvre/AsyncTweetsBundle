@@ -5,20 +5,18 @@ default:
                 features: tests/Features
             contexts:
                 - 'Acme\Features\Context\FeatureContext'
-                - 'Acme\Features\Context\DoctrineContext':
-                    doctrine: '@doctrine'
+                - 'Acme\Features\Context\DoctrineContext'
                 - 'Behat\MinkExtension\Context\MinkContext'
                 - behatch:context:browser
     extensions:
-        Behat\Symfony2Extension:
+        FriendsOfBehat\SymfonyExtension:
             # http://zalas.eu/run-behat-scenarios-and-functional-tests-from-symfony-bundle-in-isolation-of-project/
+            bootstrap: tests/App/bootstrap.php
             kernel:
-                env: test
                 debug: true
                 class: Acme\App\AppKernel
-                bootstrap: tests/App/bootstrap.php
         Behat\MinkExtension:
             sessions:
                 default:
-                    symfony2: ~
+                    symfony: ~
         Behatch\Extension: ~

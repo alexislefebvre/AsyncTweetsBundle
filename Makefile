@@ -8,7 +8,7 @@ DOCKER_RUN = docker run --rm --interactive --tty --volume $(PWD):/app --workdir 
 ##
 
 composer-require-symfony-version: ## Require specific version of Symfony
-	composer require symfony/config:$(SYMFONY_VERSION) symfony/form:$(SYMFONY_VERSION) symfony/framework-bundle:$(SYMFONY_VERSION) symfony/templating:$(SYMFONY_VERSION) symfony/security-csrf:$(SYMFONY_VERSION) symfony/var-dumper:$(SYMFONY_VERSION) --no-update
+	composer require symfony/config:$(SYMFONY_VERSION) symfony/form:$(SYMFONY_VERSION) symfony/framework-bundle:$(SYMFONY_VERSION) symfony/templating:$(SYMFONY_VERSION) symfony/security-csrf:$(SYMFONY_VERSION) symfony/twig-bundle:$(SYMFONY_VERSION) symfony/var-dumper:$(SYMFONY_VERSION) --no-update
 
 composer-install: ## Install Composer dependencies
 	composer install --no-progress --prefer-dist --optimize-autoloader --no-suggest

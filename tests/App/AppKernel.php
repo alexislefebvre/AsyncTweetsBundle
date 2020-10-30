@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new \Liip\FunctionalTestBundle\LiipFunctionalTestBundle(),
             new \Liip\TestFixturesBundle\LiipTestFixturesBundle(),
+            new \FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle(),
         ];
 
         return $bundles;
