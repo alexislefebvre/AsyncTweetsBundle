@@ -15,6 +15,8 @@
         "php": ">=7.2",
         "ext-mbstring": "*",
         "abraham/twitteroauth": "~0.6",
+        "doctrine/collections": "^1.6.7",
+        "doctrine/common": "^2.13 || ^3.0",
         "doctrine/orm": "^2.4.8",
         "symfony/config": "^3.4|^4.4",
         "symfony/form": "^3.4|^4.4",
