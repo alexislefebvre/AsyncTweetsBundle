@@ -51,3 +51,10 @@ services:
   Acme\DataFixtures\:
         resource: '../DataFixtures'
         tags: ['doctrine.fixture.orm']
+
+  _defaults:
+      autowire: true
+      autoconfigure: true
+
+  Acme\Features\:
+      resource: '../../tests/Features/*'
