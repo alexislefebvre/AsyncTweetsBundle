@@ -4,6 +4,7 @@ namespace AlexisLefebvre\Bundle\AsyncTweetsBundle\Controller;
 
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\Tweet;
 use AlexisLefebvre\Bundle\AsyncTweetsBundle\Entity\TweetRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,13 +19,21 @@ if (!class_exists('Symfony\Bundle\FrameworkBundle\Controller\Controller')) {
 
 class DefaultController extends BaseController
 {
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
     /** @var TweetRepository */
     private $tweetRepository;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     public function indexAction(Request $request, ?int $firstTweetId): Response
     {
         /** @var TweetRepository $tweetRepository */
-        $tweetRepository = $this->getDoctrine()
+        $tweetRepository = $this->entityManager
             ->getRepository(Tweet::class);
 
         $this->tweetRepository = $tweetRepository;
@@ -154,7 +163,7 @@ class DefaultController extends BaseController
 
         if (!is_null($lastTweetId)) {
             /** @var TweetRepository $tweetRepository */
-            $tweetRepository = $this->getDoctrine()
+            $tweetRepository = $this->entityManager
                 ->getRepository(Tweet::class);
 
             $count = $tweetRepository

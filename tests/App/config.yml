@@ -48,13 +48,16 @@ parameters:
     twitter_token_secret: null
 
 services:
-  Acme\DataFixtures\:
-        resource: '../DataFixtures'
-        tags: ['doctrine.fixture.orm']
-
   _defaults:
       autowire: true
       autoconfigure: true
+
+  AlexisLefebvre\Bundle\AsyncTweetsBundle\Controller\:
+        resource: '../../src/Controller'
+
+  Acme\DataFixtures\:
+        resource: '../DataFixtures'
+        tags: ['doctrine.fixture.orm']
 
   Acme\Features\:
       resource: '../../tests/Features/*'
