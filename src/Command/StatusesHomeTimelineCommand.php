@@ -99,10 +99,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
     protected function getContent(InputInterface $input)
     {
         $connection = new TwitterOAuth(
-            $this->container->getParameter('twitter_consumer_key'),
-            $this->container->getParameter('twitter_consumer_secret'),
-            $this->container->getParameter('twitter_token'),
-            $this->container->getParameter('twitter_token_secret')
+            (string) $this->container->getParameter('twitter_consumer_key'),
+            (string) $this->container->getParameter('twitter_consumer_secret'),
+            (string) $this->container->getParameter('twitter_token'),
+            (string) $this->container->getParameter('twitter_token_secret')
         );
 
         return $connection->get(

@@ -25,10 +25,10 @@ class StatusesShowCommand extends BaseCommand
         $tweet_id = $input->getArgument('tweet_id');
 
         $connection = new TwitterOAuth(
-            $this->container->getParameter('twitter_consumer_key'),
-            $this->container->getParameter('twitter_consumer_secret'),
-            $this->container->getParameter('twitter_token'),
-            $this->container->getParameter('twitter_token_secret')
+            (string) $this->container->getParameter('twitter_consumer_key'),
+            (string) $this->container->getParameter('twitter_consumer_secret'),
+            (string) $this->container->getParameter('twitter_token'),
+            (string) $this->container->getParameter('twitter_token_secret')
         );
 
         /** @var string $json */
