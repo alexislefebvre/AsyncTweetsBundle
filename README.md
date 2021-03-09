@@ -5,6 +5,7 @@ A Symfony bundle providing a Twitter reader for asynchronous reading
 [Packagist ![Latest Stable Version][Packagist Stable Image] ![Latest Unstable Version][Packagist Unstable Image]][Packagist]
 
 Builds: 
+[![GA status][GitHub Actions image]][GitHub Actions]
 [![Build status][Travis Master image]][Travis Master]
 [![AppVeyor][AppVeyor image]][AppVeyor]
 [![Circle CI][Circle CI image]][Circle CI]
@@ -104,6 +105,9 @@ This bundle is also used to test several CI (Continuous Integration) services.
 [Twitter keys]: https://apps.twitter.com/
 [Symfony GitHub]: https://github.com/symfony/symfony
 [Composer]: https://getcomposer.org/download/
+
+[GitHub Actions image]: https://github.com/alexislefebvre/AsyncTweetsBundle/actions/workflows/tests.yml/badge.svg
+[GitHub Actions]: https://github.com/alexislefebvre/AsyncTweetsBundle/actions/workflows/tests.yml
 
 [Travis Master image]: https://travis-ci.org/alexislefebvre/AsyncTweetsBundle.svg?branch=master
 [Travis Master]: https://travis-ci.org/alexislefebvre/AsyncTweetsBundle
